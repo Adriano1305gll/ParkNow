@@ -1,8 +1,20 @@
+import OpenAI from 'openai';
 import { createClient } from '@supabase/supabase-js';
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 export async function POST(request) {
   try {
     const { question } = await request.json();
+
+    if (!question?.trim()) {
+      return Response.json(
+        { error: 'Please enter a question.' },
+        { status: 400 }
+      );
+    }
 
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -12,74 +24,73 @@ export async function POST(request) {
     const { data: spaces, error } = await supabase
       .from('parking_spaces')
       .select('space_number, status')
+      .eq('parking_lot_id', 1)
       .order('space_number', { ascending: true });
 
     if (error) {
       return Response.json(
-        { error: error.message },
+        { error: 'Unable to read parking data.' },
         { status: 500 }
       );
     }
 
-    const available = spaces.filter(
-      (space) => space.status === 'available'
-    );
+    const availableSpaces = spaces
+      .filter((space) => space.status === 'available')
+      .map((space) => space.space_number);
 
-    const occupied = spaces.filter(
-      (space) => space.status === 'occupied'
-    );
+    const occupiedSpaces = spaces
+      .filter((space) => space.status === 'occupied')
+      .map((space) => space.space_number);
 
-    const q = (question || '').toLowerCase();
+    const parkingData = {
+      facility: 'Central Garage',
+      totalSpaces: spaces.length,
+      availableCount: availableSpaces.length,
+      occupiedCount: occupiedSpaces.length,
+      occupancyRate:
+        spaces.length > 0
+          ? Math.round((occupiedSpaces.length / spaces.length) * 100)
+          : 0,
+      availableSpaces,
+      occupiedSpaces,
+    };
 
-    let answer;
+    const response = await openai.responses.create({
+      model: 'gpt-5.6-luna',
 
-    if (
-      q.includes('available') ||
-      q.includes('free') ||
-      q.includes('disponible')
-    ) {
-      answer =
-        `${available.length} parking spaces are currently available. ` +
-        `Available spaces: ${available
-          .map((space) => space.space_number)
-          .join(', ')}.`;
-    } else if (
-      q.includes('occupied') ||
-      q.includes('ocupado')
-    ) {
-      answer =
-        `${occupied.length} parking spaces are currently occupied. ` +
-        `Occupied spaces: ${occupied
-          .map((space) => space.space_number)
-          .join(', ')}.`;
-    } else if (
-      q.includes('where') ||
-      q.includes('park') ||
-      q.includes('donde') ||
-      q.includes('dónde')
-    ) {
-      if (available.length > 0) {
-        answer =
-          `You can park in space ${available[0].space_number}. ` +
-          `There are ${available.length} spaces available right now.`;
-      } else {
-        answer = 'There are currently no available parking spaces.';
-      }
-    } else {
-      answer =
-        `There are ${spaces.length} total parking spaces, ` +
-        `${available.length} available and ${occupied.length} occupied.`;
-    }
+      instructions: `
+You are Park Now Assistant.
+
+Your job is to help drivers understand the current parking situation
+at Central Garage.
+
+Rules:
+- Use ONLY the live parking data provided.
+- Never invent an available parking space.
+- If asked where to park, recommend an actually available space.
+- Keep answers short, clear, and useful.
+- If the question cannot be answered from the parking data, say so.
+- Do not claim that a space will remain available in the future.
+`,
+
+      input: `
+LIVE PARKING DATA:
+${JSON.stringify(parkingData)}
+
+USER QUESTION:
+${question}
+`,
+    });
 
     return Response.json({
-      answer,
-      total: spaces.length,
-      available: available.length,
-      occupied: occupied.length,
+      answer: response.output_text,
+      parkingData,
     });
   } catch (error) {
+    console.error('Park Now AI error:', error);
+
     return Response.json(
-      { error: 'Assistant request failed.' },
+      { error: 'The AI assistant is temporarily unavailable.' },
       { status: 500 }
     );
   }
