@@ -1,4 +1,104 @@
 'use client';
-import {useMemo,useState} from 'react';
+
+import { useEffect, useMemo, useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
 import Page from '../../components/Page';
-export default function Parking(){const [seed,setSeed]=useState(0); const spots=useMemo(()=>Array.from({length:36},(_,i)=>({id:i+1,occupied:((i*7+seed*3)%11)<4})),[seed]);const free=spots.filter(s=>!s.occupied).length;return <Page eyebrow="Core Experience" title="Live Parking Map"><div className="mb-6 grid gap-4 md:grid-cols-3"><div className="rounded-2xl border border-white/10 bg-white/5 p-5"><p className="text-sm text-slate-400">Available</p><p className="mt-1 text-3xl font-bold text-emerald-300">{free}</p></div><div className="rounded-2xl border border-white/10 bg-white/5 p-5"><p className="text-sm text-slate-400">Occupied</p><p className="mt-1 text-3xl font-bold text-rose-300">{36-free}</p></div><div className="rounded-2xl border border-white/10 bg-white/5 p-5"><p className="text-sm text-slate-400">Occupancy</p><p className="mt-1 text-3xl font-bold">{Math.round((36-free)/36*100)}%</p></div></div><div className="rounded-3xl border border-white/10 bg-white/5 p-5"><div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><h2 className="text-xl font-semibold text-white">Central Garage — Level 1</h2><p className="text-sm text-slate-400">Green = available · Red = occupied</p></div><button onClick={()=>setSeed(x=>x+1)} className="rounded-xl bg-emerald-400 px-4 py-2 font-semibold text-slate-950">Simulate Live Update</button></div><div className="grid grid-cols-6 gap-2">{spots.map(s=><div key={s.id} className={`flex aspect-[1/1.45] items-center justify-center rounded-lg border text-xs font-bold ${s.occupied?'border-rose-400/50 bg-rose-400/15 text-rose-200':'border-emerald-400/50 bg-emerald-400/15 text-emerald-200'}`}>{s.id}</div>)}</div></div></Page>}
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+);
+
+export default function Parking() {
+  const [spots, setSpots] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadParkingSpaces() {
+      const { data, error } = await supabase
+        .from('parking_spaces')
+        .select('id, space_number, status')
+        .eq('parking_lot_id', 1)
+        .order('space_number', { ascending: true });
+
+      if (!error && data) {
+        setSpots(data);
+      }
+
+      setLoading(false);
+    }
+
+    loadParkingSpaces();
+
+    const channel = supabase
+      .channel('parking-spaces-live')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'parking_spaces',
+          filter: 'parking_lot_id=eq.1',
+        },
+        () => {
+          loadParkingSpaces();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  const available = useMemo(
+    () => spots.filter((spot) => spot.status === 'available').length,
+    [spots]
+  );
+
+  const occupied = spots.length - available;
+
+  return (
+    <Page
+      eyebrow="Live Parking"
+      title="Central Garage"
+      subtitle="Real-time parking availability powered by Supabase."
+    >
+      <section>
+        <div className="status">
+          <div>
+            <h3>Available</h3>
+            <strong>{available}</strong>
+          </div>
+
+          <div>
+            <h3>Occupied</h3>
+            <strong>{occupied}</strong>
+          </div>
+
+          <div>
+            <h3>Total Spaces</h3>
+            <strong>{spots.length}</strong>
+          </div>
+        </div>
+
+        {loading ? (
+          <p>Loading parking availability...</p>
+        ) : (
+          <div className="parking-grid">
+            {spots.map((spot) => (
+              <div
+                key={spot.id}
+                className={`parking-space ${
+                  spot.status === 'available' ? 'available' : 'occupied'
+                }`}
+              >
+                {spot.space_number}
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+    </Page>
+  );
+}
