@@ -1,0 +1,1 @@
+export default function Page({eyebrow,title,children}){return <section className="mx-auto max-w-6xl px-6 py-14"><p className="mb-3 text-sm font-semibold uppercase tracking-[.2em] text-emerald-400">{eyebrow}</p><h1 className="max-w-4xl text-4xl font-bold tracking-tight md:text-6xl">{title}</h1><div className="mt-8 text-slate-300">{children}</div></section>}
