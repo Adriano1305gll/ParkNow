@@ -4,16 +4,26 @@ import { useEffect, useMemo, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import Page from '../../components/Page';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
-);
-
 export default function Parking() {
   const [spots, setSpots] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [configurationError, setConfigurationError] = useState(false);
 
   useEffect(() => {
+    if (
+      !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+      !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+    ) {
+      setConfigurationError(true);
+      setLoading(false);
+      return;
+    }
+
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+    );
+
     async function loadParkingSpaces() {
       const { data, error } = await supabase
         .from('parking_spaces')
@@ -82,7 +92,9 @@ export default function Parking() {
           </div>
         </div>
 
-        {loading ? (
+        {configurationError ? (
+          <p>Supabase is not configured. Add the required environment variables.</p>
+        ) : loading ? (
           <p>Loading parking availability...</p>
         ) : (
           <div className="parking-grid">

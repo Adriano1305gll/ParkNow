@@ -4,30 +4,40 @@ import { useEffect, useMemo, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import Page from '../../components/Page';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
-);
-
 export default function Dashboard() {
   const [spots, setSpots] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  async function loadData() {
-    const { data, error } = await supabase
-      .from('parking_spaces')
-      .select('id, space_number, status')
-      .eq('parking_lot_id', 1)
-      .order('space_number', { ascending: true });
-
-    if (!error && data) {
-      setSpots(data);
-    }
-
-    setLoading(false);
-  }
+  const [configurationError, setConfigurationError] = useState(false);
 
   useEffect(() => {
+    if (
+      !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+      !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+    ) {
+      setConfigurationError(true);
+      setLoading(false);
+      return;
+    }
+
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+    );
+
+    async function loadData() {
+      const { data, error } = await supabase
+        .from('parking_spaces')
+        .select('id, space_number, status')
+        .eq('parking_lot_id', 1)
+        .order('space_number', { ascending: true });
+
+      if (!error && data) {
+        setSpots(data);
+      }
+
+      setLoading(false);
+    }
+
     loadData();
 
     const channel = supabase
@@ -69,7 +79,9 @@ export default function Dashboard() {
       title="Parking Analytics"
       subtitle="Live parking statistics powered by Supabase."
     >
-      {loading ? (
+      {configurationError ? (
+        <p>Supabase is not configured. Add the required environment variables.</p>
+      ) : loading ? (
         <p>Loading dashboard data...</p>
       ) : (
         <>

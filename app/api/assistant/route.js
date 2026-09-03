@@ -1,10 +1,6 @@
 import OpenAI from 'openai';
 import { createClient } from '@supabase/supabase-js';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 export async function POST(request) {
   try {
     const { question } = await request.json();
@@ -15,6 +11,27 @@ export async function POST(request) {
         { status: 400 }
       );
     }
+
+    if (!process.env.OPENAI_API_KEY) {
+      return Response.json(
+        { error: 'The AI assistant is not configured.' },
+        { status: 500 }
+      );
+    }
+
+    if (
+      !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+      !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+    ) {
+      return Response.json(
+        { error: 'The parking data service is not configured.' },
+        { status: 500 }
+      );
+    }
+
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
 
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL,
