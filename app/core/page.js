@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useEffect } from 'react';
+import { createClient } from '@supabase/supabase-js';
 import Page from '../../components/Page';
 
 const initialForm = {
@@ -111,6 +113,46 @@ export default function Core() {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [plan, setPlan] = useState(null);
+  const [savedOutputs, setSavedOutputs] = useState([]);
+  const [previewLoading, setPreviewLoading] = useState(true);
+  const [supabaseError, setSupabaseError] = useState('');
+  const [saveStatus, setSaveStatus] = useState({ type: '', message: '' });
+
+  useEffect(() => {
+    if (
+      !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+      !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+    ) {
+      setSupabaseError('Supabase is not configured. Saved outputs are unavailable.');
+      setPreviewLoading(false);
+      return;
+    }
+
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+    );
+
+    async function loadSavedOutputs() {
+      const { data, error } = await supabase
+        .from('core_outputs')
+        .select(
+          'id, destination, arrival_time, duration_minutes, max_walk_minutes, budget, accessibility_needs, best_option, why_it_fits, estimated_cost, walking_minutes, backup_option, risks, simulation_notice, created_at'
+        )
+        .order('created_at', { ascending: false })
+        .limit(3);
+
+      if (error) {
+        setSupabaseError('Unable to load saved outputs.');
+      } else {
+        setSavedOutputs(data || []);
+      }
+
+      setPreviewLoading(false);
+    }
+
+    loadSavedOutputs();
+  }, []);
 
   function updateField(event) {
     const { name, value } = event.target;
@@ -141,6 +183,59 @@ export default function Core() {
     }
 
     setPlan(buildPlan(form));
+    setSaveStatus({ type: '', message: '' });
+  }
+
+  async function saveOutput() {
+    if (!plan || saveStatus.type === 'saving') return;
+
+    if (
+      !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+      !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+    ) {
+      setSaveStatus({
+        type: 'error',
+        message: 'Supabase is not configured. This output cannot be saved.',
+      });
+      return;
+    }
+
+    setSaveStatus({ type: 'saving', message: 'Saving result...' });
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+    );
+
+    const { data, error } = await supabase
+      .from('core_outputs')
+      .insert({
+        destination: form.destination.trim(),
+        arrival_time: form.arrivalTime,
+        duration_minutes: Number(form.duration),
+        max_walk_minutes: Number(form.walkingTime),
+        budget: Number(form.budget),
+        accessibility_needs: form.accessibility,
+        best_option: plan.bestOption?.name || 'No exact match',
+        why_it_fits:
+          plan.why || 'No simulated parking option meets every requirement.',
+        estimated_cost: plan.estimatedCost ?? null,
+        walking_minutes: plan.walkingMinutes ?? null,
+        backup_option: plan.backupOption?.name || 'No backup option available',
+        risks: plan.risks,
+        simulation_notice: 'Prototype recommendation; availability is simulated.',
+      })
+      .select(
+        'id, destination, arrival_time, duration_minutes, max_walk_minutes, budget, accessibility_needs, best_option, why_it_fits, estimated_cost, walking_minutes, backup_option, risks, simulation_notice, created_at'
+      )
+      .single();
+
+    if (error) {
+      setSaveStatus({ type: 'error', message: 'Unable to save this result.' });
+      return;
+    }
+
+    setSavedOutputs((currentOutputs) => [data, ...currentOutputs].slice(0, 3));
+    setSaveStatus({ type: 'success', message: 'Result saved successfully.' });
   }
 
   return (
@@ -268,6 +363,14 @@ export default function Core() {
                   {plan.risks.map((risk) => <li key={risk}>{risk}</li>)}
                 </ul>
               </div>
+              <button type="button" onClick={saveOutput} disabled={saveStatus.type === 'saving'}>
+                {saveStatus.type === 'saving' ? 'Saving...' : 'Save result'}
+              </button>
+              {saveStatus.message && (
+                <p className={saveStatus.type === 'error' ? 'text-red-300' : 'text-emerald-300'}>
+                  {saveStatus.message}
+                </p>
+              )}
               <p className="border-t border-white/10 pt-4 text-sm text-emerald-200">
                 Prototype recommendation; availability is simulated.
               </p>
@@ -302,9 +405,40 @@ export default function Core() {
                   {plan.risks.map((risk) => <li key={risk}>{risk}</li>)}
                 </ul>
               </div>
+              <button type="button" onClick={saveOutput} disabled={saveStatus.type === 'saving'}>
+                {saveStatus.type === 'saving' ? 'Saving...' : 'Save result'}
+              </button>
+              {saveStatus.message && (
+                <p className={saveStatus.type === 'error' ? 'text-red-300' : 'text-emerald-300'}>
+                  {saveStatus.message}
+                </p>
+              )}
               <p className="border-t border-white/10 pt-4 text-sm text-emerald-200">
                 Prototype recommendation; availability is simulated.
               </p>
+            </div>
+          )}
+        </section>
+
+        <section className="card lg:col-span-2">
+          <h2>Dashboard preview</h2>
+          {previewLoading ? (
+            <p>Loading saved outputs...</p>
+          ) : savedOutputs.length === 0 ? (
+            <p>{supabaseError || 'No saved outputs yet.'}</p>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-3">
+              {savedOutputs.map((output) => (
+                <article key={output.id} className="rounded-xl border border-white/10 bg-slate-950/40 p-4">
+                  <p className="mb-1 text-sm text-emerald-400">{output.destination}</p>
+                  <h3 className="text-lg font-bold text-white">{output.best_option}</h3>
+                  <p>{output.why_it_fits}</p>
+                  <p className="text-sm text-slate-400">
+                    ${output.estimated_cost} · {output.walking_minutes} walking minutes
+                  </p>
+                  <p className="mt-3 text-xs text-emerald-200">{output.simulation_notice}</p>
+                </article>
+              ))}
             </div>
           )}
         </section>
