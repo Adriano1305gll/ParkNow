@@ -47,6 +47,14 @@ function isPositiveNumber(value) {
   return Number.isFinite(number) && number > 0;
 }
 
+function getSupabaseErrorMessage(error) {
+  if (!error) return 'Supabase returned an unknown error.';
+
+  const code = error.code ? ` (${error.code})` : '';
+  const details = error.details ? ` ${error.details}` : '';
+  return `${error.message || 'Supabase returned an unknown error.'}${code}${details}`;
+}
+
 function buildPlan(form) {
   const duration = Number(form.duration);
   const walkingTime = Number(form.walkingTime);
@@ -206,35 +214,41 @@ export default function Core() {
       process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
     );
 
-    const { data, error } = await supabase
-      .from('core_outputs')
-      .insert({
-        destination: form.destination.trim(),
-        arrival_time: form.arrivalTime,
-        duration_minutes: Number(form.duration),
-        max_walk_minutes: Number(form.walkingTime),
-        budget: Number(form.budget),
-        accessibility_needs: form.accessibility,
-        best_option: plan.bestOption?.name || 'No exact match',
-        why_it_fits:
-          plan.why || 'No simulated parking option meets every requirement.',
-        estimated_cost: plan.estimatedCost ?? null,
-        walking_minutes: plan.walkingMinutes ?? null,
-        backup_option: plan.backupOption?.name || 'No backup option available',
-        risks: plan.risks,
-        simulation_notice: 'Prototype recommendation; availability is simulated.',
-      })
-      .select(
-        'id, destination, arrival_time, duration_minutes, max_walk_minutes, budget, accessibility_needs, best_option, why_it_fits, estimated_cost, walking_minutes, backup_option, risks, simulation_notice, created_at'
-      )
-      .single();
+    const output = {
+      destination: form.destination.trim(),
+      arrival_time: form.arrivalTime,
+      duration_minutes: Number(form.duration),
+      max_walk_minutes: Number(form.walkingTime),
+      budget: Number(form.budget),
+      accessibility_needs: form.accessibility,
+      best_option: plan.bestOption?.name || 'No exact match',
+      why_it_fits:
+        plan.why || 'No simulated parking option meets every requirement.',
+      estimated_cost: plan.estimatedCost ?? null,
+      walking_minutes: plan.walkingMinutes ?? null,
+      backup_option: plan.backupOption?.name || 'No backup option available',
+      risks: plan.risks,
+      simulation_notice: 'Prototype recommendation; availability is simulated.',
+    };
+
+    const { error } = await supabase.from('core_outputs').insert(output);
 
     if (error) {
-      setSaveStatus({ type: 'error', message: 'Unable to save this result.' });
+      setSaveStatus({
+        type: 'error',
+        message: `Unable to save this result: ${getSupabaseErrorMessage(error)}`,
+      });
       return;
     }
 
-    setSavedOutputs((currentOutputs) => [data, ...currentOutputs].slice(0, 3));
+    setSavedOutputs((currentOutputs) => [
+      {
+        id: crypto.randomUUID(),
+        ...output,
+        created_at: new Date().toISOString(),
+      },
+      ...currentOutputs,
+    ].slice(0, 3));
     setSaveStatus({ type: 'success', message: 'Result saved successfully.' });
   }
 
