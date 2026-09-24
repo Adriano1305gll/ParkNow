@@ -75,6 +75,7 @@ The URLs above were supplied and verified as the current production deployment. 
 - The application reads `parking_spaces` for Live Parking, Dashboard, and the Assistant.
 - The Core page reads and inserts `core_outputs`.
 - The save payload serializes `risks` as text-compatible JSON.
+- The current usability build preserves the Supabase integration while reorganizing navigation, keeping green/red availability states, and displaying Available, Occupied, and Total Spaces on Live Parking.
 
 ### Build
 
@@ -108,6 +109,16 @@ User 2 was recorded on September 23, 2026. The participant found the app easy to
 User 5 was recorded on September 23, 2026 with an experience rating of 4/5. The participant described the app as easy to use and intuitive, valued Live Parking and the Assistant, and suggested adding price, distance, and hours plus clearer loading/no-data information. No additional feedback is claimed.
 
 The average of explicit numerical ratings is 4.0/5, calculated only from User 4 (4/5) and User 5 (4/5). User 2 did not provide a rating, and no ratings are recorded for User 1 or User 3.
+
+## Testing-Informed Improvement Evidence
+
+The current build includes documented implementation evidence from the feedback review:
+
+- Navigation is organized into Explore, Plan, Operate, and Learn.
+- Live Parking retains green available and red occupied states, with numbered spaces.
+- Live Parking displays Available, Occupied, and Total Spaces.
+- Supabase integration, existing routes, database tables, and the Core recommendation/save flow are preserved.
+- These statements describe the current implementation and do not claim new test results, screenshots, or human approvals.
 
 ## Human Checkpoints and Approvals
 

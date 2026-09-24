@@ -342,6 +342,12 @@ The following usability improvements were implemented after reviewing the docume
 
 The shared navigation is now grouped into Explore, Plan, Operate, and Learn sections. Each group has a visible label so users can understand the purpose of related routes more quickly. Shared page subtitles are also displayed to provide context below each page title.
 
+### Evidence of the Current Parking View
+
+The current Live Parking implementation preserves the existing numbered grid and uses green styling for available spaces and red styling for occupied spaces. It displays Available, Occupied, and Total Spaces metrics above the grid. The same `parking_spaces` data drives both the totals and the visible tiles, so the summary remains connected to the map.
+
+These changes respond to the documented feedback without changing the Supabase schema or removing existing functionality. The Supabase client, Realtime subscription, recommendation engine, saved Core outputs, and existing routes remain in place.
+
 ### Parking Information
 
 The Core recommendation now includes a parking details card with:
