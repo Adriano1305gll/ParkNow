@@ -92,7 +92,7 @@ The final `npm run build` validation passed on 2026-09-24 and generated all 15 a
 
 ## Testing Evidence Status
 
-The repository contains a ready-to-use testing plan and two recorded real sessions for User 2 and User 4. The overall five-session evidence is still incomplete. The following must remain unclaimed until all five real sessions are recorded:
+The repository contains a ready-to-use testing plan and three detailed real-session records for User 2, User 4, and User 5. The project owner reports that five external users evaluated the application, but detailed User 1 and User 3 response records are not present in the repository. The following must remain unclaimed until all five records are documented:
 
 - Complete five-participant testing total.
 - Task completion rates.
@@ -104,6 +104,10 @@ The repository contains a ready-to-use testing plan and two recorded real sessio
 User 4 was recorded on September 23, 2026 with an experience rating of 4/5. The participant described Park Now as intuitive, practical, and easy to navigate, and suggested clearer visual separation of headings. No additional feedback is claimed.
 
 User 2 was recorded on September 23, 2026. The participant found the app easy to use and easy to understand, and identified the visualization as the favorite aspect. The participant suggested identifying accessible parking spaces for people with disabilities as a future improvement. No rating or additional feedback is claimed.
+
+User 5 was recorded on September 23, 2026 with an experience rating of 4/5. The participant described the app as easy to use and intuitive, valued Live Parking and the Assistant, and suggested adding price, distance, and hours plus clearer loading/no-data information. No additional feedback is claimed.
+
+The average of explicit numerical ratings is 4.0/5, calculated only from User 4 (4/5) and User 5 (4/5). User 2 did not provide a rating, and no ratings are recorded for User 1 or User 3.
 
 ## Human Checkpoints and Approvals
 

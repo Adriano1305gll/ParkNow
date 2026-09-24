@@ -175,7 +175,7 @@ Use one row per participant. Use participant aliases or IDs instead of names.
 | P2 | September 23, 2026 |  |  |  | Easy to use and easy to understand |  |  |  |  | The visualization was the favorite aspect; accessible-space identification was suggested as a future improvement. |  |
 | P3 |  |  |  |  |  |  |  |  |  |  |  |
 | P4 | September 23, 2026 |  |  |  | Intuitive and easy to navigate |  |  | 4/5 |  | Practical and specific to the need it covers |  |
-| P5 |  |  |  |  |  |  |  |  |  |  |  |
+| P5 | September 23, 2026 |  |  |  | Easy to use, intuitive, and quick to understand |  |  | 4/5 |  | Live Parking and Assistant were favorite features; requested richer lot information and clearer loading/empty-data states. |  |
 
 ### Recorded Session: User 4
 
@@ -207,6 +207,21 @@ Only the information above was provided for User 4. Unreported device, task-comp
 
 Only the information above was provided for User 2. No rating or additional response is claimed.
 
+### Recorded Session: User 5
+
+| Field | Recorded response |
+| --- | --- |
+| Date | September 23, 2026 |
+| Participant | User 5 |
+| Ease of use | "Sí, me pareció fácil de usar y bastante intuitiva. Las secciones están bien organizadas y es sencillo entender para qué sirve cada una." |
+| Understanding | "Sí, entendí rápidamente cómo buscar un estacionamiento y cómo utilizar las recomendaciones para encontrar una opción disponible." |
+| Favorite features | "Lo que más me gustó fue la sección de Live Parking, porque permite visualizar la disponibilidad de estacionamientos. También me gustó el Assistant, ya que hace más fácil obtener información haciendo preguntas." |
+| Suggested improvements | "Mejoraría la información que aparece sobre cada estacionamiento, por ejemplo, el precio, la distancia y los horarios. También haría más clara la información cuando no hay datos disponibles o cuando la aplicación está cargando." |
+| Experience rating | 4/5 |
+| Additional comment | "Me pareció una aplicación fácil de entender, útil y con una idea interesante. Creo que con algunos detalles adicionales podría mejorar mucho la experiencia." |
+
+Only the information above was provided for User 5. Unreported device, task-completion, timing, trust, usage-intention, and evidence fields remain blank.
+
 ## Bugs and Improvements Log
 
 Record observed problems separately from ideas that are not necessarily bugs. Assign a priority after reviewing all five sessions.
@@ -214,9 +229,10 @@ Record observed problems separately from ideas that are not necessarily bugs. As
 | ID | Type (Bug / Improvement) | Scenario | Description | Steps to reproduce | Expected result | Actual result | Frequency | Priority | Proposed action | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Improvement | Overall navigation and visual hierarchy | Separate section headings more clearly according to their functions. |  | Clearer functional grouping of headings. | Participant requested stronger visual separation of headings. | 1 participant |  | Improve heading hierarchy after reviewing remaining sessions. | Open |
-| 2 | Improvement | Parking map / accessibility | Identify accessible parking spaces for people with disabilities. |  | Users can identify accessible spaces before choosing a spot. | User 2 requested individualized support for disabilities. | 1 participant |  | Consider accessible-space data and visual identification as a future feature. | Open |
-| 3 |  |  |  |  |  |  |  |  |  | Open |
+| 2 | Improvement | Parking map / accessibility | Identify accessible parking spaces for people with disabilities. |  | Users can identify accessible spaces before choosing a spot. | User 2 requested individualized support for disabilities. | 1 participant | High | Consider accessible-space data and visual identification as a future feature. | Open |
+| 3 | Improvement | Parking information and data states | Show price, distance, and hours for each parking option and make loading/no-data states clearer. |  | Users understand each option and what the interface is doing when data is unavailable. | User 5 requested richer parking information and clearer loading/no-data messaging. | 1 participant | Medium | Define the additional fields and improve loading/empty-state copy. | Open |
 | 4 |  |  |  |  |  |  |  |  |  | Open |
+| 5 |  |  |  |  |  |  |  |  |  | Open |
 | 5 |  |  |  |  |  |  |  |  |  | Open |
 
 ### Suggested Priority Scale
@@ -224,6 +240,61 @@ Record observed problems separately from ideas that are not necessarily bugs. As
 - **High:** Prevents task completion, creates a serious misunderstanding, or creates a safety concern.
 - **Medium:** Causes repeated confusion or slows down an important workflow.
 - **Low:** Minor wording, visual, or convenience issue.
+
+## Consolidated Testing Findings
+
+### Response Completeness
+
+The project owner reported that five external users evaluated Park Now. This file currently contains detailed responses for User 2, User 4, and User 5. Detailed responses for User 1 and User 3 are not present in the available project documentation, so their answers are not inferred here.
+
+| Participant | Detailed response status | Rating status |
+| --- | --- | --- |
+| User 1 | No detailed response recorded in this file | No rating recorded |
+| User 2 | Partial: ease of use, understanding, favorite aspect, and improvement | No rating provided |
+| User 3 | No detailed response recorded in this file | No rating recorded |
+| User 4 | Partial: ease of use, navigation, favorite aspect, improvement, and rating | 4/5 |
+| User 5 | Partial: all supplied question responses and additional comment; task metrics were not supplied | 4/5 |
+
+### Average Explicit Rating
+
+Only participants who provided a numerical rating are included:
+
+```text
+(User 4: 4 + User 5: 4) / 2 = 4.0 / 5
+```
+
+User 2 did not provide a rating. User 1 and User 3 have no rating recorded in this file and are excluded from the calculation.
+
+### Recurring Positive Findings
+
+These findings recur in the documented responses:
+
+- Ease of use and intuitiveness were positive themes for User 2, User 4, and User 5.
+- The visual presentation was valued by User 2, and Live Parking was specifically valued by User 5 for making availability visible.
+- The documented participants described the concept as practical, useful, or easy to understand.
+
+These findings summarize only the three detailed records currently present. They are not a substitute for the missing User 1 and User 3 response details.
+
+### Recurring Usability Problems
+
+No single usability problem is confirmed as recurring across the documented responses. The following are separate suggestions from individual participants:
+
+- User 2: identify accessible spaces for people with disabilities.
+- User 4: separate headings more clearly according to function.
+- User 5: show price, distance, and hours, and clarify loading/no-data states.
+
+### Prioritized Improvements
+
+This priority order is a project synthesis based on the documented suggestions, not additional participant feedback.
+
+1. **High: Add accessible-space identification.** Support an accessibility field in parking data and make accessible spaces identifiable before selection.
+2. **Medium: Improve parking-option details and data states.** Add price, distance, and hours where reliable data exists, and make loading and no-data messages clearer.
+3. **Medium: Improve visual hierarchy.** Separate headings and sections more clearly according to their functions.
+4. **Pending evidence: Review User 1 and User 3 records.** Complete the consolidation only when their actual responses are available.
+
+### What We Learned
+
+The documented participants understood the main idea quickly and generally found the interface easy to use. Live Parking is valuable because it makes availability visible, and the Assistant adds a direct way to ask questions. The next improvements should add decision-relevant parking details, make accessibility visible, and clarify the interface during loading or missing-data states. These conclusions should be checked against the missing User 1 and User 3 records before being presented as a complete five-user synthesis.
 
 ## Screenshots and Evidence
 
