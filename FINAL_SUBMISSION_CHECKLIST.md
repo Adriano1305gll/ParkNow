@@ -21,7 +21,7 @@ This checklist records the evidence currently present in the repository. `COMPLE
 | 11 | GitHub commits | COMPLETE | The repository is [Adriano1305gll/ParkNow](https://github.com/Adriano1305gll/ParkNow) with an incremental history. Recent commits cover the core module, Supabase save flow, no-match guardrail, database migration, and user-testing documentation. |
 | 12 | Vercel deployments | PARTIAL | The verified production URL is [park-now-seven.vercel.app](https://park-now-seven.vercel.app), and `/core` is live at [park-now-seven.vercel.app/core](https://park-now-seven.vercel.app/core). Evidence of at least two separate deployments is not recorded in the repository. |
 | 13 | Testing documentation | COMPLETE | `USER_TESTING.md` provides five scenarios, participant instructions, post-session questions, feedback and bug tables, evidence guidance, and a final summary template. |
-| 14 | Human checkpoints | PARTIAL | The report includes a Human Decision Note draft and describes human approval in the agentic workflow. Completed checkpoint records, approvals, or iteration decisions from real sessions were not found. |
+| 14 | Human checkpoints | PARTIAL | [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md) documents eight project decisions, their reasons, available evidence, and verifiable dates. Formal approvals and confirmation fields remain explicitly pending. |
 | 15 | Final five-minute demo | PARTIAL | [FINAL_DEMO_SCRIPT.md](FINAL_DEMO_SCRIPT.md) contains a complete timestamped five-minute script with page instructions, clicks, spoken text, recording checklist, and evidence placeholders. No completed recording, share link, or presentation evidence is claimed. |
 
 ## Verified Build and Repository Checks
@@ -38,6 +38,7 @@ This checklist records the evidence currently present in the repository. `COMPLE
 - Core prompt documentation commit: `b9d3aa8` (`docs: add Week 1 core prompt and architecture`).
 - Core save flow commits: `8a44819` and `31ece6e`.
 - Final demo script: [FINAL_DEMO_SCRIPT.md](FINAL_DEMO_SCRIPT.md), prepared but not recorded.
+- Human decision record: [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md), with formal approval fields intentionally unfilled.
 - No `.env.local` file or secret key was found in the tracked project files during the final review.
 - `.gitignore` excludes `.env`, `.env.*`, and `.next/` while allowing `.env.example` if one is added later.
 
