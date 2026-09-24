@@ -1,21 +1,18 @@
 # Week 2 — Coding Prompt Log
 
-Project: Park Now
-Feature: Research + Benchmarking Dashboard
+## Prompt 1 — Research Intake
+Requested: Add city/market, facility type and research question fields; validate required fields; show feedback without claiming persistence; preserve existing pages.
 
-Record each real coding-agent prompt below, including its result and corresponding commit.
-
-## Prompt 1
-Pending implementation.
+Result: Implemented. npm run build passed (15 routes). git diff --check passed.
 
 ## Prompt 2
-Pending implementation.
+Pending.
 
 ## Prompt 3
-Pending implementation.
+Pending.
 
 ## Prompt 4
-Pending implementation.
+Pending.
 
 ## Prompt 5
-Pending implementation.
+Pending.
