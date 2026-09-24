@@ -21,7 +21,7 @@ This checklist records the evidence currently present in the repository. `COMPLE
 | 11 | GitHub commits | COMPLETE | The repository is [Adriano1305gll/ParkNow](https://github.com/Adriano1305gll/ParkNow) with an incremental history. Recent commits cover the core module, Supabase save flow, no-match guardrail, database migration, and user-testing documentation. |
 | 12 | Vercel deployments | PARTIAL | The verified production URL is [park-now-seven.vercel.app](https://park-now-seven.vercel.app), and `/core` is live at [park-now-seven.vercel.app/core](https://park-now-seven.vercel.app/core). Evidence of at least two separate deployments is not recorded in the repository. |
 | 13 | Testing documentation | COMPLETE | `USER_TESTING.md` provides five scenarios, participant instructions, post-session questions, feedback and bug tables, evidence guidance, and a final summary template. |
-| 14 | Human checkpoints | PARTIAL | [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md) records five owner confirmations, including final submission approval. Individual target-user, stack, Core, and Supabase checkpoint confirmations remain pending. |
+| 14 | Human checkpoints | PARTIAL | [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md) records the owner's problem, design, feedback, stack clarification, Core approval, Supabase verification, Dashboard acceptance, and final submission approval. Target-user confirmation remains pending. |
 | 15 | Final five-minute demo | COMPLETE | [FINAL_DEMO_SCRIPT.md](FINAL_DEMO_SCRIPT.md) contains the complete timestamped five-minute demonstration with page instructions, clicks, spoken text, and evidence guidance. A demo video is not required for this final audit. |
 
 ## Verified Build and Repository Checks
@@ -41,6 +41,7 @@ This checklist records the evidence currently present in the repository. `COMPLE
 - Human decision record: [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md), with formal approval fields intentionally unfilled.
 - Three owner confirmations are recorded in [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md): problem selection, design/functionality approval, and feedback/iteration approval.
 - Adriano García confirmed the current Dashboard scope and approved the current Park Now implementation for final submission on September 24, 2026.
+- Adriano García clarified that the stack followed AI-101 instructor requirements, approved `/core`, and verified Supabase saving; no independent technology-selection claim is made.
 - Final delivery guide: [FINAL_DELIVERY_GUIDE.md](FINAL_DELIVERY_GUIDE.md), listing the remaining personal confirmations and submission steps.
 - Build Discipline Packet: [BUILD_DISCIPLINE_PACKET.md](BUILD_DISCIPLINE_PACKET.md), consolidating the final project evidence and known gaps.
 - No `.env.local` file or secret key was found in the tracked project files during the final review.
@@ -137,7 +138,7 @@ Use this table to record real human decisions. Blank rows are intentional; no ap
 | User-testing findings reviewed |  |  |  |  |
 | Final submission approved |  |  |  |  |
 
-No human approvals are claimed until the empty fields are completed with real names or roles, dates, decisions, and evidence.
+Confirmed approvals are documented in [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md); blank rows represent only approvals not explicitly provided.
 
 ## Remaining Work Before Submission
 
@@ -150,10 +151,6 @@ No human approvals are claimed until the empty fields are completed with real na
 ## Personal Confirmations Still Required
 
 - Confirm the target-user definition.
-- Confirm the technical stack selection.
-- Confirm approval of the generative Core module.
-- Confirm approval of the Supabase integration.
-- Confirm final submission approval.
 - Add detailed User 1 and User 3 records if those records exist outside the repository.
 - Add evidence of a second Vercel deployment if required by the course rubric.
 
@@ -166,6 +163,6 @@ Complete this section only after the remaining evidence has been collected.
 - User testing evidence location: ______________________
 - Wireframe evidence location: ________________________
 - Optional demo video link: ___________________________
-- Final reviewer / human approver: ____________________
-- Approval date: ______________________________________
-- Submission status: _________________________________
+- Final reviewer / human approver: Adriano García, project owner
+- Approval date: September 24, 2026
+- Submission status: Approved by project owner; rubric-dependent evidence remains listed above.

@@ -292,11 +292,8 @@ The current validation evidence is:
 The following still require Adriano García's personal confirmation before submission:
 
 1. Target-user definition.
-2. Technical stack selection.
-3. Approval of the generative Core module.
-4. Approval of the Supabase integration.
-5. Detailed response records for Users 1 and 3, if those records exist outside the repository.
-6. Evidence of a second Vercel deployment, if the course rubric requires two deployments.
+2. Detailed response records for Users 1 and 3, if those records exist outside the repository.
+3. Evidence of a second Vercel deployment, if the course rubric requires two deployments.
 
 The following are already confirmed by the project owner on September 23, 2026:
 

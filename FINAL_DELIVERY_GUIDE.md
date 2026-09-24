@@ -41,17 +41,7 @@ No marques una mejora como resultado de testing si no puedes relacionarla con fe
 
 ### 3. Completar checkpoints humanos
 
-Las siguientes confirmaciones individuales siguen pendientes; complétalas solo si el rubric las exige por separado, con nombre/rol, fecha y evidencia:
-
-- Elección del problema de disponibilidad de parking.
-- Definición de drivers y operadores como usuarios.
-- Selección de Next.js, GitHub, Vercel y Supabase.
-- Aprobación de la estructura UX y de páginas.
-- Aprobación del módulo generativo `/core`.
-- Aprobación de la integración Supabase.
-- Revisión del guardado válido de recomendaciones.
-- Revisión del despliegue Vercel.
-- Revisión final de los hallazgos de testing.
+La confirmación individual que sigue pendiente es la definición de drivers y operadores como usuarios; complétala solo si el rubric la exige por separado, con nombre/rol, fecha y evidencia.
 
 Completa esos campos en `HUMAN_CHECKPOINTS.md`. No firmes una aprobación basándote únicamente en que existe un commit.
 

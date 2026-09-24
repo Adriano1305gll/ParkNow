@@ -12,10 +12,10 @@ Dates are included only when they can be tied to a Git commit or an explicit pro
 | --- | --- | --- | --- |
 | 1 | Choose the parking availability problem | CONFIRMED BY PROJECT OWNER | September 23, 2026 |
 | 2 | Define target users | PENDING HUMAN CONFIRMATION | Not verifiable |
-| 3 | Select the technical stack | PENDING HUMAN CONFIRMATION | 2026-08-20 implementation evidence |
+| 3 | Follow the course-required technical stack | CONFIRMED WITH CLARIFICATION | Not specified by owner |
 | 4 | Approve UX and application structure | CONFIRMED BY PROJECT OWNER | September 23, 2026 |
-| 5 | Choose the generative recommendation module | PENDING HUMAN CONFIRMATION | 2026-09-03 implementation evidence |
-| 6 | Connect the application to Supabase | PENDING HUMAN CONFIRMATION | 2026-08-20 to 2026-09-24 implementation evidence |
+| 5 | Approve the generative recommendation module | APPROVED BY PROJECT OWNER | Not specified by owner |
+| 6 | Verify the application-to-Supabase integration | VERIFIED BY PROJECT OWNER | Not specified by owner |
 | 7 | Validate that recommendations save correctly | VERIFIED IMPLEMENTATION CHECK | 2026-09-24 reported verification |
 | 8 | Review the live Vercel deployment | VERIFIED DEPLOYMENT CHECK | 2026-09-24 reported verification |
 | 9 | Review user feedback and approve iteration | CONFIRMED BY PROJECT OWNER | September 23, 2026 |
@@ -116,9 +116,9 @@ The project report selects these tools because they fit a modern responsive web 
 
 ### Human Involvement
 
-The stack is recorded as the project technology decision and was implemented through the repository setup and integration commits. A named human approval record is not present.
+The project owner clarified that Next.js, GitHub, Vercel, and Supabase were required or provided by the AI-101 instructor. Adriano García followed those course requirements; he is not claiming independent selection of these technologies.
 
-**Status:** `PENDING HUMAN CONFIRMATION`
+**Status:** `CONFIRMED WITH CLARIFICATION`
 
 ### Evidence Available
 
@@ -131,7 +131,7 @@ The stack is recorded as the project technology decision and was implemented thr
 
 ### Date
 
-2026-08-20 is verifiable for the implementation commits. The approval date is not verifiable.
+Not specified by the project owner. The implementation commits remain separate evidence of when the stack was used.
 
 ## 4. Approving the UX and Application Structure
 
@@ -175,9 +175,9 @@ The module turns the product from a status display into a planning workflow. Det
 
 ### Human Involvement
 
-The module was added through a focused feature commit and later refined for Supabase saving and no-match safety. The project materials do not include a separate approval signature or meeting record.
+Adriano García personally reviewed and approved the functionality of `/core`, including its parking recommendations.
 
-**Status:** `PENDING HUMAN CONFIRMATION`
+**Status:** `APPROVED BY PROJECT OWNER`
 
 ### Evidence Available
 
@@ -188,7 +188,7 @@ The module was added through a focused feature commit and later refined for Supa
 
 ### Date
 
-2026-09-03 is verifiable for the Core implementation commit. The approval date is not verifiable.
+Not specified by the project owner. The `ae6c5ba` commit date remains separate implementation evidence.
 
 ## 6. Connecting the Application to Supabase
 
@@ -202,9 +202,9 @@ Supabase provides persistent parking records, saved recommendations, and Realtim
 
 ### Human Involvement
 
-The project owner verified that the existing Supabase project contains six tables and that the migration was executed successfully. The repository contains the implementation and migration history. A separate formal approval record is not present.
+Adriano García personally checked that Park Now successfully saves information in Supabase.
 
-**Status:** `PENDING HUMAN CONFIRMATION`
+**Status:** `VERIFIED BY PROJECT OWNER`
 
 ### Evidence Available
 
@@ -217,7 +217,7 @@ The project owner verified that the existing Supabase project contains six table
 
 ### Date
 
-Implementation dates range from 2026-08-20 to 2026-09-24. The migration execution date is not independently recorded in Git.
+Not specified by the project owner. Implementation dates remain available in Git history.
 
 ## 7. Validating That Recommendations Are Saved Correctly
 
@@ -312,10 +312,10 @@ Complete these fields only with real confirmation from the project owner, review
 | --- | --- | --- | --- | --- |
 | Parking problem selected | Adriano García | Project owner | September 23, 2026 | CONFIRMED BY PROJECT OWNER |
 | Target users defined |  |  |  | PENDING HUMAN CONFIRMATION |
-| Technical stack selected |  |  |  | PENDING HUMAN CONFIRMATION |
+| Course-required technical stack followed | Adriano García | Project owner | Not specified | CONFIRMED WITH CLARIFICATION |
 | UX and application structure approved | Adriano García | Project owner | September 23, 2026 | CONFIRMED BY PROJECT OWNER |
-| Generative Core module approved |  |  |  | PENDING HUMAN CONFIRMATION |
-| Supabase integration approved |  |  |  | PENDING HUMAN CONFIRMATION |
+| Generative Core module approved | Adriano García | Project owner | Not specified | APPROVED BY PROJECT OWNER |
+| Supabase integration verified | Adriano García | Project owner | Not specified | VERIFIED BY PROJECT OWNER |
 | Save behavior verified | Project owner reported live verification |  | 2026-09-24 | Record count changed from 3 to 4 |
 | Production deployment reviewed | Project owner reported live verification |  | 2026-09-24 | Production URLs listed above |
 | User feedback and iteration approved | Adriano García | Project owner | September 23, 2026 | CONFIRMED BY PROJECT OWNER |
