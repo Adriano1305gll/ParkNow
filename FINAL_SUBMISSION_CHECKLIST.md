@@ -11,7 +11,7 @@ This checklist records the evidence currently present in the repository. `COMPLE
 | 1 | Build Discipline Packet | PARTIAL | The project has a build command, incremental commits, a project report, a prompt log, and a testing plan. There is no single completed discipline packet documenting every human checkpoint, test result, and final approval. |
 | 2 | Problem and target user | COMPLETE | `PROJECT_REPORT.md` defines the parking uncertainty problem, drivers as the primary users, and parking operators as the secondary buyer. |
 | 3 | Product specification | COMPLETE | `PROJECT_REPORT.md` includes MVP features, acceptance criteria, scope cuts, value proposition, risks, and business model. |
-| 4 | UX wireframes | MISSING | The report contains a UX concept and the application contains implemented pages, but no wireframe files, sketches, or annotated before-build wireframes were found. |
+| 4 | UX wireframes | COMPLETE | [UX_WIREFRAMES.md](UX_WIREFRAMES.md) documents reconstructed wireframes for Home, Live Parking, Core, Dashboard, Assistant, and the complete user journey. It explicitly does not claim historical design evidence. |
 | 5 | Architecture documentation | COMPLETE | `PROJECT_REPORT.md` and `/docs` describe the Next.js/React, Supabase, parking-data, dashboard, and assistant flow, including prototype and production modes. |
 | 6 | Live multi-page application | COMPLETE | The application includes Home, Live Parking, Research, Product, Pricing, Marketing, Assistant, Dashboard, Documentation, Demo, and Core routes. Navigation links to the required pages, and the production build generates 15 routes. |
 | 7 | Working `/core` generative module | COMPLETE | The production page is [Park Now Core](https://park-now-seven.vercel.app/core). It validates constraints, deterministically ranks parking options, handles no-match results, allows valid recommendations to be saved, and reads saved outputs for its preview. A live save increased `core_outputs` from 3 to 4 records. |
@@ -116,14 +116,13 @@ No human approvals are claimed until the empty fields are completed with real na
 
 ## Remaining Work Before Submission
 
-1. Create or attach wireframes that show the intended Home, Live Parking, Core, Dashboard, and Assistant flows.
-2. Complete five real user-testing sessions using `USER_TESTING.md`.
-3. Record participant feedback, bugs, screenshots, consent, and iteration decisions.
-4. Decide whether `/dashboard` must include saved `core_outputs` recommendations; implement and test that behavior if it is part of the final acceptance criteria.
-5. Add evidence of at least two separate Vercel deployments, if required by the course rubric.
-6. Record human approval checkpoints and identify which changes were accepted from testing.
-7. Record or upload the final five-minute demo video and link it from the submission materials.
-8. Re-run the build and final repository checks after any remaining application changes.
+1. Complete five real user-testing sessions using `USER_TESTING.md`.
+2. Record participant feedback, bugs, screenshots, consent, and iteration decisions.
+3. Decide whether `/dashboard` must include saved `core_outputs` recommendations; implement and test that behavior if it is part of the final acceptance criteria.
+4. Add evidence of at least two separate Vercel deployments, if required by the course rubric.
+5. Record human approval checkpoints and identify which changes were accepted from testing.
+6. Record or upload the final five-minute demo video and link it from the submission materials.
+7. Re-run the build and final repository checks after any remaining application changes.
 
 ## Final Submission Sign-Off
 
