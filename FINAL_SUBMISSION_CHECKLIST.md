@@ -8,7 +8,7 @@ This checklist records the evidence currently present in the repository. `COMPLE
 
 | # | Requirement | Status | Evidence / finding |
 | --- | --- | --- | --- |
-| 1 | Build Discipline Packet | PARTIAL | The project has a build command, incremental commits, a project report, a prompt log, and a testing plan. There is no single completed discipline packet documenting every human checkpoint, test result, and final approval. |
+| 1 | Build Discipline Packet | COMPLETE | [BUILD_DISCIPLINE_PACKET.md](BUILD_DISCIPLINE_PACKET.md) consolidates the verified problem, users, success criteria, product specification, UX, architecture, stack, DevOps, testing, coding-agent workflow, and scope cuts. It explicitly lists evidence gaps and personal confirmations still required. |
 | 2 | Problem and target user | COMPLETE | `PROJECT_REPORT.md` defines the parking uncertainty problem, drivers as the primary users, and parking operators as the secondary buyer. |
 | 3 | Product specification | COMPLETE | `PROJECT_REPORT.md` includes MVP features, acceptance criteria, scope cuts, value proposition, risks, and business model. |
 | 4 | UX wireframes | COMPLETE | [UX_WIREFRAMES.md](UX_WIREFRAMES.md) documents reconstructed wireframes for Home, Live Parking, Core, Dashboard, Assistant, and the complete user journey. It explicitly does not claim historical design evidence. |
@@ -41,6 +41,7 @@ This checklist records the evidence currently present in the repository. `COMPLE
 - Human decision record: [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md), with formal approval fields intentionally unfilled.
 - Three owner confirmations are recorded in [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md): problem selection, design/functionality approval, and feedback/iteration approval.
 - Final delivery guide: [FINAL_DELIVERY_GUIDE.md](FINAL_DELIVERY_GUIDE.md), listing the remaining personal confirmations and submission steps.
+- Build Discipline Packet: [BUILD_DISCIPLINE_PACKET.md](BUILD_DISCIPLINE_PACKET.md), consolidating the final project evidence and known gaps.
 - No `.env.local` file or secret key was found in the tracked project files during the final review.
 - `.gitignore` excludes `.env`, `.env.*`, and `.next/` while allowing `.env.example` if one is added later.
 
@@ -145,6 +146,17 @@ No human approvals are claimed until the empty fields are completed with real na
 4. Add evidence of at least two separate Vercel deployments, if required by the course rubric.
 5. Record human approval checkpoints and identify which changes were accepted from testing.
 6. Re-run the build and final repository checks after any remaining application changes.
+
+## Personal Confirmations Still Required
+
+- Confirm the target-user definition.
+- Confirm the technical stack selection.
+- Confirm approval of the generative Core module.
+- Confirm approval of the Supabase integration.
+- Confirm final submission approval.
+- Add detailed User 1 and User 3 records if those records exist outside the repository.
+- Decide whether the main Dashboard must display saved `core_outputs` recommendations.
+- Add evidence of a second Vercel deployment if required by the course rubric.
 
 ## Final Submission Sign-Off
 
