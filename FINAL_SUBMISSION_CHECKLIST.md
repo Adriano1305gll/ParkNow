@@ -69,7 +69,7 @@ The current `main` branch contains the documented incremental work. Relevant com
 - Production application: [https://park-now-seven.vercel.app](https://park-now-seven.vercel.app)
 - Working Core page: [https://park-now-seven.vercel.app/core](https://park-now-seven.vercel.app/core)
 
-The URLs above were supplied and verified as the current production deployment. The repository does not contain a deployment history export or a second deployment URL.
+The URLs above were supplied and verified as the current production deployment; both responded HTTP 200 during the final audit. The repository does not contain a deployment history export or a second deployment URL, so no unnecessary deployment was created.
 
 ### Supabase
 

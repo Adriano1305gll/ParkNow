@@ -232,8 +232,7 @@ Record observed problems separately from ideas that are not necessarily bugs. As
 | 2 | Improvement | Parking map / accessibility | Identify accessible parking spaces for people with disabilities. |  | Users can identify accessible spaces before choosing a spot. | User 2 requested individualized support for disabilities. | 1 participant | High | Consider accessible-space data and visual identification as a future feature. | Open |
 | 3 | Improvement | Parking information and data states | Show price, distance, and hours for each parking option and make loading/no-data states clearer. |  | Users understand each option and what the interface is doing when data is unavailable. | User 5 requested richer parking information and clearer loading/no-data messaging. | 1 participant | Medium | Define the additional fields and improve loading/empty-state copy. | Open |
 | 4 |  |  |  |  |  |  |  |  |  | Open |
-| 5 |  |  |  |  |  |  |  |  |  | Open |
-| 5 |  |  |  |  |  |  |  |  |  | Open |
+| 5 |  |  |  |  |  |  |  |  | Open |
 ### Suggested Priority Scale
 
 - **High:** Prevents task completion, creates a serious misunderstanding, or creates a safety concern.
@@ -294,6 +293,16 @@ This priority order is a project synthesis based on the documented suggestions, 
 ### What We Learned
 
 The documented participants understood the main idea quickly and generally found the interface easy to use. Live Parking is valuable because it makes availability visible, and the Assistant adds a direct way to ask questions. The next improvements should add decision-relevant parking details, make accessibility visible, and clarify the interface during loading or missing-data states. These conclusions should be checked against the missing User 1 and User 3 records before being presented as a complete five-user synthesis.
+
+### Final Evidence Summary
+
+- External evaluations reported by the project owner: 5.
+- Detailed response records available in this repository: Users 2, 4, and 5.
+- Detailed responses missing from this repository: Users 1 and 3.
+- Explicit numerical ratings available: User 4 = 4/5 and User 5 = 4/5.
+- Average of explicit ratings: 4.0/5.
+- Task-completion counts, device/browser details, consent records, screenshots, and session recordings: not provided in the available evidence.
+- Improvements implemented from documented feedback: grouped navigation, clearer parking details and data states, green/red availability visibility, Live Parking totals, and preserved Supabase/Core functionality.
 
 ## Evidence of Implemented Improvements
 
