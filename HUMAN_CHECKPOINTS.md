@@ -4,20 +4,21 @@
 
 This document records human decisions that are described or evidenced by the current Park Now project materials. It does not create approval evidence after the fact. A decision can be documented without being formally approved, and those cases are marked `PENDING HUMAN CONFIRMATION`.
 
-Dates are included only when they can be tied to a Git commit or an explicit project verification reported during final preparation. No user-testing results, participant approvals, or final-submission approval are claimed here.
+Dates are included only when they can be tied to a Git commit or an explicit project-owner confirmation. No participant approvals or final-submission approval are claimed here.
 
 ## Checkpoint Summary
 
 | # | Checkpoint | Status | Date |
 | --- | --- | --- | --- |
-| 1 | Choose the parking availability problem | PENDING HUMAN CONFIRMATION | Not verifiable |
+| 1 | Choose the parking availability problem | CONFIRMED BY PROJECT OWNER | September 23, 2026 |
 | 2 | Define target users | PENDING HUMAN CONFIRMATION | Not verifiable |
 | 3 | Select the technical stack | PENDING HUMAN CONFIRMATION | 2026-08-20 implementation evidence |
-| 4 | Approve UX and application structure | PENDING HUMAN CONFIRMATION | 2026-08-20 implementation evidence |
+| 4 | Approve UX and application structure | CONFIRMED BY PROJECT OWNER | September 23, 2026 |
 | 5 | Choose the generative recommendation module | PENDING HUMAN CONFIRMATION | 2026-09-03 implementation evidence |
 | 6 | Connect the application to Supabase | PENDING HUMAN CONFIRMATION | 2026-08-20 to 2026-09-24 implementation evidence |
 | 7 | Validate that recommendations save correctly | VERIFIED IMPLEMENTATION CHECK | 2026-09-24 reported verification |
 | 8 | Review the live Vercel deployment | VERIFIED DEPLOYMENT CHECK | 2026-09-24 reported verification |
+| 9 | Review user feedback and approve iteration | CONFIRMED BY PROJECT OWNER | September 23, 2026 |
 
 ## 1. Choosing the Parking Availability Problem
 
@@ -31,11 +32,11 @@ The project report identifies parking uncertainty, unnecessary searching, intern
 
 ### Human Involvement
 
-The Human Decision Note in `PROJECT_REPORT.md` states that the human builder chose to keep the project focused on one clear problem and rejected larger features such as reservations, navigation, camera recognition, and payment for the MVP.
+Adriano García, the project owner, personally identified the available-parking problem and chose to develop Park Now as his university project. The Human Decision Note in `PROJECT_REPORT.md` also records the decision to reject larger MVP features such as reservations, navigation, camera recognition, and payment.
 
-Formal approval by a named reviewer is not recorded.
+**Status:** `CONFIRMED BY PROJECT OWNER`
 
-**Status:** `PENDING HUMAN CONFIRMATION`
+**Confirmation date:** September 23, 2026
 
 ### Evidence Available
 
@@ -45,7 +46,7 @@ Formal approval by a named reviewer is not recorded.
 
 ### Date
 
-Not verifiable from the available evidence.
+September 23, 2026, as confirmed by the project owner.
 
 ## 2. Defining the Target Users
 
@@ -114,9 +115,11 @@ The UX concept prioritizes understanding availability in under ten seconds. Numb
 
 ### Human Involvement
 
-The project report describes the UX principles and the current application structure. The implementation history shows visual design and page construction, but no separate human approval record or design-review artifact is available.
+Adriano García personally reviewed and approved the design and functionality of Park Now throughout development. This confirmation covers the UX structure, navigation, page organization, and implemented functionality.
 
-**Status:** `PENDING HUMAN CONFIRMATION`
+**Status:** `CONFIRMED BY PROJECT OWNER`
+
+**Confirmation date:** September 23, 2026
 
 ### Evidence Available
 
@@ -128,7 +131,7 @@ The project report describes the UX principles and the current application struc
 
 ### Date
 
-2026-08-20 is verifiable for the visual-design implementation. The approval date is not verifiable.
+September 23, 2026 for the owner approval; 2026-08-20 is separately verifiable for the visual-design implementation commit.
 
 ## 5. Choosing the Generative Parking Recommendation Module
 
@@ -243,27 +246,56 @@ The project owner reported that the latest Vercel production deployment was succ
 
 2026-09-24, based on the deployment verification reported during final submission preparation.
 
+## 9. Reviewing User Feedback and Approving Iteration
+
+### Decision
+
+Review the feedback collected from five external users and implement improvements based on their comments.
+
+### Reason
+
+The feedback identified opportunities to improve navigation hierarchy, parking information, accessibility visibility, and loading or no-data states.
+
+### Human Involvement
+
+Adriano García, the project owner, personally reviewed the feedback collected from five external users and decided to implement improvements based on their comments. This confirmation does not add or replace any participant responses or testing evidence.
+
+**Status:** `CONFIRMED BY PROJECT OWNER`
+
+**Confirmation date:** September 23, 2026
+
+### Evidence Available
+
+- `USER_TESTING.md` contains the documented participant feedback and improvement synthesis.
+- `PROJECT_REPORT.md` documents the testing-informed improvements.
+- The current application includes the resulting navigation, parking-information, and loading/empty-state improvements.
+
+### Date
+
+September 23, 2026, as confirmed by the project owner.
+
 ## Human Confirmation Table
 
 Complete these fields only with real confirmation from the project owner, reviewer, or instructor. Blank fields do not represent approval.
 
 | Checkpoint | Confirmed by | Role | Date | Evidence or note |
 | --- | --- | --- | --- | --- |
-| Parking problem selected |  |  |  | PENDING HUMAN CONFIRMATION |
+| Parking problem selected | Adriano García | Project owner | September 23, 2026 | CONFIRMED BY PROJECT OWNER |
 | Target users defined |  |  |  | PENDING HUMAN CONFIRMATION |
 | Technical stack selected |  |  |  | PENDING HUMAN CONFIRMATION |
-| UX and application structure approved |  |  |  | PENDING HUMAN CONFIRMATION |
+| UX and application structure approved | Adriano García | Project owner | September 23, 2026 | CONFIRMED BY PROJECT OWNER |
 | Generative Core module approved |  |  |  | PENDING HUMAN CONFIRMATION |
 | Supabase integration approved |  |  |  | PENDING HUMAN CONFIRMATION |
 | Save behavior verified | Project owner reported live verification |  | 2026-09-24 | Record count changed from 3 to 4 |
 | Production deployment reviewed | Project owner reported live verification |  | 2026-09-24 | Production URLs listed above |
+| User feedback and iteration approved | Adriano García | Project owner | September 23, 2026 | CONFIRMED BY PROJECT OWNER |
 
 ## Explicit Non-Claims
 
 This document does not claim:
 
 - That five real users have completed testing.
-- That user feedback or task-completion results exist.
+- That participant approvals or task-completion results exist.
 - That the final five-minute demo has been recorded.
 - That a reviewer or instructor has formally approved the submission.
 - That all human confirmation fields are complete.

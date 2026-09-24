@@ -21,7 +21,7 @@ This checklist records the evidence currently present in the repository. `COMPLE
 | 11 | GitHub commits | COMPLETE | The repository is [Adriano1305gll/ParkNow](https://github.com/Adriano1305gll/ParkNow) with an incremental history. Recent commits cover the core module, Supabase save flow, no-match guardrail, database migration, and user-testing documentation. |
 | 12 | Vercel deployments | PARTIAL | The verified production URL is [park-now-seven.vercel.app](https://park-now-seven.vercel.app), and `/core` is live at [park-now-seven.vercel.app/core](https://park-now-seven.vercel.app/core). Evidence of at least two separate deployments is not recorded in the repository. |
 | 13 | Testing documentation | COMPLETE | `USER_TESTING.md` provides five scenarios, participant instructions, post-session questions, feedback and bug tables, evidence guidance, and a final summary template. |
-| 14 | Human checkpoints | PARTIAL | [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md) documents eight project decisions, their reasons, available evidence, and verifiable dates. Formal approvals and confirmation fields remain explicitly pending. |
+| 14 | Human checkpoints | PARTIAL | [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md) records three checkpoints confirmed by Adriano García on September 23, 2026. Target-user, stack, Core, Supabase, and final-submission approvals remain pending. |
 | 15 | Final five-minute demo | PARTIAL | [FINAL_DEMO_SCRIPT.md](FINAL_DEMO_SCRIPT.md) contains a complete timestamped five-minute script with page instructions, clicks, spoken text, recording checklist, and evidence placeholders. No completed recording, share link, or presentation evidence is claimed. |
 
 ## Verified Build and Repository Checks
@@ -39,6 +39,7 @@ This checklist records the evidence currently present in the repository. `COMPLE
 - Core save flow commits: `8a44819` and `31ece6e`.
 - Final demo script: [FINAL_DEMO_SCRIPT.md](FINAL_DEMO_SCRIPT.md), prepared but not recorded.
 - Human decision record: [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md), with formal approval fields intentionally unfilled.
+- Three owner confirmations are recorded in [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md): problem selection, design/functionality approval, and feedback/iteration approval.
 - Final delivery guide: [FINAL_DELIVERY_GUIDE.md](FINAL_DELIVERY_GUIDE.md), listing the remaining personal confirmations and submission steps.
 - No `.env.local` file or secret key was found in the tracked project files during the final review.
 - `.gitignore` excludes `.env`, `.env.*`, and `.next/` while allowing `.env.example` if one is added later.
