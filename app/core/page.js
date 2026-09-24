@@ -195,7 +195,7 @@ export default function Core() {
   }
 
   async function saveOutput() {
-    if (!plan || saveStatus.type === 'saving') return;
+    if (!plan || plan.unavailable || saveStatus.type === 'saving') return;
 
     if (
       !process.env.NEXT_PUBLIC_SUPABASE_URL ||
@@ -377,14 +377,7 @@ export default function Core() {
                   {plan.risks.map((risk) => <li key={risk}>{risk}</li>)}
                 </ul>
               </div>
-              <button type="button" onClick={saveOutput} disabled={saveStatus.type === 'saving'}>
-                {saveStatus.type === 'saving' ? 'Saving...' : 'Save result'}
-              </button>
-              {saveStatus.message && (
-                <p className={saveStatus.type === 'error' ? 'text-red-300' : 'text-emerald-300'}>
-                  {saveStatus.message}
-                </p>
-              )}
+              <p>Adjust your constraints before saving a result.</p>
               <p className="border-t border-white/10 pt-4 text-sm text-emerald-200">
                 Prototype recommendation; availability is simulated.
               </p>
@@ -448,7 +441,13 @@ export default function Core() {
                   <h3 className="text-lg font-bold text-white">{output.best_option}</h3>
                   <p>{output.why_it_fits}</p>
                   <p className="text-sm text-slate-400">
-                    ${output.estimated_cost} · {output.walking_minutes} walking minutes
+                    {output.estimated_cost == null
+                      ? 'Estimated cost unavailable'
+                      : `$${output.estimated_cost}`}{' '}
+                    ·{' '}
+                    {output.walking_minutes == null
+                      ? 'Walking time unavailable'
+                      : `${output.walking_minutes} walking minutes`}
                   </p>
                   <p className="mt-3 text-xs text-emerald-200">{output.simulation_notice}</p>
                 </article>
