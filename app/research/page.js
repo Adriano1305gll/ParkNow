@@ -110,6 +110,52 @@ const solutions = [
 	},
 ];
 
+const risks = [
+	{
+		name: 'Occupancy data becomes stale',
+		impact: 'Drivers may follow a space indicator that is no longer accurate, reducing trust in the map.',
+		mitigation: 'Show the data status and last update clearly, keep the experience honest about simulation, and test refresh behavior with facility staff.',
+	},
+	{
+		name: 'Facilities have inconsistent layouts',
+		impact: 'A map that does not match the physical space can increase confusion during arrival.',
+		mitigation: 'Start with one clearly documented facility layout and validate space numbering with operators before expanding coverage.',
+	},
+	{
+		name: 'Connectivity is unreliable at arrival',
+		impact: 'A driver may lose access to the latest parking context at the moment it is needed.',
+		mitigation: 'Test the core view on slower connections, preserve a readable last-known state, and label its freshness instead of implying real-time certainty.',
+	},
+	{
+		name: 'The workflow distracts drivers',
+		impact: 'Complex interaction while driving could create an unsafe product experience.',
+		mitigation: 'Keep the flow glanceable, encourage setup before arrival, and test the interface with a safety-focused review that excludes active driving use.',
+	},
+];
+
+const opportunities = [
+	{
+		name: 'Operator occupancy visibility',
+		value: 'A shared occupancy view could help facilities communicate availability and spot operational issues earlier.',
+		validation: 'Interview operators at one facility and map the current process for collecting and communicating occupancy information.',
+	},
+	{
+		name: 'Facility-specific wayfinding',
+		value: 'Clear numbered spaces and facility context could make a parking map more useful than a general map result.',
+		validation: 'Run a task test with drivers using a real or accurately documented facility layout and observe whether they identify a target space.',
+	},
+	{
+		name: 'Mexico-focused research layer',
+		value: 'Local language, facility types, and arrival constraints could make the product more relevant to the intended market.',
+		validation: 'Review the intake questions with Mexican drivers and operators, then record which assumptions need local evidence.',
+	},
+	{
+		name: 'Trust through transparent uncertainty',
+		value: 'Explicit data status and limitations could help users understand what the map can and cannot promise.',
+		validation: 'Compare two versions of the status language in a usability session and ask users to explain the confidence they place in each.',
+	},
+];
+
 export default function Research() {
 	const [form, setForm] = useState(initialForm);
 	const [errors, setErrors] = useState({});
@@ -309,6 +355,38 @@ export default function Research() {
 						</tbody>
 					</table>
 					{filteredSolutions.length === 0 && <p className="p-6 text-sm text-slate-300" role="status">No documented solutions match this search and category. Try a different name, feature, or category.</p>}
+				</div>
+			</section>
+
+			<section className="mt-10">
+				<h2 className="text-2xl font-semibold text-white">Risk and opportunity map</h2>
+				<p className="mt-3 max-w-3xl">Working hypotheses for Park Now research. Each item has a practical next step so the map guides validation rather than presenting assumptions as facts.</p>
+				<div className="mt-5 grid gap-5 lg:grid-cols-2">
+					<div className="rounded-2xl border border-red-400/20 bg-red-400/5 p-5">
+						<h3 className="text-xl font-semibold text-red-200">Risks</h3>
+						<div className="mt-5 grid gap-4">
+							{risks.map((risk) => (
+								<article key={risk.name} className="border-l-2 border-red-300/60 pl-4">
+									<h4 className="font-semibold text-white">{risk.name}</h4>
+									<p className="mt-2 text-sm leading-6"><span className="font-semibold text-red-200">Impact:</span> {risk.impact}</p>
+									<p className="mt-2 text-sm leading-6"><span className="font-semibold text-white">Mitigation:</span> {risk.mitigation}</p>
+								</article>
+							))}
+						</div>
+					</div>
+
+					<div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/5 p-5">
+						<h3 className="text-xl font-semibold text-emerald-200">Opportunities</h3>
+						<div className="mt-5 grid gap-4">
+							{opportunities.map((opportunity) => (
+								<article key={opportunity.name} className="border-l-2 border-emerald-300/60 pl-4">
+									<h4 className="font-semibold text-white">{opportunity.name}</h4>
+									<p className="mt-2 text-sm leading-6"><span className="font-semibold text-emerald-200">Potential value:</span> {opportunity.value}</p>
+									<p className="mt-2 text-sm leading-6"><span className="font-semibold text-white">Next validation step:</span> {opportunity.validation}</p>
+								</article>
+							))}
+						</div>
+					</div>
 				</div>
 			</section>
 
