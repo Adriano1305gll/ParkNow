@@ -39,6 +39,7 @@ This checklist records the evidence currently present in the repository. `COMPLE
 - Core save flow commits: `8a44819` and `31ece6e`.
 - Final demo script: [FINAL_DEMO_SCRIPT.md](FINAL_DEMO_SCRIPT.md), prepared but not recorded.
 - Human decision record: [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md), with formal approval fields intentionally unfilled.
+- Final delivery guide: [FINAL_DELIVERY_GUIDE.md](FINAL_DELIVERY_GUIDE.md), listing the remaining personal confirmations and submission steps.
 - No `.env.local` file or secret key was found in the tracked project files during the final review.
 - `.gitignore` excludes `.env`, `.env.*`, and `.next/` while allowing `.env.example` if one is added later.
 

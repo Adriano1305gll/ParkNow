@@ -234,7 +234,6 @@ Record observed problems separately from ideas that are not necessarily bugs. As
 | 4 |  |  |  |  |  |  |  |  |  | Open |
 | 5 |  |  |  |  |  |  |  |  |  | Open |
 | 5 |  |  |  |  |  |  |  |  |  | Open |
-
 ### Suggested Priority Scale
 
 - **High:** Prevents task completion, creates a serious misunderstanding, or creates a safety concern.

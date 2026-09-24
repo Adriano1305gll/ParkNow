@@ -190,11 +190,11 @@ Complete these checks before recording:
 
 **What to say:**
 
-> User testing is being conducted with five real participants using the plan in `USER_TESTING.md`. The test scenarios cover finding an available space, understanding the map, observing a status update, checking the assistant guardrail, and deciding whether the product is useful.
+> The project owner reports that five external users evaluated the application using the plan in `USER_TESTING.md`. The test scenarios cover finding an available space, understanding the map, observing a status update, checking the assistant guardrail, and deciding whether the product is useful.
 
-> The participant results are not complete yet, so I will not claim feedback or task-completion numbers in this demo. The current limitations are simulated or changing availability, the need for a clearer evidence record for deployments, and the fact that the main Dashboard currently focuses on occupancy metrics rather than saved Core recommendations.
+> The repository contains detailed response records for Users 2, 4, and 5. Detailed responses for Users 1 and 3 are not present here, so I will not invent their answers or task-completion numbers. The recorded feedback led to grouped navigation, clearer Live Parking availability totals and states, more informative Core cards, and clearer loading and no-data messages. The current limitations are simulated or changing availability, incomplete detailed records for two participants, and the fact that the main Dashboard focuses on occupancy metrics rather than saved Core recommendations.
 
-> Future improvements include connecting approved real sensor data, adding stronger stale-data indicators, completing the dashboard recommendation view if required, and using the real user-testing findings to prioritize changes.
+> Future improvements include connecting approved real sensor data, adding stronger stale-data indicators, adding database-backed accessible-space information, completing the dashboard recommendation view if required, and documenting the remaining participant records.
 
 **What to show:**
 
@@ -273,7 +273,7 @@ Complete these checks before recording:
 
 ## Claims That Must Remain Unfinished Until Evidence Exists
 
-- Five users have completed testing.
+- Detailed response records for all five users have been documented.
 - User feedback confirms a specific product decision.
 - The final demo video has been recorded or submitted.
 - At least two Vercel deployments have been independently documented.
