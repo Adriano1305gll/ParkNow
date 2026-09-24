@@ -15,8 +15,12 @@ Requested: Add at least four relevant risks with impact and mitigation, plus fou
 
 Result: Implemented on `/research` with four risks and four opportunities in the existing Park Now visual style. The intake, global benchmarks, Mexico localization, competitor table, search, and filters remain in place. `npm run build` passed (15 routes). `git diff --check` passed.
 
-## Prompt 4
-Pending.
+## Prompt 4 — Persistent Research Records
+Requested: Persist city/market, facility type, research question, and timestamp in Supabase; retrieve records after refresh; show loading, empty, success, and error states; add RLS and keep research separate from occupancy data.
+
+Result: Implemented on `/research` with the separate `research_records` table and client-side Supabase load/insert flow. Migration added at `supabase/migrations/20260924120000_research_records.sql` with read/insert RLS policies and no service-role credentials. `npm run build` passed (15 routes). `git diff --check` passed.
+
+Database verification: Pending manual migration and live database test because this environment has no Supabase environment variables and no Supabase CLI. Do not claim persistence is operational until the migration is run and a record is saved, refreshed, and retrieved from the configured project.
 
 ## Prompt 5
 Pending.

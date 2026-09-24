@@ -1,9 +1,17 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
 import Page from '../../components/Page';
 
 const initialForm = { market: '', facilityType: '', question: '' };
+
+function getSupabaseErrorMessage(error) {
+	if (!error) return 'Supabase returned an unknown error.';
+
+	const code = error.code ? ` (${error.code})` : '';
+	return `${error.message || 'Supabase returned an unknown error.'}${code}`;
+}
 
 const benchmarks = [
 	{
@@ -162,6 +170,10 @@ export default function Research() {
 	const [feedback, setFeedback] = useState('');
 	const [searchTerm, setSearchTerm] = useState('');
 	const [category, setCategory] = useState('All');
+	const [savedResearch, setSavedResearch] = useState([]);
+	const [researchLoading, setResearchLoading] = useState(true);
+	const [researchError, setResearchError] = useState('');
+	const [saveStatus, setSaveStatus] = useState({ type: '', message: '' });
 	const normalizedSearch = searchTerm.trim().toLowerCase();
 	const filteredSolutions = solutions.filter((solution) => {
 		const matchesCategory = category === 'All' || solution.category === category;
@@ -171,6 +183,36 @@ export default function Research() {
 		return matchesCategory && matchesSearch;
 	});
 
+	useEffect(() => {
+		if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) {
+			setResearchError('Supabase is not configured. Saved research is unavailable.');
+			setResearchLoading(false);
+			return;
+		}
+
+		const supabase = createClient(
+			process.env.NEXT_PUBLIC_SUPABASE_URL,
+			process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+		);
+
+		async function loadResearch() {
+			const { data, error } = await supabase
+				.from('research_records')
+				.select('id, market, facility_type, research_question, created_at')
+				.order('created_at', { ascending: false });
+
+			if (error) {
+				setResearchError(getSupabaseErrorMessage(error));
+			} else {
+				setSavedResearch(data || []);
+			}
+
+			setResearchLoading(false);
+		}
+
+		loadResearch();
+	}, []);
+
 	function updateField(event) {
 		const { name, value } = event.target;
 		setForm((current) => ({ ...current, [name]: value }));
@@ -178,7 +220,7 @@ export default function Research() {
 		setFeedback('');
 	}
 
-	function submitIntake(event) {
+	async function submitIntake(event) {
 		event.preventDefault();
 		const nextErrors = {};
 
@@ -192,7 +234,34 @@ export default function Research() {
 			return;
 		}
 
-		setFeedback('Research intake submitted for this session. It has not been saved yet.');
+		setFeedback('');
+		if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) {
+			setSaveStatus({ type: 'error', message: 'Supabase is not configured. This research record was not saved.' });
+			return;
+		}
+
+		setSaveStatus({ type: 'loading', message: 'Saving research record...' });
+		const supabase = createClient(
+			process.env.NEXT_PUBLIC_SUPABASE_URL,
+			process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+		);
+		const { data, error } = await supabase
+			.from('research_records')
+			.insert({
+				market: form.market.trim(),
+				facility_type: form.facilityType,
+				research_question: form.question.trim(),
+			})
+			.select('id, market, facility_type, research_question, created_at')
+			.single();
+
+		if (error) {
+			setSaveStatus({ type: 'error', message: `Research record was not saved. ${getSupabaseErrorMessage(error)}` });
+			return;
+		}
+
+		setSavedResearch((current) => [data, ...current]);
+		setSaveStatus({ type: 'success', message: 'Research record saved successfully.' });
 	}
 
 	return (
@@ -261,10 +330,36 @@ export default function Research() {
 					</label>
 
 					<div className="flex flex-wrap items-center gap-4">
-						<button type="submit">Submit research intake</button>
+						<button type="submit" disabled={saveStatus.type === 'loading'}>{saveStatus.type === 'loading' ? 'Saving research...' : 'Save research intake'}</button>
 						<p className="text-sm" aria-live="polite" role="status">{feedback}</p>
 					</div>
+					{saveStatus.message && <p className={saveStatus.type === 'error' ? 'text-sm text-red-300' : 'text-sm text-emerald-300'} aria-live="polite" role={saveStatus.type === 'error' ? 'alert' : 'status'}>{saveStatus.message}</p>}
 				</form>
+			</section>
+
+			<section className="card mt-10" aria-live="polite">
+				<h2>Saved research</h2>
+				<p>Research records retrieved from Supabase, kept separate from parking occupancy data.</p>
+				{researchError ? (
+					<p className="mt-5 text-red-300" role="alert">{researchError}</p>
+				) : researchLoading ? (
+					<p className="mt-5" role="status">Loading saved research...</p>
+				) : savedResearch.length === 0 ? (
+					<p className="mt-5" role="status">No saved research records yet. Submit the intake above to create the first record.</p>
+				) : (
+					<div className="mt-5 grid gap-4 md:grid-cols-2">
+						{savedResearch.map((record) => (
+							<article key={record.id} className="rounded-xl border border-white/10 bg-slate-950/40 p-4">
+								<div className="flex flex-wrap items-center justify-between gap-2">
+									<h3 className="font-semibold text-white">{record.market}</h3>
+									<time className="text-xs text-slate-400" dateTime={record.created_at}>{new Date(record.created_at).toLocaleString()}</time>
+								</div>
+								<p className="mt-3 text-sm text-slate-300">{record.facility_type.replaceAll('-', ' ')}</p>
+								<p className="mt-2 text-sm leading-6">{record.research_question}</p>
+							</article>
+						))}
+					</div>
+				)}
 			</section>
 
 			<section className="mt-10">
