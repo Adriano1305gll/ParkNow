@@ -5,10 +5,125 @@ import Page from '../../components/Page';
 
 const initialForm = { market: '', facilityType: '', question: '' };
 
+const benchmarks = [
+	{
+		name: 'ParkMobile',
+		market: 'United States and Canada',
+		approach: 'Digital parking payments and parking discovery for drivers and parking operators.',
+		relevance: 'A reference for connecting driver workflows with operator tools.',
+		source: 'https://parkmobile.io/',
+	},
+	{
+		name: 'EasyPark',
+		market: 'Europe and other international markets',
+		approach: 'A parking app focused on finding, paying for, and managing parking sessions.',
+		relevance: 'A reference for reducing friction during a parking session.',
+		source: 'https://www.easypark.com/',
+	},
+	{
+		name: 'JustPark',
+		market: 'United Kingdom',
+		approach: 'A marketplace that helps drivers find and book parking spaces.',
+		relevance: 'A reference for making underused parking supply discoverable.',
+		source: 'https://www.justpark.com/',
+	},
+	{
+		name: 'APCOA Parking',
+		market: 'Europe and international markets',
+		approach: 'A parking operator offering parking facilities and related services across multiple markets.',
+		relevance: 'A reference for connecting facility operations with a consistent driver experience.',
+		source: 'https://www.apcoa.com/',
+	},
+	{
+		name: 'INDIGO Neo',
+		market: 'France and international markets',
+		approach: 'A digital service from INDIGO for finding and using parking facilities.',
+		relevance: 'A reference for pairing facility operations with a digital driver experience.',
+		source: 'https://www.indigoneo.com/',
+	},
+];
+
+const solutions = [
+	{
+		name: 'ParkMobile',
+		market: 'United States and Canada',
+		category: 'Competitor',
+		feature: 'Parking discovery and digital parking payments',
+		relevance: 'Shows how a driver-facing parking workflow can connect to operators.',
+		source: 'https://parkmobile.io/',
+	},
+	{
+		name: 'SpotHero',
+		market: 'United States and Canada',
+		category: 'Competitor',
+		feature: 'Finding and reserving parking before arrival',
+		relevance: 'Highlights pre-arrival decision support as an alternative to searching on site.',
+		source: 'https://spothero.com/',
+	},
+	{
+		name: 'EasyPark',
+		market: 'Europe and other international markets',
+		category: 'Competitor',
+		feature: 'Finding, paying for, and managing parking sessions',
+		relevance: 'Provides a benchmark for a focused parking-session experience.',
+		source: 'https://www.easypark.com/',
+	},
+	{
+		name: 'JustPark',
+		market: 'United Kingdom',
+		category: 'Competitor',
+		feature: 'Discovering and booking parking spaces',
+		relevance: 'Shows how distributed parking supply can be made easier to find.',
+		source: 'https://www.justpark.com/',
+	},
+	{
+		name: 'APCOA Parking',
+		market: 'Europe and international markets',
+		category: 'Competitor',
+		feature: 'Parking facility operations and driver services',
+		relevance: 'Provides a benchmark for connecting operator workflows with driver services.',
+		source: 'https://www.apcoa.com/',
+	},
+	{
+		name: 'INDIGO Neo',
+		market: 'France and international markets',
+		category: 'Competitor',
+		feature: 'Digital access to and use of INDIGO parking facilities',
+		relevance: 'Connects a parking operator experience with a digital service.',
+		source: 'https://www.indigoneo.com/',
+	},
+	{
+		name: 'Google Maps',
+		market: 'Global',
+		category: 'Substitute',
+		feature: 'General map and place discovery',
+		relevance: 'Represents the map-first behavior users may use before a dedicated parking tool.',
+		source: 'https://maps.google.com/',
+	},
+	{
+		name: 'Waze',
+		market: 'Global',
+		category: 'Substitute',
+		feature: 'Navigation and arrival planning',
+		relevance: 'Represents navigation software that can shape the arrival experience without specializing in parking.',
+		source: 'https://www.waze.com/',
+	},
+];
+
 export default function Research() {
 	const [form, setForm] = useState(initialForm);
 	const [errors, setErrors] = useState({});
 	const [feedback, setFeedback] = useState('');
+	const [searchTerm, setSearchTerm] = useState('');
+	const [category, setCategory] = useState('All');
+	const normalizedSearch = searchTerm.trim().toLowerCase();
+	const filteredSolutions = solutions.filter((solution) => {
+		const matchesCategory = category === 'All' || solution.category === category;
+		const matchesSearch = !normalizedSearch
+			|| solution.name.toLowerCase().includes(normalizedSearch)
+			|| solution.feature.toLowerCase().includes(normalizedSearch);
+		return matchesCategory && matchesSearch;
+	});
 
 	function updateField(event) {
 		const { name, value } = event.target;
@@ -104,6 +219,97 @@ export default function Research() {
 						<p className="text-sm" aria-live="polite" role="status">{feedback}</p>
 					</div>
 				</form>
+			</section>
+
+			<section className="mt-10">
+				<h2 className="text-2xl font-semibold text-white">Global benchmarks</h2>
+				<p className="mt-3 max-w-3xl">Documented reference examples for comparison. These are curated sources, not live search results or performance claims.</p>
+				<div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+					{benchmarks.map((benchmark) => (
+						<article key={benchmark.name} className="rounded-2xl border border-white/10 bg-white/5 p-5">
+							<div className="flex items-start justify-between gap-4">
+								<h3 className="font-semibold text-white">{benchmark.name}</h3>
+								<span className="rounded-full border border-emerald-400/30 px-2 py-1 text-xs text-emerald-300">Benchmark</span>
+							</div>
+							<p className="mt-3 text-sm text-slate-300">{benchmark.market}</p>
+							<p className="mt-3 text-sm leading-6">{benchmark.approach}</p>
+							<p className="mt-3 text-sm leading-6"><span className="font-semibold text-white">Park Now relevance:</span> {benchmark.relevance}</p>
+							<a className="mt-4 inline-block text-sm text-emerald-300 underline decoration-emerald-400/40 underline-offset-4 hover:text-emerald-200" href={benchmark.source} target="_blank" rel="noreferrer">View documented source</a>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section className="mt-10 rounded-2xl border border-white/10 bg-white/5 p-5">
+				<h2 className="text-2xl font-semibold text-white">Mexico localization</h2>
+				<p className="mt-3 max-w-3xl">Park Now should validate local conditions before adopting patterns from international services. The research focus is on clear location context, reliable facility-level availability, and workflows that remain understandable when connectivity or data coverage is limited.</p>
+				<div className="mt-5 grid gap-5 md:grid-cols-3">
+					<Card t="Local user needs" x="Test language, arrival habits, payment expectations, and how drivers currently decide whether to enter a facility." />
+					<Card t="Infrastructure" x="Check whether facilities have consistent space identifiers, occupancy inputs, connectivity, and staff workflows to support current information." />
+					<Card t="Business opportunity" x="Explore operator value in traffic visibility and clearer driver communication without promising availability that cannot be verified." />
+				</div>
+			</section>
+
+			<section className="mt-10">
+				<div className="flex flex-wrap items-end justify-between gap-4">
+					<div>
+						<h2 className="text-2xl font-semibold text-white">Competitor comparison</h2>
+						<p className="mt-3 max-w-3xl">Compare documented competitors and substitutes. Sources identify the reference product; they are not claims of current availability in Mexico.</p>
+					</div>
+					<p className="text-sm text-slate-400" aria-live="polite">Showing {filteredSolutions.length} of {solutions.length}</p>
+				</div>
+
+				<div className="mt-5 grid gap-4 md:grid-cols-[minmax(0,1fr)_220px]">
+					<label className="grid gap-2">
+						<span className="font-semibold text-white">Search by name or feature</span>
+						<input
+							value={searchTerm}
+							onChange={(event) => setSearchTerm(event.target.value)}
+							placeholder="e.g. payments or navigation"
+							className="w-full rounded-xl border border-slate-700 bg-slate-950/60 px-4 py-3 text-white outline-none focus:border-emerald-400"
+						/>
+					</label>
+					<label className="grid gap-2">
+						<span className="font-semibold text-white">Category</span>
+						<select
+							value={category}
+							onChange={(event) => setCategory(event.target.value)}
+							className="w-full rounded-xl border border-slate-700 bg-slate-950/60 px-4 py-3 text-white outline-none focus:border-emerald-400"
+						>
+							<option>All</option>
+							<option>Competitor</option>
+							<option>Substitute</option>
+						</select>
+					</label>
+				</div>
+
+				<div className="mt-5 overflow-x-auto rounded-2xl border border-white/10">
+					<table className="w-full min-w-[900px] text-left text-sm">
+						<thead className="bg-white/5 text-xs uppercase tracking-[.12em] text-slate-400">
+							<tr>
+								<th className="px-4 py-3">Solution</th>
+								<th className="px-4 py-3">Market</th>
+								<th className="px-4 py-3">Category</th>
+								<th className="px-4 py-3">Main feature</th>
+								<th className="px-4 py-3">Relevance</th>
+								<th className="px-4 py-3">Source</th>
+							</tr>
+						</thead>
+						<tbody className="divide-y divide-white/10">
+							{filteredSolutions.map((solution) => (
+								<tr key={solution.name} className="align-top">
+									<td className="px-4 py-4 font-semibold text-white">{solution.name}</td>
+									<td className="px-4 py-4">{solution.market}</td>
+									<td className="px-4 py-4"><span className={solution.category === 'Competitor' ? 'text-emerald-300' : 'text-amber-300'}>{solution.category}</span></td>
+									<td className="px-4 py-4">{solution.feature}</td>
+									<td className="px-4 py-4">{solution.relevance}</td>
+									<td className="px-4 py-4"><a className="text-emerald-300 underline decoration-emerald-400/40 underline-offset-4 hover:text-emerald-200" href={solution.source} target="_blank" rel="noreferrer">Open source</a></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+					{filteredSolutions.length === 0 && <p className="p-6 text-sm text-slate-300" role="status">No documented solutions match this search and category. Try a different name, feature, or category.</p>}
+				</div>
 			</section>
 
 			<h2 className="mt-10 text-2xl font-semibold text-white">Validation plan</h2>
