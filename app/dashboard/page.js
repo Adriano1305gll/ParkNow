@@ -8,6 +8,9 @@ export default function Dashboard() {
   const [spots, setSpots] = useState([]);
   const [loading, setLoading] = useState(true);
   const [configurationError, setConfigurationError] = useState(false);
+  const [researchRecords, setResearchRecords] = useState([]);
+  const [researchLoading, setResearchLoading] = useState(true);
+  const [researchError, setResearchError] = useState('');
 
   useEffect(() => {
     if (
@@ -59,6 +62,39 @@ export default function Dashboard() {
     return () => {
       supabase.removeChannel(channel);
     };
+  }, []);
+
+  useEffect(() => {
+    if (
+      !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+      !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+    ) {
+      setResearchError('Supabase is not configured. Research summary is unavailable.');
+      setResearchLoading(false);
+      return;
+    }
+
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+    );
+
+    async function loadResearch() {
+      const { data, error } = await supabase
+        .from('research_records')
+        .select('id, market, facility_type, research_question, created_at')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        setResearchError(error.message || 'Unable to load saved research.');
+      } else {
+        setResearchRecords(data || []);
+      }
+
+      setResearchLoading(false);
+    }
+
+    loadResearch();
   }, []);
 
   const available = useMemo(
@@ -140,6 +176,61 @@ export default function Dashboard() {
           </section>
         </>
       )}
+
+      <ResearchSummary
+        records={researchRecords}
+        loading={researchLoading}
+        error={researchError}
+      />
     </Page>
+  );
+}
+
+function ResearchSummary({ records, loading, error }) {
+  const latest = records[0];
+
+  return (
+    <section className="card mt-8" aria-live="polite">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h2>Research Summary</h2>
+          <p>Saved research records kept separate from parking occupancy analytics.</p>
+        </div>
+        <a className="text-emerald-300 underline decoration-emerald-400/40 underline-offset-4 hover:text-emerald-200" href="/research">
+          View research
+        </a>
+      </div>
+
+      {error ? (
+        <p className="mt-5 text-red-300" role="alert">{error}</p>
+      ) : loading ? (
+        <p className="mt-5" role="status">Loading research summary...</p>
+      ) : !latest ? (
+        <p className="mt-5" role="status">No saved research records yet.</p>
+      ) : (
+        <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div>
+            <p className="text-xs uppercase tracking-wide text-slate-500">Saved records</p>
+            <strong className="text-white">{records.length}</strong>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-wide text-slate-500">Latest market</p>
+            <strong className="text-white">{latest.market}</strong>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-wide text-slate-500">Facility type</p>
+            <strong className="text-white">{latest.facility_type.replaceAll('-', ' ')}</strong>
+          </div>
+          <div className="lg:col-span-2">
+            <p className="text-xs uppercase tracking-wide text-slate-500">Latest research question</p>
+            <strong className="text-white">{latest.research_question}</strong>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-wide text-slate-500">Latest saved</p>
+            <time className="font-semibold text-white" dateTime={latest.created_at}>{new Date(latest.created_at).toLocaleString()}</time>
+          </div>
+        </div>
+      )}
+    </section>
   );
 }
