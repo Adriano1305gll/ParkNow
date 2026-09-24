@@ -172,7 +172,7 @@ Use one row per participant. Use participant aliases or IDs instead of names.
 | Participant ID | Date | Device/browser | Completed tasks | Total time | Main success | Main confusion | Trust rating (1-5) | Experience rating (1-5) | Would use? | Key quote or observation | Evidence link |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | P1 |  |  |  |  |  |  |  |  |  |  |  |
-| P2 |  |  |  |  |  |  |  |  |  |  |  |
+| P2 | September 23, 2026 |  |  |  | Easy to use and easy to understand |  |  |  |  | The visualization was the favorite aspect; accessible-space identification was suggested as a future improvement. |  |
 | P3 |  |  |  |  |  |  |  |  |  |  |  |
 | P4 | September 23, 2026 |  |  |  | Intuitive and easy to navigate |  |  | 4/5 |  | Practical and specific to the need it covers |  |
 | P5 |  |  |  |  |  |  |  |  |  |  |  |
@@ -193,6 +193,20 @@ Use one row per participant. Use participant aliases or IDs instead of names.
 
 Only the information above was provided for User 4. Unreported device, task-completion, timing, trust, usage-intention, and evidence fields remain blank.
 
+### Recorded Session: User 2
+
+| Field | Recorded response |
+| --- | --- |
+| Date | September 23, 2026 |
+| Participant | User 2 |
+| Ease of use | "Sí me pareció fácil la app." |
+| Understanding | "Sí entendí muy fácil." |
+| Favorite aspect | "La visualización." |
+| Suggested improvement | "Lo que le falta app es la individualizada de los hándicap." |
+| Interpretation for future improvement | Identify accessible parking spaces for people with disabilities. |
+
+Only the information above was provided for User 2. No rating or additional response is claimed.
+
 ## Bugs and Improvements Log
 
 Record observed problems separately from ideas that are not necessarily bugs. Assign a priority after reviewing all five sessions.
@@ -200,7 +214,7 @@ Record observed problems separately from ideas that are not necessarily bugs. As
 | ID | Type (Bug / Improvement) | Scenario | Description | Steps to reproduce | Expected result | Actual result | Frequency | Priority | Proposed action | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Improvement | Overall navigation and visual hierarchy | Separate section headings more clearly according to their functions. |  | Clearer functional grouping of headings. | Participant requested stronger visual separation of headings. | 1 participant |  | Improve heading hierarchy after reviewing remaining sessions. | Open |
-| 2 |  |  |  |  |  |  |  |  |  | Open |
+| 2 | Improvement | Parking map / accessibility | Identify accessible parking spaces for people with disabilities. |  | Users can identify accessible spaces before choosing a spot. | User 2 requested individualized support for disabilities. | 1 participant |  | Consider accessible-space data and visual identification as a future feature. | Open |
 | 3 |  |  |  |  |  |  |  |  |  | Open |
 | 4 |  |  |  |  |  |  |  |  |  | Open |
 | 5 |  |  |  |  |  |  |  |  |  | Open |
