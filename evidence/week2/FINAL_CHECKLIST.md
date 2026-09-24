@@ -29,7 +29,7 @@ Status values: `COMPLETE` means repository evidence exists; `PARTIAL` means impl
 
 | Requirement | Status | Evidence / remaining action |
 |---|---|---|
-| Three or more software tests documented | COMPLETE | [TEST_RESULTS.md](TEST_RESULTS.md) documents four tests and their limits. |
+| Three owner-verified production tests documented | COMPLETE | [TEST_RESULTS.md](TEST_RESULTS.md) documents required-field validation, competitor empty state, and Supabase/dashboard persistence. |
 | Production build | COMPLETE | `npm run build` passed and generated 15 routes. |
 | Diff hygiene | COMPLETE | `git diff --check` passed. |
 | Five coding prompts recorded | COMPLETE | [CODING_PROMPTS.md](CODING_PROMPTS.md) records Prompts 1–5. |

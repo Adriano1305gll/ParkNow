@@ -20,11 +20,11 @@ Requested: Persist city/market, facility type, research question, and timestamp 
 
 Result: Implemented on `/research` with the separate `research_records` table and client-side Supabase load/insert flow. Migration added at `supabase/migrations/20260924120000_research_records.sql` with read/insert RLS policies and no service-role credentials. `npm run build` passed (15 routes). `git diff --check` passed.
 
-Database verification: Pending manual migration and live database test because this environment has no Supabase environment variables and no Supabase CLI. Do not claim persistence is operational until the migration is run and a record is saved, refreshed, and retrieved from the configured project.
+Database verification: Owner verified that the migration was executed in production, a real Mexico City record was saved, and the record remained available after refresh.
 
 ## Prompt 5 — Dashboard Research Summary
 Requested: Read `research_records` on `/dashboard`, show the saved-record count and latest research details, add a link to `/research`, preserve occupancy analytics, and include loading, empty, and error states without changing the schema.
 
 Result: Implemented an independent Research Summary widget on `/dashboard`. Existing parking-space loading, occupancy calculations, and realtime subscription remain unchanged. `npm run build` passed (15 routes). `git diff --check` passed.
 
-Database verification: The widget is wired to the existing `research_records` schema, but live retrieval remains pending the manual migration/configuration and database test documented for Prompt 4.
+Database verification: Owner verified that production `/dashboard` displayed the saved record with `Saved records: 1`, market `mexico city`, and facility `shopping mall`.
