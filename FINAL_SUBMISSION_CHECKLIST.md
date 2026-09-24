@@ -92,14 +92,16 @@ The final `npm run build` validation passed on 2026-09-24 and generated all 15 a
 
 ## Testing Evidence Status
 
-The repository contains a ready-to-use testing plan, but it does not contain completed participant results. The following must remain unclaimed until five real sessions are recorded:
+The repository contains a ready-to-use testing plan and one newly recorded real session for User 4. The overall five-session evidence is still incomplete. The following must remain unclaimed until all five real sessions are recorded:
 
-- Number of participants tested.
+- Complete five-participant testing total.
 - Task completion rates.
 - Usability findings.
 - Bugs discovered through testing.
 - Changes made because of user feedback.
 - Screenshots or recordings of participant sessions.
+
+User 4 was recorded on September 23, 2026 with an experience rating of 4/5. The participant described Park Now as intuitive, practical, and easy to navigate, and suggested clearer visual separation of headings. No additional feedback is claimed.
 
 ## Human Checkpoints and Approvals
 
@@ -118,8 +120,8 @@ No human approvals are claimed until the empty fields are completed with real na
 
 ## Remaining Work Before Submission
 
-1. Complete five real user-testing sessions using `USER_TESTING.md`.
-2. Record participant feedback, bugs, screenshots, consent, and iteration decisions.
+1. Complete and document the remaining real user-testing sessions needed to reach five participants using `USER_TESTING.md`.
+2. Record the remaining participant feedback, bugs, screenshots, consent, and iteration decisions.
 3. Decide whether `/dashboard` must include saved `core_outputs` recommendations; implement and test that behavior if it is part of the final acceptance criteria.
 4. Add evidence of at least two separate Vercel deployments, if required by the course rubric.
 5. Record human approval checkpoints and identify which changes were accepted from testing.

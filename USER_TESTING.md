@@ -169,13 +169,29 @@ Ask these questions after the participant completes all scenarios. Use open-ende
 
 Use one row per participant. Use participant aliases or IDs instead of names.
 
-| Participant ID | Date | Device/browser | Completed tasks | Total time | Main success | Main confusion | Trust rating (1-5) | Would use? | Key quote or observation | Evidence link |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| P1 |  |  |  |  |  |  |  |  |  |  |
-| P2 |  |  |  |  |  |  |  |  |  |  |
-| P3 |  |  |  |  |  |  |  |  |  |  |
-| P4 |  |  |  |  |  |  |  |  |  |  |
-| P5 |  |  |  |  |  |  |  |  |  |  |
+| Participant ID | Date | Device/browser | Completed tasks | Total time | Main success | Main confusion | Trust rating (1-5) | Experience rating (1-5) | Would use? | Key quote or observation | Evidence link |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| P1 |  |  |  |  |  |  |  |  |  |  |  |
+| P2 |  |  |  |  |  |  |  |  |  |  |  |
+| P3 |  |  |  |  |  |  |  |  |  |  |  |
+| P4 | September 23, 2026 |  |  |  | Intuitive and easy to navigate |  |  | 4/5 |  | Practical and specific to the need it covers |  |
+| P5 |  |  |  |  |  |  |  |  |  |  |  |
+
+### Recorded Session: User 4
+
+| Field | Recorded response |
+| --- | --- |
+| Date | September 23, 2026 |
+| Participant | User 4 |
+| Ease of use | "Sí, muy intuitiva." |
+| Navigation | "Sí, el menú daba la opción muy clara." |
+| Favorite aspect | "Muy práctico y específico a la necesidad que cubre." |
+| Suggested improvement | "Visualmente separar más los títulos de acuerdo a funciones." |
+| Experience rating | 4/5 |
+| Main finding | The participant found Park Now intuitive, practical, and easy to navigate. |
+| Suggested future improvement | Improve visual hierarchy by separating section headings according to their functions. |
+
+Only the information above was provided for User 4. Unreported device, task-completion, timing, trust, usage-intention, and evidence fields remain blank.
 
 ## Bugs and Improvements Log
 
@@ -183,7 +199,7 @@ Record observed problems separately from ideas that are not necessarily bugs. As
 
 | ID | Type (Bug / Improvement) | Scenario | Description | Steps to reproduce | Expected result | Actual result | Frequency | Priority | Proposed action | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 |  |  |  |  |  |  |  |  |  | Open |
+| 1 | Improvement | Overall navigation and visual hierarchy | Separate section headings more clearly according to their functions. |  | Clearer functional grouping of headings. | Participant requested stronger visual separation of headings. | 1 participant |  | Improve heading hierarchy after reviewing remaining sessions. | Open |
 | 2 |  |  |  |  |  |  |  |  |  | Open |
 | 3 |  |  |  |  |  |  |  |  |  | Open |
 | 4 |  |  |  |  |  |  |  |  |  | Open |
