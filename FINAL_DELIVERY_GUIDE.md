@@ -41,7 +41,7 @@ No marques una mejora como resultado de testing si no puedes relacionarla con fe
 
 ### 3. Completar checkpoints humanos
 
-Debes confirmar personalmente, con nombre/rol, fecha y evidencia cuando corresponda:
+Las siguientes confirmaciones individuales siguen pendientes; complétalas solo si el rubric las exige por separado, con nombre/rol, fecha y evidencia:
 
 - Elección del problema de disponibilidad de parking.
 - Definición de drivers y operadores como usuarios.
@@ -52,7 +52,6 @@ Debes confirmar personalmente, con nombre/rol, fecha y evidencia cuando correspo
 - Revisión del guardado válido de recomendaciones.
 - Revisión del despliegue Vercel.
 - Revisión final de los hallazgos de testing.
-- Aprobación final de la entrega.
 
 Completa esos campos en `HUMAN_CHECKPOINTS.md`. No firmes una aprobación basándote únicamente en que existe un commit.
 
@@ -67,9 +66,9 @@ Debes:
 - Añadir esos enlaces en `FINAL_SUBMISSION_CHECKLIST.md`.
 - No inventar una segunda fecha o URL.
 
-### 5. Grabar el demo final
+### 5. Demo final opcional
 
-Usa `FINAL_DEMO_SCRIPT.md` para grabar aproximadamente cinco minutos.
+La grabación no es necesaria para esta entrega. `FINAL_DEMO_SCRIPT.md` contiene el guion listo para presentar o grabar si deseas conservar evidencia adicional.
 
 Antes de cerrar la grabación:
 
@@ -78,14 +77,11 @@ Antes de cerrar la grabación:
 - Muestra Supabase sin enseñar claves ni secretos.
 - Presenta únicamente los resultados de testing que estén documentados.
 - Explica que los registros detallados de Users 1 y 3 todavía faltan si aún no los has agregado.
-- Guarda el video en una ubicación accesible para el evaluador.
-- Añade el enlace, fecha y versión al checklist.
+- Si grabas un video, guárdalo en una ubicación accesible y añade el enlace, fecha y versión al checklist.
 
-### 6. Resolver decisiones de alcance
+### 6. Alcance del Dashboard
 
-Confirma si el rubric exige que `/dashboard` muestre también recomendaciones guardadas de `core_outputs`. Actualmente el Dashboard muestra métricas de `parking_spaces`, mientras el preview de recomendaciones está dentro de `/core`.
-
-Si no es obligatorio, documenta esa decisión como una limitación consciente. Si es obligatorio, implementa y prueba el cambio antes de la entrega.
+El propietario ya confirmó que el Dashboard actual es aceptable para el alcance de AI-101. Solo cambia este alcance si el rubric exige explícitamente mostrar recomendaciones de `core_outputs` en `/dashboard`.
 
 ## Revisión Final Antes de Enviar
 
@@ -93,8 +89,8 @@ Si no es obligatorio, documenta esa decisión como una limitación consciente. S
 - [ ] Las cinco sesiones tienen evidencia suficiente para el rubric.
 - [ ] `HUMAN_CHECKPOINTS.md` contiene las confirmaciones personales requeridas.
 - [ ] Hay evidencia de los despliegues Vercel exigidos.
-- [ ] El video de cinco minutos está grabado y enlazado.
-- [ ] La decisión sobre las recomendaciones en `/dashboard` está documentada.
+- [ ] El video de cinco minutos está grabado y enlazado (opcional).
+- [x] La decisión sobre el alcance actual de `/dashboard` está confirmada por el propietario.
 - [ ] `npm run build` pasa.
 - [ ] `git diff --check` pasa.
 - [ ] No hay archivos `.env.local`, claves privadas ni secretos en el commit.

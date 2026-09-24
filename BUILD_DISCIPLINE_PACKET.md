@@ -295,16 +295,16 @@ The following still require Adriano García's personal confirmation before submi
 2. Technical stack selection.
 3. Approval of the generative Core module.
 4. Approval of the Supabase integration.
-5. Final submission approval.
-6. Detailed response records for Users 1 and 3, if those records exist outside the repository.
-7. Whether the main Dashboard must display saved `core_outputs` recommendations for the course rubric.
-8. Evidence of a second Vercel deployment, if the course rubric requires two deployments.
+5. Detailed response records for Users 1 and 3, if those records exist outside the repository.
+6. Evidence of a second Vercel deployment, if the course rubric requires two deployments.
 
 The following are already confirmed by the project owner on September 23, 2026:
 
 - Problem and project selection.
 - Design and functionality approval.
 - User feedback review and iteration approval.
+- Dashboard scope acceptance.
+- Current implementation approval for final submission.
 
 ## Packet Integrity Statement
 

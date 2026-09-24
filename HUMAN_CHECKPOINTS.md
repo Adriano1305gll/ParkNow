@@ -4,7 +4,7 @@
 
 This document records human decisions that are described or evidenced by the current Park Now project materials. It does not create approval evidence after the fact. A decision can be documented without being formally approved, and those cases are marked `PENDING HUMAN CONFIRMATION`.
 
-Dates are included only when they can be tied to a Git commit or an explicit project-owner confirmation. No participant approvals or final-submission approval are claimed here.
+Dates are included only when they can be tied to a Git commit or an explicit project-owner confirmation. No participant approvals or instructor approval are claimed here.
 
 ## Checkpoint Summary
 
@@ -19,6 +19,8 @@ Dates are included only when they can be tied to a Git commit or an explicit pro
 | 7 | Validate that recommendations save correctly | VERIFIED IMPLEMENTATION CHECK | 2026-09-24 reported verification |
 | 8 | Review the live Vercel deployment | VERIFIED DEPLOYMENT CHECK | 2026-09-24 reported verification |
 | 9 | Review user feedback and approve iteration | CONFIRMED BY PROJECT OWNER | September 23, 2026 |
+| 10 | Accept the current Dashboard scope | CONFIRMED BY PROJECT OWNER | September 24, 2026 |
+| 11 | Approve the current Park Now submission | CONFIRMED BY PROJECT OWNER | September 24, 2026 |
 
 ## 1. Choosing the Parking Availability Problem
 
@@ -47,6 +49,34 @@ Adriano García, the project owner, personally identified the available-parking 
 ### Date
 
 September 23, 2026, as confirmed by the project owner.
+
+## 10. Accepting the Current Dashboard Scope
+
+### Decision
+
+Accept the existing Dashboard functionality for the current AI-101 project scope without adding a saved-recommendation view.
+
+### Human Involvement
+
+Adriano García, the project owner, confirmed that the current Dashboard functionality is acceptable and that no additional feature is required unless the course rubric explicitly requires it.
+
+**Status:** `CONFIRMED BY PROJECT OWNER`
+
+**Confirmation date:** September 24, 2026
+
+## 11. Final Submission Approval
+
+### Decision
+
+Approve the current Park Now implementation for the AI-101 final submission.
+
+### Human Involvement
+
+Adriano García confirmed that he is the project owner and personally approves the current implementation for final submission.
+
+**Status:** `CONFIRMED BY PROJECT OWNER`
+
+**Confirmation date:** September 24, 2026
 
 ## 2. Defining the Target Users
 
@@ -289,6 +319,8 @@ Complete these fields only with real confirmation from the project owner, review
 | Save behavior verified | Project owner reported live verification |  | 2026-09-24 | Record count changed from 3 to 4 |
 | Production deployment reviewed | Project owner reported live verification |  | 2026-09-24 | Production URLs listed above |
 | User feedback and iteration approved | Adriano García | Project owner | September 23, 2026 | CONFIRMED BY PROJECT OWNER |
+| Dashboard scope accepted | Adriano García | Project owner | September 24, 2026 | CONFIRMED BY PROJECT OWNER |
+| Final submission approved | Adriano García | Project owner | September 24, 2026 | CONFIRMED BY PROJECT OWNER |
 
 ## Explicit Non-Claims
 

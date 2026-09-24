@@ -15,13 +15,13 @@ This checklist records the evidence currently present in the repository. `COMPLE
 | 5 | Architecture documentation | COMPLETE | `PROJECT_REPORT.md` and `/docs` describe the Next.js/React, Supabase, parking-data, dashboard, and assistant flow, including prototype and production modes. |
 | 6 | Live multi-page application | COMPLETE | The application includes Home, Live Parking, Research, Product, Pricing, Marketing, Assistant, Dashboard, Documentation, Demo, and Core routes. Navigation links to the required pages, and the production build generates 15 routes. |
 | 7 | Working `/core` generative module | COMPLETE | The production page is [Park Now Core](https://park-now-seven.vercel.app/core). It validates constraints, deterministically ranks parking options, handles no-match results, allows valid recommendations to be saved, and reads saved outputs for its preview. A live save increased `core_outputs` from 3 to 4 records. |
-| 8 | Supabase database and dashboard | PARTIAL | Supabase integration is implemented, the migration exists, six tables are present, and `core_outputs` data has been preserved. The main `/dashboard` currently reads `parking_spaces` for occupancy metrics; it does not retrieve saved recommendations from `core_outputs`. |
+| 8 | Supabase database and dashboard | COMPLETE | Supabase integration is implemented, the migration exists, six tables are present, `core_outputs` data has been preserved, and Adriano García confirmed that the current Dashboard scope is acceptable. The Dashboard reads `parking_spaces` for occupancy metrics; saved Core recommendations remain in the Core preview by design. |
 | 9 | Agentic workflows | COMPLETE | `PROJECT_REPORT.md` documents Product Builder and Parking Assistant workflows, including classification, context retrieval, response generation, and guardrails. |
 | 10 | Coding-agent prompt evidence | COMPLETE | `PROJECT_REPORT.md` includes a coding-agent implementation prompt and prompt log. `/docs` includes the reusable `Park Now Core Extraction v1` prompt. |
 | 11 | GitHub commits | COMPLETE | The repository is [Adriano1305gll/ParkNow](https://github.com/Adriano1305gll/ParkNow) with an incremental history. Recent commits cover the core module, Supabase save flow, no-match guardrail, database migration, and user-testing documentation. |
 | 12 | Vercel deployments | PARTIAL | The verified production URL is [park-now-seven.vercel.app](https://park-now-seven.vercel.app), and `/core` is live at [park-now-seven.vercel.app/core](https://park-now-seven.vercel.app/core). Evidence of at least two separate deployments is not recorded in the repository. |
 | 13 | Testing documentation | COMPLETE | `USER_TESTING.md` provides five scenarios, participant instructions, post-session questions, feedback and bug tables, evidence guidance, and a final summary template. |
-| 14 | Human checkpoints | PARTIAL | [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md) records three checkpoints confirmed by Adriano García on September 23, 2026. Target-user, stack, Core, Supabase, and final-submission approvals remain pending. |
+| 14 | Human checkpoints | PARTIAL | [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md) records five owner confirmations, including final submission approval. Individual target-user, stack, Core, and Supabase checkpoint confirmations remain pending. |
 | 15 | Final five-minute demo | COMPLETE | [FINAL_DEMO_SCRIPT.md](FINAL_DEMO_SCRIPT.md) contains the complete timestamped five-minute demonstration with page instructions, clicks, spoken text, and evidence guidance. A demo video is not required for this final audit. |
 
 ## Verified Build and Repository Checks
@@ -40,6 +40,7 @@ This checklist records the evidence currently present in the repository. `COMPLE
 - Final demo script: [FINAL_DEMO_SCRIPT.md](FINAL_DEMO_SCRIPT.md), ready to present; no recording is required for this audit.
 - Human decision record: [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md), with formal approval fields intentionally unfilled.
 - Three owner confirmations are recorded in [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md): problem selection, design/functionality approval, and feedback/iteration approval.
+- Adriano García confirmed the current Dashboard scope and approved the current Park Now implementation for final submission on September 24, 2026.
 - Final delivery guide: [FINAL_DELIVERY_GUIDE.md](FINAL_DELIVERY_GUIDE.md), listing the remaining personal confirmations and submission steps.
 - Build Discipline Packet: [BUILD_DISCIPLINE_PACKET.md](BUILD_DISCIPLINE_PACKET.md), consolidating the final project evidence and known gaps.
 - No `.env.local` file or secret key was found in the tracked project files during the final review.
@@ -142,10 +143,9 @@ No human approvals are claimed until the empty fields are completed with real na
 
 1. Complete and document the remaining real user-testing sessions needed to reach five participants using `USER_TESTING.md`.
 2. Record the remaining participant feedback, bugs, screenshots, consent, and iteration decisions.
-3. Decide whether `/dashboard` must include saved `core_outputs` recommendations; implement and test that behavior if it is part of the final acceptance criteria.
-4. Add evidence of at least two separate Vercel deployments, if required by the course rubric.
-5. Record human approval checkpoints and identify which changes were accepted from testing.
-6. Re-run the build and final repository checks after any remaining application changes.
+3. Add evidence of at least two separate Vercel deployments, if required by the course rubric.
+4. Record the remaining individual checkpoint confirmations if required by the course rubric.
+5. Re-run the build and final repository checks after any remaining application changes.
 
 ## Personal Confirmations Still Required
 
@@ -155,7 +155,6 @@ No human approvals are claimed until the empty fields are completed with real na
 - Confirm approval of the Supabase integration.
 - Confirm final submission approval.
 - Add detailed User 1 and User 3 records if those records exist outside the repository.
-- Decide whether the main Dashboard must display saved `core_outputs` recommendations.
 - Add evidence of a second Vercel deployment if required by the course rubric.
 
 ## Final Submission Sign-Off
