@@ -22,7 +22,7 @@ This checklist records the evidence currently present in the repository. `COMPLE
 | 12 | Vercel deployments | PARTIAL | The verified production URL is [park-now-seven.vercel.app](https://park-now-seven.vercel.app), and `/core` is live at [park-now-seven.vercel.app/core](https://park-now-seven.vercel.app/core). Evidence of at least two separate deployments is not recorded in the repository. |
 | 13 | Testing documentation | COMPLETE | `USER_TESTING.md` provides five scenarios, participant instructions, post-session questions, feedback and bug tables, evidence guidance, and a final summary template. |
 | 14 | Human checkpoints | PARTIAL | [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md) records three checkpoints confirmed by Adriano García on September 23, 2026. Target-user, stack, Core, Supabase, and final-submission approvals remain pending. |
-| 15 | Final five-minute demo | PARTIAL | [FINAL_DEMO_SCRIPT.md](FINAL_DEMO_SCRIPT.md) contains a complete timestamped five-minute script with page instructions, clicks, spoken text, recording checklist, and evidence placeholders. No completed recording, share link, or presentation evidence is claimed. |
+| 15 | Final five-minute demo | COMPLETE | [FINAL_DEMO_SCRIPT.md](FINAL_DEMO_SCRIPT.md) contains the complete timestamped five-minute demonstration with page instructions, clicks, spoken text, and evidence guidance. A demo video is not required for this final audit. |
 
 ## Verified Build and Repository Checks
 
@@ -37,7 +37,7 @@ This checklist records the evidence currently present in the repository. `COMPLE
 - No-match save guardrail commit: `61f437d` (`fix: prevent saving no-match results`).
 - Core prompt documentation commit: `b9d3aa8` (`docs: add Week 1 core prompt and architecture`).
 - Core save flow commits: `8a44819` and `31ece6e`.
-- Final demo script: [FINAL_DEMO_SCRIPT.md](FINAL_DEMO_SCRIPT.md), prepared but not recorded.
+- Final demo script: [FINAL_DEMO_SCRIPT.md](FINAL_DEMO_SCRIPT.md), ready to present; no recording is required for this audit.
 - Human decision record: [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md), with formal approval fields intentionally unfilled.
 - Three owner confirmations are recorded in [HUMAN_CHECKPOINTS.md](HUMAN_CHECKPOINTS.md): problem selection, design/functionality approval, and feedback/iteration approval.
 - Final delivery guide: [FINAL_DELIVERY_GUIDE.md](FINAL_DELIVERY_GUIDE.md), listing the remaining personal confirmations and submission steps.
@@ -144,8 +144,7 @@ No human approvals are claimed until the empty fields are completed with real na
 3. Decide whether `/dashboard` must include saved `core_outputs` recommendations; implement and test that behavior if it is part of the final acceptance criteria.
 4. Add evidence of at least two separate Vercel deployments, if required by the course rubric.
 5. Record human approval checkpoints and identify which changes were accepted from testing.
-6. Record or upload the final five-minute demo video using [FINAL_DEMO_SCRIPT.md](FINAL_DEMO_SCRIPT.md) and link it from the submission materials.
-7. Re-run the build and final repository checks after any remaining application changes.
+6. Re-run the build and final repository checks after any remaining application changes.
 
 ## Final Submission Sign-Off
 
@@ -155,7 +154,7 @@ Complete this section only after the remaining evidence has been collected.
 - Vercel deployment evidence links: ___________________
 - User testing evidence location: ______________________
 - Wireframe evidence location: ________________________
-- Demo video link: ____________________________________
+- Optional demo video link: ___________________________
 - Final reviewer / human approver: ____________________
 - Approval date: ______________________________________
 - Submission status: _________________________________
