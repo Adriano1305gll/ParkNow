@@ -55,6 +55,44 @@ function getSupabaseErrorMessage(error) {
   return `${error.message || 'Supabase returned an unknown error.'}${code}${details}`;
 }
 
+function ParkingDetails({ option, duration }) {
+  return (
+    <article className="rounded-xl border border-white/10 bg-slate-950/40 p-4">
+      <p className="text-sm font-semibold uppercase tracking-[.15em] text-emerald-400">
+        Parking details
+      </p>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <div>
+          <p className="text-xs uppercase tracking-wide text-slate-500">Parking name</p>
+          <strong className="text-white">{option.name}</strong>
+        </div>
+        <div>
+          <p className="text-xs uppercase tracking-wide text-slate-500">Estimated price</p>
+          <strong className="text-white">${getEstimatedCost(option, duration)}</strong>
+        </div>
+        <div>
+          <p className="text-xs uppercase tracking-wide text-slate-500">Walking distance</p>
+          <strong className="text-white">{option.walkingMinutes} minutes</strong>
+        </div>
+        <div>
+          <p className="text-xs uppercase tracking-wide text-slate-500">Opening hours</p>
+          <strong className="text-white">Not provided</strong>
+        </div>
+        <div>
+          <p className="text-xs uppercase tracking-wide text-slate-500">Availability status</p>
+          <strong className="text-emerald-300">Simulated availability</strong>
+        </div>
+        <div>
+          <p className="text-xs uppercase tracking-wide text-slate-500">Accessibility</p>
+          <strong className="text-white">
+            {option.accessible ? 'Accessible option identified' : 'Not identified'}
+          </strong>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 function buildPlan(form) {
   const duration = Number(form.duration);
   const walkingTime = Number(form.walkingTime);
@@ -392,16 +430,7 @@ export default function Core() {
                 <h3>Why it fits</h3>
                 <p>{plan.why}</p>
               </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-xl border border-white/10 bg-slate-950/40 p-4">
-                  <h3 className="text-base">Estimated cost</h3>
-                  <strong className="text-2xl text-white">${plan.estimatedCost}</strong>
-                </div>
-                <div className="rounded-xl border border-white/10 bg-slate-950/40 p-4">
-                  <h3 className="text-base">Walking minutes</h3>
-                  <strong className="text-2xl text-white">{plan.walkingMinutes}</strong>
-                </div>
-              </div>
+              <ParkingDetails option={plan.bestOption} duration={form.duration} />
               <div>
                 <h3>Backup option</h3>
                 <p>{plan.backupOption?.name || 'No backup option available'}</p>
@@ -430,9 +459,13 @@ export default function Core() {
         <section className="card lg:col-span-2">
           <h2>Dashboard preview</h2>
           {previewLoading ? (
-            <p>Loading saved outputs...</p>
+            <p role="status" className="rounded-xl border border-white/10 bg-slate-950/40 p-4">
+              Loading saved recommendations...
+            </p>
           ) : savedOutputs.length === 0 ? (
-            <p>{supabaseError || 'No saved outputs yet.'}</p>
+            <p role="status" className="rounded-xl border border-white/10 bg-slate-950/40 p-4">
+              {supabaseError || 'No saved recommendations yet. Generate and save a valid plan to see it here.'}
+            </p>
           ) : (
             <div className="grid gap-4 md:grid-cols-3">
               {savedOutputs.map((output) => (

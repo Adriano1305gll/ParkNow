@@ -333,3 +333,42 @@ Do not invent completed external testing. Replace these placeholders only after 
 - Architecture documentation
 - Guardrails documented
 - Five-minute demo video
+
+## 21. Testing-Informed Improvements
+
+The following usability improvements were implemented after reviewing the documented feedback from Users 2, 4, and 5. This section does not invent responses from participants whose detailed records are not present in the repository.
+
+### Navigation and Visual Hierarchy
+
+The shared navigation is now grouped into Explore, Plan, Operate, and Learn sections. Each group has a visible label so users can understand the purpose of related routes more quickly. Shared page subtitles are also displayed to provide context below each page title.
+
+### Parking Information
+
+The Core recommendation now includes a parking details card with:
+
+- Parking name.
+- Estimated price based on the submitted duration.
+- Walking distance.
+- Availability status labeled as simulated.
+- Accessibility status when the current recommendation data includes it.
+- Opening hours shown as `Not provided` because opening-hour data is not present in the current database or recommendation options.
+
+The application does not invent prices, hours, distances, or availability. It only displays values already available from the current deterministic recommendation data.
+
+### Loading and Empty States
+
+Live Parking and Dashboard now distinguish among:
+
+- Supabase configuration errors.
+- Data currently loading.
+- A successful response with no parking records.
+
+The Core saved-recommendation preview also explains when it is loading and when no saved recommendations are available. These states prevent an empty or unavailable data response from looking like a valid zero-count parking result.
+
+### Accessibility Information
+
+The Core recommendation card identifies an accessible option when the current recommendation data marks it as accessible. The application does not claim accessibility for records that do not contain that information. A future database-backed accessibility field and accessible-space map treatment remain possible improvements.
+
+### Remaining Improvement Work
+
+The documented participants also suggested clearer heading separation, accessible-space identification, richer parking details such as price, distance, and hours, and clearer loading/no-data messages. The current build addresses the visual hierarchy, available recommendation details, accessibility labeling for known data, and loading/no-data messaging. Reliable opening hours and database-backed accessible-space identification still require appropriate data before they can be presented as complete features.

@@ -1,4 +1,48 @@
 'use client';
+
 import Link from 'next/link';
-const links=[['/','Home'],['/parking','Live Parking'],['/research','Research'],['/product','Product'],['/pricing','Pricing'],['/marketing','Marketing'],['/assistant','Assistant'],['/dashboard','Dashboard'],['/docs','Docs'],['/demo','Demo']];
-export default function Nav(){return <header className="sticky top-0 z-50 border-b border-white/10 bg-[#07111f]/95 backdrop-blur"><div className="mx-auto flex max-w-7xl items-center gap-5 overflow-x-auto px-5 py-4"><Link href="/" className="whitespace-nowrap text-xl font-bold">PARK <span className="text-emerald-400">NOW</span></Link><nav className="flex gap-4 text-sm text-slate-300">{links.map(([h,l])=><Link key={h} className="whitespace-nowrap hover:text-white" href={h}>{l}</Link>)}</nav></div></header>}
+
+const groups = [
+	{
+		label: 'Explore',
+		links: [['/', 'Home'], ['/parking', 'Live Parking'], ['/research', 'Research']],
+	},
+	{
+		label: 'Plan',
+		links: [['/product', 'Product'], ['/pricing', 'Pricing'], ['/core', 'Plan a trip']],
+	},
+	{
+		label: 'Operate',
+		links: [['/dashboard', 'Dashboard'], ['/assistant', 'Assistant']],
+	},
+	{
+		label: 'Learn',
+		links: [['/marketing', 'Marketing'], ['/docs', 'Docs'], ['/demo', 'Demo']],
+	},
+];
+
+export default function Nav() {
+	return (
+		<header className="site-header">
+			<div className="nav-shell">
+				<Link href="/" className="brand" aria-label="Park Now home">
+					PARK <span>NOW</span>
+				</Link>
+				<div className="nav-groups" role="navigation" aria-label="Primary navigation">
+					{groups.map((group) => (
+						<div className="nav-group" key={group.label}>
+							<span className="nav-group-label">{group.label}</span>
+							<div className="nav-links">
+								{group.links.map(([href, label]) => (
+									<Link key={href} href={href}>
+										{label}
+									</Link>
+								))}
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</header>
+	);
+}

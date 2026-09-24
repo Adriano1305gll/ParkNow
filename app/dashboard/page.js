@@ -80,9 +80,17 @@ export default function Dashboard() {
       subtitle="Live parking statistics powered by Supabase."
     >
       {configurationError ? (
-        <p>Supabase is not configured. Add the required environment variables.</p>
+        <div className="card" role="alert">
+          <h2>Dashboard data unavailable</h2>
+          <p>Supabase is not configured. Add the required environment variables to load facility metrics.</p>
+        </div>
       ) : loading ? (
-        <p>Loading dashboard data...</p>
+        <p className="card" role="status">Loading dashboard data...</p>
+      ) : spots.length === 0 ? (
+        <div className="card" role="status">
+          <h2>No occupancy data available</h2>
+          <p>The dashboard has no parking-space records to summarize yet.</p>
+        </div>
       ) : (
         <>
           <section className="status">

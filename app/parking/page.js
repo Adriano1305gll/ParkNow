@@ -75,40 +75,50 @@ export default function Parking() {
       subtitle="Real-time parking availability powered by Supabase."
     >
       <section>
-        <div className="status">
-          <div>
-            <h3>Available</h3>
-            <strong>{available}</strong>
-          </div>
-
-          <div>
-            <h3>Occupied</h3>
-            <strong>{occupied}</strong>
-          </div>
-
-          <div>
-            <h3>Total Spaces</h3>
-            <strong>{spots.length}</strong>
-          </div>
-        </div>
-
         {configurationError ? (
-          <p>Supabase is not configured. Add the required environment variables.</p>
-        ) : loading ? (
-          <p>Loading parking availability...</p>
-        ) : (
-          <div className="parking-grid">
-            {spots.map((spot) => (
-              <div
-                key={spot.id}
-                className={`parking-space ${
-                  spot.status === 'available' ? 'available' : 'occupied'
-                }`}
-              >
-                {spot.space_number}
-              </div>
-            ))}
+          <div className="card" role="alert">
+            <h2>Parking data unavailable</h2>
+            <p>Supabase is not configured. Add the required environment variables to load current availability.</p>
           </div>
+        ) : loading ? (
+          <p className="card" role="status">Loading parking availability...</p>
+        ) : spots.length === 0 ? (
+          <div className="card" role="status">
+            <h2>No parking data available</h2>
+            <p>The parking service returned no spaces for Central Garage.</p>
+          </div>
+        ) : (
+          <>
+            <div className="status">
+              <div>
+                <h3>Available</h3>
+                <strong>{available}</strong>
+              </div>
+
+              <div>
+                <h3>Occupied</h3>
+                <strong>{occupied}</strong>
+              </div>
+
+              <div>
+                <h3>Total Spaces</h3>
+                <strong>{spots.length}</strong>
+              </div>
+            </div>
+
+            <div className="parking-grid">
+              {spots.map((spot) => (
+                <div
+                  key={spot.id}
+                  className={`parking-space ${
+                    spot.status === 'available' ? 'available' : 'occupied'
+                  }`}
+                >
+                  {spot.space_number}
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </section>
     </Page>
