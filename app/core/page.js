@@ -227,7 +227,7 @@ export default function Core() {
       estimated_cost: plan.estimatedCost ?? null,
       walking_minutes: plan.walkingMinutes ?? null,
       backup_option: plan.backupOption?.name || 'No backup option available',
-      risks: plan.risks,
+      risks: JSON.stringify(plan.risks),
       simulation_notice: 'Prototype recommendation; availability is simulated.',
     };
 
