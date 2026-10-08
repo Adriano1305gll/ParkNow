@@ -21,6 +21,7 @@ Dates are included only when they can be tied to a Git commit or an explicit pro
 | 9 | Review user feedback and approve iteration | CONFIRMED BY PROJECT OWNER | September 23, 2026 |
 | 10 | Accept the current Dashboard scope | CONFIRMED BY PROJECT OWNER | September 24, 2026 |
 | 11 | Approve the current Park Now submission | CONFIRMED BY PROJECT OWNER | September 24, 2026 |
+| 12 | Keep the Week 3 monthly subscription prices | CONFIRMED BY PROJECT OWNER | October 8, 2026 |
 
 ## 1. Choosing the Parking Availability Problem
 
@@ -77,6 +78,25 @@ Adriano García confirmed that he is the project owner and personally approves t
 **Status:** `CONFIRMED BY PROJECT OWNER`
 
 **Confirmation date:** September 24, 2026
+
+## 12. Keeping the Week 3 Subscription Prices
+
+### Decision
+
+Keep the monthly subscription prices used by the Week 3 pricing simulator: Basic MXN 499, Pro MXN 1,499, and Enterprise MXN 3,999.
+
+### Human Involvement
+
+Adriano García, the project owner, explicitly approved keeping these prices. The prices are illustrative for the university project and are not backed by market validation or real payments.
+
+**Status:** `CONFIRMED BY PROJECT OWNER`
+
+**Confirmation date:** October 8, 2026
+
+### Evidence Available
+
+- `app/pricing/page.js` and `components/PricingSimulator.js` use these prices.
+- See [WEEK3_SUBMISSION.md](WEEK3_SUBMISSION.md) for the simulator specification.
 
 ## 2. Defining the Target Users
 
