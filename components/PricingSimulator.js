@@ -1,19 +1,18 @@
 
 "use client";
 
-import { useState } from "react";
-
-const prices = {
-  Basic: 499,
-  Pro: 1499,
-  Enterprise: 3999
-};
-
-const scenarios = {
-  Conservative: { Basic: 10, Pro: 5, Enterprise: 1 },
-  Expected: { Basic: 20, Pro: 10, Enterprise: 3 },
-  Optimistic: { Basic: 50, Pro: 25, Enterprise: 10 }
-};
+import { useEffect, useState } from "react";
+import {
+  prices,
+  scenarios,
+  MAX_CUSTOMERS,
+  parseCustomers,
+  calculateRevenue,
+  saveScenario,
+  loadSaved,
+  deleteScenario,
+  getScenario
+} from "../lib/pricingScenarios.mjs";
 
 const formatMoney = (value) =>
   new Intl.NumberFormat("es-MX", {
@@ -22,29 +21,38 @@ const formatMoney = (value) =>
     maximumFractionDigits: 0
   }).format(value);
 
-const MAX_CUSTOMERS = 100000;
-
-function parseCustomers(value) {
-  const text = String(value).trim();
-  if (!/^\d+$/.test(text)) return null;
-  const number = Number(text);
-  return number <= MAX_CUSTOMERS ? number : null;
-}
-
-function calculateRevenue(customers) {
-  return Object.keys(prices).reduce(
-    (total, plan) =>
-      total + (parseCustomers(customers[plan]) ?? 0) * prices[plan],
-    0
-  );
-}
-
 export default function PricingSimulator() {
   const [customers, setCustomers] = useState({
     ...scenarios.Expected
   });
 
   const [scenario, setScenario] = useState("Expected");
+  const [saved, setSaved] = useState([]);
+  const [name, setName] = useState("");
+  const [saveError, setSaveError] = useState(null);
+
+  useEffect(() => {
+    setSaved(loadSaved(window.localStorage));
+  }, []);
+
+  function handleSave() {
+    const result = saveScenario(window.localStorage, name, customers);
+    setSaveError(result.error);
+    setSaved(result.saved);
+    if (!result.error) setName("");
+  }
+
+  function handleLoad(id) {
+    const item = getScenario(window.localStorage, id);
+    if (!item) return;
+    setCustomers({ ...item.customers });
+    setScenario(item.name);
+    setSaveError(null);
+  }
+
+  function handleDelete(id) {
+    setSaved(deleteScenario(window.localStorage, id));
+  }
 
   const monthlyRevenue = calculateRevenue(customers);
   const annualRevenue = monthlyRevenue * 12;
@@ -154,6 +162,81 @@ export default function PricingSimulator() {
             {formatMoney(annualRevenue)}
           </p>
         </div>
+      </div>
+
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+        <h3 className="text-xl font-bold text-white">
+          Saved Scenarios
+        </h3>
+
+        <div className="mt-4 flex flex-wrap gap-3">
+          <input
+            type="text"
+            aria-label="Scenario name"
+            placeholder="Scenario name"
+            maxLength={60}
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            className="flex-1 rounded-xl border border-white/20 bg-slate-900 p-3 text-white"
+          />
+          <button
+            type="button"
+            onClick={handleSave}
+            className="rounded-xl bg-emerald-600 px-5 py-3 font-semibold text-white"
+          >
+            Save Scenario
+          </button>
+        </div>
+
+        {saveError && (
+          <p className="mt-2 text-sm text-red-400">{saveError}</p>
+        )}
+
+        {saved.length === 0 ? (
+          <p className="mt-4 text-sm text-slate-400">
+            No saved scenarios yet.
+          </p>
+        ) : (
+          <ul className="mt-4 space-y-3">
+            {saved.map((item) => (
+              <li
+                key={item.id}
+                className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/10 p-4 text-sm text-slate-300"
+              >
+                <div>
+                  <p className="font-semibold text-white">
+                    {item.name}
+                  </p>
+                  <p>
+                    Basic {item.customers.Basic} / Pro{" "}
+                    {item.customers.Pro} / Enterprise{" "}
+                    {item.customers.Enterprise}
+                  </p>
+                  <p>
+                    Monthly {formatMoney(item.monthlyRevenue)} ·
+                    Annual {formatMoney(item.annualRevenue)}
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handleLoad(item.id)}
+                    className="rounded-xl border border-white/20 px-4 py-2 text-slate-300"
+                  >
+                    Load
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(item.id)}
+                    className="rounded-xl border border-red-400/40 px-4 py-2 text-red-400"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
