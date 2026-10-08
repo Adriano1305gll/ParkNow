@@ -1,5 +1,6 @@
 
 import Page from "../../components/Page";
+import PricingSimulator from "../../components/PricingSimulator";
 
 const plans = [
   {
@@ -89,6 +90,8 @@ export default function Pricing() {
         university project. No real payments
         are processed.
       </p>
+
+      <PricingSimulator />
     </Page>
   );
 }
