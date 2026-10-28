@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import Page from '../../components/Page';
 import CopyButton from '../../components/CopyButton';
-import { audiences, posts, scripts } from '../../lib/marketingContent';
+import { audiences, posts, scripts } from '../../lib/marketingContent.mjs';
 import { campaignDays, audienceLabels } from '../../lib/campaignCalendar.mjs';
 import { experiments, RESULTS_NOTICE } from '../../lib/abExperiments.mjs';
 import ExperimentCard from '../../components/ExperimentCard';
+import SaveButton from '../../components/SaveButton';
+import SavedContent from '../../components/SavedContent';
 
 function AudienceBadge({ audience }) {
   if (audience === 'both') {
@@ -41,6 +43,8 @@ function scriptText(s) {
 }
 
 export default function Marketing() {
+  const postItem = (p) => ({ id: p.id, type: 'post', title: p.title, audience: audienceLabels[p.audience], platform: p.platform, text: p.body });
+  const scriptItem = (s) => ({ id: s.id, type: 'script', title: s.title, audience: audienceLabels[s.audience], platform: 'Short-form video', text: scriptText(s) });
   return (
     <Page
       eyebrow="Marketing content system"
@@ -90,6 +94,7 @@ export default function Marketing() {
               <div className="mt-4 flex flex-1 items-end gap-2">
                 <Link href={d.href} className="rounded-lg bg-emerald-400 px-3 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-300">{d.cta}</Link>
                 <CopyButton text={copyText} label="Copy content" />
+                <SaveButton item={{ id: `day-${d.day}`, type: 'campaign', title: `Day ${d.day}: ${d.objective}`, audience: audienceLabels[d.audience], platform: d.platform, text: `Format: ${d.format}\nMessage: ${d.message}\nCall to action: ${d.cta}\n\n${copyText}` }} />
               </div>
             </article>
           );
@@ -106,8 +111,9 @@ export default function Marketing() {
             </div>
             <h3 className="mt-3 text-xl font-bold text-white">{p.title}</h3>
             <p className="mt-3 flex-1 whitespace-pre-line text-slate-300">{p.body}</p>
-            <div className="mt-5">
+            <div className="mt-5 flex gap-2">
               <CopyButton text={p.body} label="Copy post" />
+              <SaveButton item={postItem(p)} />
             </div>
           </article>
         ))}
@@ -134,8 +140,9 @@ export default function Marketing() {
             <p>{s.narration}</p>
             <p className="mt-4 text-xs font-bold uppercase tracking-widest text-emerald-400">Call to action</p>
             <p className="flex-1 text-slate-200">{s.cta}</p>
-            <div className="mt-5">
+            <div className="mt-5 flex gap-2">
               <CopyButton text={scriptText(s)} label="Copy script" />
+              <SaveButton item={scriptItem(s)} />
             </div>
           </article>
         ))}
@@ -147,6 +154,11 @@ export default function Marketing() {
         {experiments.map((e) => (
           <ExperimentCard key={e.id} experiment={e} notice={RESULTS_NOTICE} />
         ))}
+      </div>
+
+      <h2 className="mt-14 text-3xl font-bold text-white">Saved content</h2>
+      <div className="mt-6">
+        <SavedContent />
       </div>
 
       <div className="mt-14 rounded-3xl border border-emerald-400/20 bg-emerald-400/10 p-8">
