@@ -3,6 +3,8 @@ import Page from '../../components/Page';
 import CopyButton from '../../components/CopyButton';
 import { audiences, posts, scripts } from '../../lib/marketingContent';
 import { campaignDays, audienceLabels } from '../../lib/campaignCalendar.mjs';
+import { experiments, RESULTS_NOTICE } from '../../lib/abExperiments.mjs';
+import ExperimentCard from '../../components/ExperimentCard';
 
 function AudienceBadge({ audience }) {
   if (audience === 'both') {
@@ -136,6 +138,14 @@ export default function Marketing() {
               <CopyButton text={scriptText(s)} label="Copy script" />
             </div>
           </article>
+        ))}
+      </div>
+
+      <h2 className="mt-14 text-3xl font-bold text-white">A/B marketing experiments</h2>
+      <p className="mt-2 text-sm text-slate-400">Planned experiments only. {RESULTS_NOTICE}</p>
+      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+        {experiments.map((e) => (
+          <ExperimentCard key={e.id} experiment={e} notice={RESULTS_NOTICE} />
         ))}
       </div>
 
