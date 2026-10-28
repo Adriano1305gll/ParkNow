@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Page from '../../components/Page';
 import CopyButton from '../../components/CopyButton';
 import { audiences, posts, scripts } from '../../lib/marketingContent';
+import { campaignDays, audienceLabels } from '../../lib/campaignCalendar.mjs';
 
 function AudienceBadge({ audience }) {
   if (audience === 'both') {
@@ -61,7 +62,39 @@ export default function Marketing() {
         connected to physical sensors.
       </p>
 
-      <h2 className="mt-12 text-3xl font-bold text-white">Social posts ({posts.length})</h2>
+      <h2 className="mt-12 text-3xl font-bold text-white">14-day campaign calendar</h2>
+      <p className="mt-2 text-sm text-slate-400">
+        Messages are draft plans, not results. Any parking availability shown in campaign content is simulated.
+      </p>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {campaignDays.map((d) => {
+          const source = posts.find((p) => p.id === d.contentRef) || scripts.find((s) => s.id === d.contentRef);
+          const copyText = source && source.body ? source.body : source ? scriptText(source) : d.message;
+          return (
+            <article key={d.day} className="flex flex-col rounded-2xl border border-white/10 bg-[#0b1b30] p-5">
+              <div className="flex items-center justify-between gap-2">
+                <span className="rounded-lg bg-emerald-400 px-3 py-1 text-sm font-bold text-slate-950">Day {d.day}</span>
+                <span className="text-sm font-semibold text-emerald-300">{d.platform}</span>
+              </div>
+              <p className={`mt-3 inline-block self-start rounded-full border px-3 py-1 text-xs font-semibold ${d.audience === 'owner' ? 'border-amber-300/40 bg-amber-300/10 text-amber-200' : d.audience === 'driver' ? 'border-emerald-400/40 bg-emerald-400/10 text-emerald-300' : 'border-white/20 bg-white/5 text-slate-200'}`}>
+                {audienceLabels[d.audience]}
+              </p>
+              <dl className="mt-3 space-y-2 text-sm">
+                <div><dt className="text-xs font-bold uppercase tracking-widest text-emerald-400">Format</dt><dd>{d.format}</dd></div>
+                <div><dt className="text-xs font-bold uppercase tracking-widest text-emerald-400">Objective</dt><dd>{d.objective}</dd></div>
+                <div><dt className="text-xs font-bold uppercase tracking-widest text-emerald-400">Message</dt><dd className="text-slate-200">{d.message}</dd></div>
+                <div><dt className="text-xs font-bold uppercase tracking-widest text-emerald-400">Call to action</dt><dd>{d.cta}</dd></div>
+              </dl>
+              <div className="mt-4 flex flex-1 items-end gap-2">
+                <Link href={d.href} className="rounded-lg bg-emerald-400 px-3 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-300">{d.cta}</Link>
+                <CopyButton text={copyText} label="Copy content" />
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <h2 className="mt-14 text-3xl font-bold text-white">Social posts ({posts.length})</h2>
       <div className="mt-6 grid gap-6 md:grid-cols-2">
         {posts.map((p) => (
           <article key={p.id} className="flex flex-col rounded-2xl border border-white/10 bg-[#0b1b30] p-6">
