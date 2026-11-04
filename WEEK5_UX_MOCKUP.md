@@ -38,6 +38,8 @@ Approved: rule-based guided assistant, three initial questions,
 feedback, Supabase persistence, and human-help option.
 
 **Note:** This document describes the planned UX,
-not a completed implementation.## Visual UX Mockup
+not a completed implementation.
+
+## Visual UX Mockup
 
 ![ParkNow Week 5 Chat UX Mockup](evidence/week5/week5-chat-ux-mockup.png)
