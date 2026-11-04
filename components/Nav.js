@@ -13,7 +13,7 @@ const groups = [
 	},
 	{
 		label: 'Operate',
-		links: [['/dashboard', 'Dashboard'], ['/assistant', 'Assistant']],
+		links: [['/dashboard', 'Dashboard'], ['/assistant', 'Assistant'], ['/chat', 'Chat']],
 	},
 	{
 		label: 'Learn',
