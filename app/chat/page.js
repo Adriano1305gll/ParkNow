@@ -8,43 +8,167 @@ import {
   getChatReply,
 } from '../../lib/chatRules.mjs';
 
+const MAX_COMMENT = 500;
+
+function Feedback({ message, conversationId }) {
+  const [rating, setRating] = useState(null);
+  const [comment, setComment] = useState('');
+  const [status, setStatus] = useState('idle'); // idle | sending | done
+  const [error, setError] = useState('');
+  const id = message.messageId;
+
+  if (!message.saved) {
+    return (
+      <p className="mt-3 text-xs text-slate-400">
+        Feedback is unavailable because this answer was not saved.
+      </p>
+    );
+  }
+
+  async function submit(e) {
+    e.preventDefault();
+    if (!rating || status !== 'idle') return;
+    setStatus('sending');
+    setError('');
+    try {
+      const res = await fetch('/api/chat/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messageId: id, conversationId: message.conversationId, rating, comment }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.saved) {
+        setStatus('done');
+      } else if (res.status === 409) {
+        setStatus('done');
+      } else {
+        setError(data.error || 'Feedback could not be saved. Please try again.');
+        setStatus('idle');
+      }
+    } catch {
+      setError('Network error. Feedback was not saved. Please try again.');
+      setStatus('idle');
+    }
+  }
+
+  if (status === 'done') {
+    return (
+      <p role="status" className="mt-3 text-sm text-emerald-300">
+        Thanks! Your feedback was saved.
+      </p>
+    );
+  }
+
+  const btn = (value, label, icon) => (
+    <button
+      type="button"
+      aria-pressed={rating === value}
+      aria-label={label}
+      onClick={() => setRating(value)}
+      disabled={status === 'sending'}
+      className={`min-h-[44px] min-w-[44px] rounded-lg border px-3 py-1 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-400 disabled:opacity-50 ${
+        rating === value ? 'border-emerald-400 bg-emerald-500/20' : 'border-slate-600 hover:bg-white/10'
+      }`}
+    >
+      <span aria-hidden="true">{icon}</span>
+    </button>
+  );
+
+  return (
+    <form onSubmit={submit} className="mt-3 border-t border-slate-600/60 pt-2" aria-label="Rate this answer">
+      <div className="flex items-center gap-2" role="group" aria-label="Was this answer helpful?">
+        <span className="text-xs text-slate-300">Helpful?</span>
+        {btn('up', 'Helpful answer', '👍')}
+        {btn('down', 'Not helpful answer', '👎')}
+      </div>
+      {rating && (
+        <div className="mt-2">
+          <label htmlFor={`fb-${id}`} className="block text-xs text-slate-300">
+            Optional comment
+          </label>
+          <textarea
+            id={`fb-${id}`}
+            value={comment}
+            maxLength={MAX_COMMENT}
+            rows={2}
+            onChange={(e) => setComment(e.target.value)}
+            disabled={status === 'sending'}
+            className="mt-1 w-full rounded-lg border border-slate-600 bg-[#07111f] px-2 py-1 text-sm text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-400"
+          />
+          <button
+            type="submit"
+            disabled={status === 'sending'}
+            className="mt-1 min-h-[44px] rounded-lg bg-emerald-500 px-3 py-1 text-sm font-semibold text-slate-950 hover:bg-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white disabled:opacity-50"
+          >
+            {status === 'sending' ? 'Sending…' : 'Send feedback'}
+          </button>
+        </div>
+      )}
+      {error && (
+        <p role="alert" className="mt-2 text-sm text-red-300">
+          {error}
+        </p>
+      )}
+    </form>
+  );
+}
+
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [conversationId, setConversationId] = useState(null);
   const endRef = useRef(null);
-  const timer = useRef(null);
+  const requestId = useRef(0);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [messages, loading]);
 
-  useEffect(() => () => clearTimeout(timer.current), []);
-
-  function send(text) {
+  async function send(text) {
     if (loading) return;
-    const reply = getChatReply(text);
-    if (!reply.ok) {
-      setError(reply.error);
+    const local = getChatReply(text);
+    if (!local.ok) {
+      setError(local.error);
       return;
     }
     setError('');
     setInput('');
     setMessages((m) => [...m, { role: 'user', text: text.trim() }]);
     setLoading(true);
-    timer.current = setTimeout(() => {
-      setMessages((m) => [...m, { role: 'bot', ...reply }]);
-      setLoading(false);
-    }, 400);
+    const current = ++requestId.current;
+    let reply;
+    try {
+      const res = await fetch('/api/chat/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text.trim(), conversationId }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.answer) {
+        reply = data;
+      } else if (res.status === 404) {
+        reply = { ...local, saved: false, saveError: 'This conversation could not be found. Start a new chat to save again.' };
+      } else {
+        reply = { ...local, saved: false, saveError: 'Could not save this conversation.' };
+      }
+    } catch {
+      reply = { ...local, saved: false, saveError: 'Network error. This conversation was not saved.' };
+    }
+    if (current !== requestId.current) return;
+    if (reply.saved && reply.conversationId) setConversationId(reply.conversationId);
+    setMessages((m) => [...m, { role: 'bot', ...reply }]);
+    setLoading(false);
   }
 
   function reset() {
-    clearTimeout(timer.current);
+    requestId.current++;
     setMessages([]);
     setLoading(false);
     setError('');
     setInput('');
+    setConversationId(null);
   }
 
   return (
@@ -96,6 +220,9 @@ export default function ChatPage() {
                     {AVAILABILITY_NOTE}
                   </p>
                 )}
+                {m.saved === false && m.saveError && (
+                  <p className="mt-2 text-xs text-amber-200">{m.saveError}</p>
+                )}
                 {m.humanHelp && (
                   <p className="mt-2 text-sm">
                     <a
@@ -106,6 +233,7 @@ export default function ChatPage() {
                     </a>
                   </p>
                 )}
+                <Feedback message={m} conversationId={conversationId} />
               </div>
             )
           )}
