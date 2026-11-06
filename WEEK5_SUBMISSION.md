@@ -59,3 +59,18 @@ The complete AC01–AC09 audit, with PASS/PARTIAL/PENDING statuses and evidence,
 ## Honest limitations
 
 The approved scope remains the original specification in the build packet. The current UI provides optional starter questions and free-form chat, not a guided three-question intake. No external user testing, mobile responsiveness testing, complete prompt log, security assessment, or demo video is claimed as complete. The unsupported-answer contact link currently targets `support@parknow.example`, which is a placeholder. The manual production and Supabase evidence above is reported by the project owner rather than independently reproduced or supported by attached screenshots.
+
+
+## Personal Decision Note — Week 5
+
+For Week 5, I decided to build a guided, rule-based chat assistant for ParkNow instead of using a fully generative AI chatbot. My main reason was to make the answers more reliable, easier to test, and more useful for drivers.
+
+The assistant helps users understand how to find parking, check the available information, and learn about pricing. I also wanted the application to be transparent, so it clearly explains that parking occupancy is simulated and not verified in real time.
+
+One important improvement was connecting the chat to Supabase. This allows conversations, messages, and user feedback to be stored. During testing, I confirmed that the application could save this information correctly.
+
+The biggest trade-off was flexibility. A rule-based assistant cannot answer every possible question like a generative AI model, but it provides more predictable responses and reduces the risk of giving incorrect parking information.
+
+If I continued developing ParkNow, I would improve the assistant's understanding of different questions, test it with real drivers and parking lot owners, and eventually connect it to verified parking availability data.
+
+Overall, this week taught me that building a useful AI product is not just about adding advanced technology. It is about choosing the right solution, testing it, and making sure users can trust the information they receive.
