@@ -1,6 +1,6 @@
 # ParkNow — Week 6 Submission
 
-**Status:** Implementation, local automated verification, and two Vercel Preview deployments are complete on `week6-implementation`. Hosted page behavior remains unverified because Vercel SSO protects the Preview routes. External-user tests and manual browser regression are not complete. Production deployment and merge to `main` are not authorized.
+**Status:** Implementation, local automated verification, two Vercel Preview deployments, and the owner-reported Codespaces walkthrough are complete on `week6-implementation`. Hosted Preview behavior remains unverified because Vercel SSO protects those routes. External-user tests and full manual browser regression are not complete. Production deployment and merge to `main` are not authorized.
 
 Planning baseline: [Build Discipline Packet](./WEEK6_BUILD_DISCIPLINE_PACKET.md) · [UX Mockup](./WEEK6_UX_MOCKUP.md) · [Architecture](./WEEK6_ARCHITECTURE.md) · [Prompt Log](./WEEK6_PROMPT_LOG.md)
 
@@ -20,7 +20,7 @@ The project owner approved the deterministic Parking Planner → Chat Guide → 
 |---|---|
 | W6-01 `/demo` page and guided purpose | **Local verified:** production build generates `/demo`; local HTTP returned 200. Both Preview deployments succeeded, but hosted `/demo` redirects to Vercel SSO and could not be visually checked. |
 | W6-02 existing-feature links | **Local verified:** `/parking`, `/core`, `/chat`, `/assistant`, `/dashboard`, `/pricing`, `/research`, `/docs`, `/product`, and `/marketing` all returned 200 in the expanded local route smoke check. |
-| W6-03 ordered orchestration | **Automated + local verified:** three real agents completed in order with a generated run ID; integration tests inspect execution and response trace. |
+| W6-03 ordered orchestration | **Automated + owner-reported manual verified:** three real agents completed in order with displayed handoffs and expected outputs in Codespaces; integration tests inspect execution and response trace. The manual check is reported by the project owner, not independently reproduced here. |
 | W6-04 shared parking planner | **Automated verified:** `/core` sample regression remains Central Garage / $6 / 6 minutes / Market Street Lot backup. |
 | W6-05 chat handoff and guardrail | **Automated verified:** availability answer preserves the no-real-time guarantee; unsupported question preserves `humanHelp` and is tested. |
 | W6-06 viability handoff and formula | **Automated + local verified:** inputs validated; expected hypothetical outputs are MXN 36,967 monthly and MXN 443,604 annually. |
@@ -41,7 +41,8 @@ The project owner approved the deterministic Parking Planner → Chat Guide → 
 | Dedicated lint command | **Not available.** `npm run` exposes `dev`, `build`, `start`, and `test`; there is no `lint` script or standalone ESLint installation. |
 | Local HTTP page smoke | **Passed:** `/`, `/parking`, `/core`, `/chat`, `/assistant`, `/dashboard`, `/pricing`, `/research`, `/docs`, `/demo`, `/product`, and `/marketing` all returned HTTP 200. |
 | Local orchestrator POST | **Passed:** three `completed` statuses, expected parking and revenue outputs, `not_configured` occupancy status, and explicit chat/data caveat. This used local configuration and did not verify Supabase occupancy data. |
-| Full interaction/browser regression | **Pending:** no browser automation or manual viewport/keyboard session was performed in this environment. |
+| Codespaces three-agent walkthrough | **Owner-reported PASS:** the project owner manually verified all three agents completed, their handoffs displayed, and expected outputs appeared in Codespaces. This is not external-user testing, hosted Preview verification, or a full browser/accessibility regression. |
+| Full interaction/browser regression | **Pending:** no browser automation or independent viewport/keyboard session was performed for this review. |
 
 Automated testing imports the Next.js route module to check malformed/oversized request behavior; Node emits a `MODULE_TYPELESS_PACKAGE_JSON` warning because the repository is not configured as a package-wide ES module. Tests still pass, and the Next.js production build succeeds. No package-wide module setting was changed.
 
@@ -61,6 +62,10 @@ Automated testing imports the Next.js route module to check malformed/oversized 
 - [x] `/demo`
 - [x] `/product`
 - [x] `/marketing`
+
+### Three-agent demo walkthrough
+
+- [x] **Owner-reported manual check in Codespaces:** all three agents completed, displayed their handoffs, and produced the expected outputs. No participant/user testing is implied by this check.
 
 ### Existing feature interactions — manual checks still pending
 

@@ -437,7 +437,7 @@ export default function Demo() {
               <li><span className="font-semibold text-emerald-200">Automated:</span> planner, agent handoffs, invalid input, and failure-blocking cases are implemented; final full-suite result is recorded in the submission evidence.</li>
               <li><span className="font-semibold text-amber-100">External users:</span> five sessions are planned; no participant results are claimed yet.</li>
               <li><span className="font-semibold text-amber-100">Full-site regression:</span> checklist is in the Week 6 submission; manual checks remain evidence-gated.</li>
-              <li><span className="font-semibold text-amber-100">Preview deployments:</span> deployment evidence is pending and must reference actual successful Vercel records.</li>
+              <li><span className="font-semibold text-amber-100">Preview deployments:</span> two successful deployments are recorded; Vercel SSO blocked hosted `/demo` verification.</li>
             </ul>
             <Link href="/docs" className="mt-4 inline-block text-emerald-300 underline underline-offset-4">Review current documentation</Link>
           </article>
