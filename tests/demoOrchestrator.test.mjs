@@ -86,6 +86,25 @@ test('downstream inputs reflect changed planner and chat outputs', () => {
   assert.equal(viability.dataBasis.includes('chat intent: availability'), true);
 });
 
+test('unsupported chat preserves the existing human-help boundary', async () => {
+  const result = await orchestrateDemo({
+    ...validInput,
+    question: 'Can you guarantee a place for my event?',
+  }, {
+    runId: () => 'unsupported-run',
+    readOccupancy: async () => ({
+      sourceStatus: 'not_configured',
+      provenance: 'simulated_or_unverified',
+    }),
+  });
+
+  const chat = result.agents.find((agent) => agent.agentId === 'chat-guide');
+  assert.equal(chat.output.intent, 'unsupported');
+  assert.equal(chat.output.humanHelp, true);
+  assert.match(chat.output.answer, /contact the ParkNow team/i);
+  assert.equal(result.agents[2].status, 'completed');
+});
+
 test('unknown occupancy statuses never produce counts', () => {
   const result = summarizeOccupancyRows([
     { status: 'available' },
@@ -132,6 +151,44 @@ test('a failed upstream agent is visible and blocks dependent agents', async () 
   });
   assert.equal(result.status, 'failed');
   assert.deepEqual(result.agents.map((agent) => agent.status), ['failed', 'blocked', 'blocked']);
+});
+
+test('a failed Chat Guide blocks Venture Viability after Parking Planner completes', async () => {
+  const result = await orchestrateDemo(validInput, {
+    runId: () => 'chat-failed-run',
+    readOccupancy: async () => ({
+      sourceStatus: 'empty',
+      provenance: 'simulated_or_unverified',
+    }),
+    runChat: async () => { throw new Error('injected chat failure'); },
+  });
+
+  assert.equal(result.status, 'failed');
+  assert.deepEqual(result.agents.map((agent) => agent.status), [
+    'completed',
+    'failed',
+    'blocked',
+  ]);
+  assert.deepEqual(result.agents[2].consumedFrom, ['parking-planner', 'chat-guide']);
+});
+
+test('a failed final agent is reported without changing completed upstream results', async () => {
+  const result = await orchestrateDemo(validInput, {
+    runId: () => 'viability-failed-run',
+    readOccupancy: async () => ({
+      sourceStatus: 'empty',
+      provenance: 'simulated_or_unverified',
+    }),
+    runViability: async () => { throw new Error('injected viability failure'); },
+  });
+
+  assert.equal(result.status, 'failed');
+  assert.deepEqual(result.agents.map((agent) => agent.status), [
+    'completed',
+    'completed',
+    'failed',
+  ]);
+  assert.equal(result.agents[2].output.message, 'Venture Viability Agent failed.');
 });
 
 test('orchestration endpoint rejects malformed and oversized request bodies', async () => {
