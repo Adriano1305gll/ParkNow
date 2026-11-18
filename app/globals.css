@@ -27,6 +27,28 @@ a {
   text-decoration: none;
 }
 
+:focus-visible {
+  outline: 3px solid #86efac;
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  transform: translateY(-150%);
+  border-radius: 8px;
+  background: #86efac;
+  color: #04120a;
+  padding: 10px 14px;
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 /* Navigation */
 
 .site-header {

@@ -29,7 +29,7 @@ The project owner approved the deterministic Parking Planner → Chat Guide → 
 | W6-09 output disclosure and no orchestration writes | **Source/test verified:** the page discloses simulated/unverified occupancy; orchestration uses only a read query and returns no saved run. No production database audit was performed. |
 | W6-10 saved-record guidance | **Content verified:** `/demo` distinguishes unsaved orchestration runs from existing `/core`, `/research`, `/chat`, and browser-local `/pricing` records. |
 | W6-11 evidence and impact truthfulness | **Content verified:** revenue and impact remain hypothetical; deployment and participant evidence are explicitly pending. |
-| W6-12 branding, accessibility, responsive behavior | **Partially verified:** existing navy/green styles and semantic labels are used; manual keyboard, screen-reader, mobile, and contrast checks remain pending. |
+| W6-12 branding, accessibility, responsive behavior | **Source-reviewed; partially addressed:** labelled controls, fieldsets/legends, headings, and navigation landmarks are present. Added a skip-to-main link and visible keyboard focus outlines. Responsive grid breakpoints and a horizontally scrollable navigation are present in source. Keyboard operation, screen-reader output, rendered mobile/desktop layout, and contrast remain untested manually. |
 | W6-13 preservation of unrelated functionality | **Partially verified:** all 49 automated tests pass and local page routes return 200. Detailed existing-feature interactions remain on the regression checklist below. |
 
 ## 3. Automated and local test evidence
@@ -42,7 +42,8 @@ The project owner approved the deterministic Parking Planner → Chat Guide → 
 | Local HTTP page smoke | **Passed:** `/`, `/parking`, `/core`, `/chat`, `/assistant`, `/dashboard`, `/pricing`, `/research`, `/docs`, `/demo`, `/product`, and `/marketing` all returned HTTP 200. |
 | Local orchestrator POST | **Passed:** three `completed` statuses, expected parking and revenue outputs, `not_configured` occupancy status, and explicit chat/data caveat. This used local configuration and did not verify Supabase occupancy data. |
 | Codespaces three-agent walkthrough | **Owner-reported PASS:** the project owner manually verified all three agents completed, their handoffs displayed, and expected outputs appeared in Codespaces. This is not external-user testing, hosted Preview verification, or a full browser/accessibility regression. |
-| Full interaction/browser regression | **Pending:** no browser automation or independent viewport/keyboard session was performed for this review. |
+| Accessibility source review | **Completed:** reviewed `/demo`, the shared layout/navigation, and global styles. Added a skip link targeting the main landmark and a 3px `:focus-visible` outline. This is a source review, not observed keyboard or assistive-technology testing. |
+| Full interaction/browser regression | **Pending:** no browser automation or independent viewport/keyboard session was performed for this review. Screen-reader and external-user checks were not performed. |
 
 Automated testing imports the Next.js route module to check malformed/oversized request behavior; Node emits a `MODULE_TYPELESS_PACKAGE_JSON` warning because the repository is not configured as a package-wide ES module. Tests still pass, and the Next.js production build succeeds. No package-wide module setting was changed.
 
@@ -78,6 +79,7 @@ Automated testing imports the Next.js route module to check malformed/oversized 
 - [ ] `/pricing`: calculator, hypothetical labels, and browser-local save/load/delete.
 - [ ] `/marketing`: save/load/delete/export and formula-safe CSV behavior.
 - [ ] Shared navigation, `/demo` linked routes, browser console, 360px viewport, desktop viewport, keyboard order/focus, and screen-reader headings/labels.
+- [ ] Verify the new skip link and focus outlines in a browser; check screen-reader announcements for validation errors and updated agent results.
 - [ ] Confirm no orchestration write or run persistence; no service-role/OpenAI secret exposure.
 
 ## 5. Five external-user test plan (results not collected)
