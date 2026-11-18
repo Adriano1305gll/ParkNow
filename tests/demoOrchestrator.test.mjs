@@ -7,6 +7,7 @@ import {
   runChatGuide,
   runParkingPlanner,
   runVentureViability,
+  resolveOccupancyQuery,
   summarizeOccupancyRows,
   validateDemoInput,
 } from '../lib/demoOrchestrator.mjs';
@@ -114,6 +115,14 @@ test('unknown occupancy statuses never produce counts', () => {
   assert.equal(result.counts, undefined);
   assert.equal(summarizeOccupancyRows([]).sourceStatus, 'empty');
   assert.equal(summarizeOccupancyRows([{ status: 'occupied' }]).sourceStatus, 'loaded');
+});
+
+test('occupancy query errors are explicit and never converted to an empty count', () => {
+  const result = resolveOccupancyQuery(null, new Error('injected query failure'));
+  assert.equal(result.sourceStatus, 'error');
+  assert.equal(result.counts, undefined);
+  assert.match(result.message, /query failed/i);
+  assert.equal(result.provenance, 'simulated_or_unverified');
 });
 
 test('request validation rejects invalid message, unsupported accessibility, and counts', () => {
