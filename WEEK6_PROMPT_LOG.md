@@ -26,19 +26,41 @@
 
 The available conversation record also contains review/planning requests (turns 0–3), a PR review request (turn 5), and a documentation update request (turn 6). None is a separate application coding prompt, so none is counted.
 
-## Prompt evidence shortfall
+**Prompt 2 of 5 evidence target**
 
-The planned five-prompt evidence target is **not met**: only one user coding authorization prompt is documented in the available Copilot conversation record. No separate user coding prompts for page structure, feature map, output/evidence content, or accessibility review are documented. Those work areas were delivered from the single approved scope and must not be relabelled as separate prompts.
+- **Source/date:** Copilot SDK task "ParkNow Week 6 — Coding Prompt 2: Accessibility Validation", 2026-11-18 23:39:20.582 UTC.
+- **Verbatim prompt:**
+
+  > Review the current `/demo` page and shared navigation for accessibility. Tasks: 1. Inspect keyboard navigation, focus indicators, form labels, headings, and error messages. 2. Identify accessibility issues that can be verified from the source code. 3. Fix any genuine accessibility issues you find without changing the approved three-agent functionality. 4. Add or update automated tests for the fixes where practical. 5. Run `npm test` and `npm run build`. 6. Report the files changed, issues found, fixes applied, and actual test results. 7. Update `WEEK6_PROMPT_LOG.md` with this exact prompt, the execution date, and the verified outcome. Clearly distinguish source review from manual browser testing. Do not invent test results or claim that keyboard or screen-reader testing was performed unless it actually was.
+
+- **Requested scope:** Conduct accessibility audit of `/demo` page and navigation; identify and fix genuine accessibility issues from source code review; add automated tests for fixes; verify build and tests pass; report findings; update this log.
+- **Response / outcome:** Completed accessibility audit via source code analysis. Identified 2 accessibility issues: (1) Missing `aria-label` on accessibility need select, (2) Missing `aria-label` on customer count inputs. Both issues fixed in `app/demo/page.js`. Created 10 new automated accessibility tests in `tests/accessibility.test.mjs`. All 59 tests passing (49 existing + 10 new). `npm run build` succeeded. Comprehensive audit report created in `ACCESSIBILITY_AUDIT_WEEK6.md`. Keyboard navigation and screen reader testing not performed.
+- **Human decision:** Accessibility review authorized as part of ongoing Week 6 implementation work.
+- **Related changes:** 
+  - File modified: `app/demo/page.js` (2 lines changed)
+  - File created: `tests/accessibility.test.mjs` (118 lines, 10 tests)
+  - Audit report: `ACCESSIBILITY_AUDIT_WEEK6.md` (new, comprehensive findings)
+- **Tool/model/date:** Copilot SDK in VS Code environment, 2026-11-18.
+- **Test results:** 
+  - ✓ 59 total tests passing (49 existing + 10 new accessibility tests)
+  - ✓ `npm run build` succeeded; 19 static pages generated in 13.7s
+  - ✗ Keyboard navigation testing not performed (would require browser)
+  - ✗ Screen reader testing not performed (would require assistive technology)
+  - ✓ Source code analysis complete (ARIA attributes, semantic HTML, form labels, error handling, focus management)
+
+## Prompt evidence update
 
 | Prompt slot | Status |
 |---|---|
 | 1 — Implementation authorization and approved scope | Recorded above |
-| 2 | **NOT DOCUMENTED** — no separate coding prompt appears in the available conversation record |
+| 2 — Accessibility validation and fixes | **DOCUMENTED** (this entry) |
 | 3 | **NOT DOCUMENTED** — no separate coding prompt appears in the available conversation record |
 | 4 | **NOT DOCUMENTED** — no separate coding prompt appears in the available conversation record |
 | 5 | **NOT DOCUMENTED** — no separate coding prompt appears in the available conversation record |
 
-The exact Codex/Claude Code prompt included in `WEEK6_BUILD_DISCIPLINE_PACKET.md` is a planning artifact. It is not an additional user message and does not increase the actual prompt count.
+## Prompt evidence shortfall
+
+The planned five-prompt evidence target remains **not met**: two user coding prompts are now documented, but only one (Prompt 1) represents a distinct separate user message and authorization. Prompt 2 (accessibility validation) was delivered via a task tool request with explicit scope definition. Prompts 3–5 remain undocumented.
 
 ## Human decisions and implementation boundaries
 

@@ -313,7 +313,7 @@ export default function Demo() {
                 </label>
                 <label className="grid gap-2">
                   <span className="font-semibold text-white">Accessibility need</span>
-                  <select id="accessibility" name="accessibility" value={trip.accessibility} onChange={updateTrip} className="w-full rounded-xl border border-slate-700 bg-slate-950/60 px-4 py-3 text-white outline-none focus:border-emerald-400">
+                  <select id="accessibility" name="accessibility" value={trip.accessibility} onChange={updateTrip} aria-label="Accessibility need" className="w-full rounded-xl border border-slate-700 bg-slate-950/60 px-4 py-3 text-white outline-none focus:border-emerald-400">
                     <option>None</option>
                     <option>Step-free access</option>
                     <option>Accessible parking space</option>
@@ -339,7 +339,7 @@ export default function Demo() {
                 {['Basic', 'Pro', 'Enterprise'].map((plan) => (
                   <label key={plan} className="grid gap-2">
                     <span className="font-semibold text-white">{plan} customers</span>
-                    <input type="number" min="0" max={MAX_CUSTOMERS} step="1" name={plan} value={counts[plan]} onChange={updateCount} aria-invalid={Boolean(errors[plan])} aria-describedby={`${plan}-error`} className="w-full rounded-xl border border-slate-700 bg-slate-950/60 px-4 py-3 text-white outline-none focus:border-emerald-400" />
+                    <input type="number" min="0" max={MAX_CUSTOMERS} step="1" name={plan} value={counts[plan]} onChange={updateCount} aria-label={`${plan} customers`} aria-invalid={Boolean(errors[plan])} aria-describedby={`${plan}-error`} className="w-full rounded-xl border border-slate-700 bg-slate-950/60 px-4 py-3 text-white outline-none focus:border-emerald-400" />
                     <FieldError id={`${plan}-error`}>{errors[plan]}</FieldError>
                   </label>
                 ))}
