@@ -1,6 +1,6 @@
 # ParkNow — Week 6 Submission
 
-**Status:** Implementation, local automated verification, two Vercel Preview deployments, and the owner-reported Codespaces walkthrough are complete on `week6-implementation`. Hosted Preview behavior remains unverified because Vercel SSO protects those routes. External-user tests and full manual browser regression are not complete. Production deployment and merge to `main` are not authorized.
+**Status:** The Week 6 implementation was merged to `main` via PR #10 at commit `0440539`. Local automated verification, two Vercel Preview deployments, the owner-reported Codespaces walkthrough, and the owner-performed production smoke test below are recorded. Hosted Preview behavior remains unverified because Vercel SSO protects those routes. External-user tests and full manual browser regression are not complete.
 
 Planning baseline: [Build Discipline Packet](./WEEK6_BUILD_DISCIPLINE_PACKET.md) · [UX Mockup](./WEEK6_UX_MOCKUP.md) · [Architecture](./WEEK6_ARCHITECTURE.md) · [Prompt Log](./WEEK6_PROMPT_LOG.md)
 
@@ -20,7 +20,7 @@ The project owner approved the deterministic Parking Planner → Chat Guide → 
 |---|---|
 | W6-01 `/demo` page and guided purpose | **Local verified:** production build generates `/demo`; local HTTP returned 200. Both Preview deployments succeeded, but hosted `/demo` redirects to Vercel SSO and could not be visually checked. |
 | W6-02 existing-feature links | **Local verified:** `/parking`, `/core`, `/chat`, `/assistant`, `/dashboard`, `/pricing`, `/research`, `/docs`, `/product`, and `/marketing` all returned 200 in the expanded local route smoke check. |
-| W6-03 ordered orchestration | **Automated + owner-reported manual verified:** three real agents completed in order with displayed handoffs and expected outputs in Codespaces; integration tests inspect execution and response trace. The manual check is reported by the project owner, not independently reproduced here. |
+| W6-03 ordered orchestration | **Automated + owner-reported manual verified:** three agents completed in order with displayed handoffs and expected outputs in Codespaces; integration tests inspect execution and response trace. A separate owner-performed production smoke test displayed all three agents as `COMPLETED` (see Section 6). Neither check is external-user testing. |
 | W6-04 shared parking planner | **Automated verified:** `/core` sample regression remains Central Garage / $6 / 6 minutes / Market Street Lot backup. |
 | W6-05 chat handoff and guardrail | **Automated verified:** availability answer preserves the no-real-time guarantee; unsupported question preserves `humanHelp` and is tested. |
 | W6-06 viability handoff and formula | **Automated + local verified:** inputs validated; expected hypothetical outputs are MXN 36,967 monthly and MXN 443,604 annually. |
@@ -116,7 +116,11 @@ The approved planning commit `5a2d446` predates implementation and is not counte
 | Week 6 Preview 1 | **Deployment succeeded; route protected.** Vercel deployment `7892802200`, Preview, source SHA `69d647aefa4d0bc1cf122c758b9aec87f69462b8`, created `2026-11-18 18:42:43Z`. Branch URL: `https://park-now-git-week6-implementation-adriano1305glls-projects.vercel.app`. Direct `GET /demo` returned 302 to Vercel SSO. | [Vercel deployment](https://vercel.com/adriano1305glls-projects/park-now/JAqZXmMXmYVwtnXxWw5SDL27CxqZ); hosted page behavior is not verified. |
 | Week 6 Preview 2 | **Deployment succeeded; route protected.** Vercel deployment `7892937125`, Preview, source SHA `a2933629c6c5fd1f10c800233dd084521d161775`, created `2026-11-18 18:48:16Z`. The branch alias is the same Preview URL; direct `GET /demo` returned 302 to Vercel SSO. | [Vercel deployment](https://vercel.com/adriano1305glls-projects/park-now/7EecaRpLhgStm7LFAzScFSYbpBky); hosted page behavior is not verified. |
 
-No Production deployment or merge to `main` has been made or authorized.
+### Owner-performed production smoke test (2026-11-18)
+
+The project owner tested the production [`/demo`](https://park-now-seven.vercel.app/demo) page. The production execution trace displayed Parking Planner, Chat Guide, and Venture Viability as `COMPLETED`. The observed recommendation was Central Garage, with an estimated USD $6 cost and a 6-minute walking time. The hypothetical viability output was MXN $36,967/month and MXN $443,604/year. The occupancy disclosure stated that occupancy is unverified.
+
+This is an owner-performed production smoke test, not external-user testing. It does not add user-session records, accessibility results, or prompt-log entries. The Week 6 implementation was merged to `main` via [PR #10](https://github.com/Adriano1305gll/ParkNow/pull/10), merge commit `0440539`.
 
 ### Coding prompts
 
@@ -126,6 +130,6 @@ One actual user coding authorization prompt is recorded in [WEEK6_PROMPT_LOG.md]
 
 - Owner approval: the three planning documents and deterministic multi-agent scope were approved on 2026-11-18.
 - Implementation authorization: on `week6-implementation`; meaningful commits and Preview deployments allowed.
-- Not authorized: merge to `main`, Production deployment, LLM use in this workflow, new schema/policies, sensor integrations, reservations, payments, or extra persistence.
-- Remaining before a complete assignment evidence package: Preview access to perform hosted page smoke checks; five actual coding prompts or an explicit owner decision to waive that evidence target; five completed external-user sessions; manual full-site interaction, mobile, keyboard, and screen-reader checks; screenshots; and any separate official rubric cross-check.
+- The Week 6 implementation is merged to `main` via PR #10; the owner-performed production smoke test is recorded in Section 6. LLM use in this workflow, new schema/policies, sensor integrations, reservations, payments, and extra persistence remain outside the approved scope.
+- Remaining before a complete assignment evidence package: Preview access to perform hosted Preview checks; five actual coding prompts or an explicit owner decision to waive that evidence target; five completed external-user sessions; manual full-site interaction, mobile, keyboard, and screen-reader checks; screenshots; and any separate official rubric cross-check.
 - The assignment brief supplied in this task was available, but no separate course rubric/link was found. This submission does not claim undisclosed rubric compliance.
