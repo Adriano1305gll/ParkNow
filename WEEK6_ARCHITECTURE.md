@@ -1,7 +1,7 @@
 # ParkNow — Week 6 Architecture
 
-**Purpose:** Record the repository's actual architecture and a bounded proposal for `/demo`.  
-**Status:** Current-state inspection plus approved executable three-agent `/demo` workflow. Implementation is authorized on `week6-implementation`; merging to `main` and production deployment are not.
+**Purpose:** Record the repository's actual architecture and implemented three-agent `/demo` workflow.
+**Status:** Implemented on `week6-implementation`; no merge to `main` or Production deployment is authorized.
 
 Related planning: [Build Discipline Packet](./WEEK6_BUILD_DISCIPLINE_PACKET.md) · [UX mockup](./WEEK6_UX_MOCKUP.md)
 
@@ -16,8 +16,8 @@ The repository is a JavaScript Next.js App Router application. `package.json` pi
 | Tailwind CSS | Tailwind 4 imported in `app/globals.css`, alongside existing global CSS and component styles |
 | Supabase | PostgreSQL accessed from browser components with the publishable key for parking, research, dashboard, and recommendation data; server-only service-role client for chat persistence; Realtime subscriptions refresh selected parking views |
 | OpenAI | One Responses API call in `/api/assistant`; no OpenAI call in deterministic `/chat` or the `/core` planner |
-| GitHub | Source repository and version history; prior work uses branches and pull requests. Current inspection found remote `origin` and a branch at `week6-implementation`; no Week 6 feature commit is part of this planning task |
-| Vercel | Prior project documents identify Vercel as the deployment host and reference `https://park-now-seven.vercel.app/chat`. This source inspection does not verify current deployment status, GitHub integration, project settings, or environment configuration |
+| GitHub | Source repository and version history; the Week 6 work is committed on and pushed to `week6-implementation` |
+| Vercel | Prior project documents identify Vercel as the deployment host and reference `https://park-now-seven.vercel.app/chat`. Week 6 Preview deployment `7892802200` completed, but its `/demo` route redirects to Vercel SSO; project settings and environment configuration remain unverified |
 
 No Vercel configuration file was present in the inspected repository root. Deployment workflow details should be confirmed in the actual Vercel project before any approved release.
 
@@ -35,7 +35,7 @@ No Vercel configuration file was present in the inspected repository root. Deplo
 | `/pricing` | Illustrative owner plans and local pricing simulator | The page says project prices are illustrative; no payment is processed |
 | `/marketing` | Campaign content, calendar, A/B experiment designs, browser save/export | A/B results are hypothetical; saved content uses browser `localStorage` |
 | `/product`, `/docs` | Product and supporting information pages | Documentation/copy; no additional agent service |
-| `/demo` | Current page is a short outline for a final walkthrough | Existing copy references “live parking,” a simulated update, five-user feedback, and a five-minute walkthrough; the present code does not establish an update trigger or verified five-user evidence |
+| `/demo` | Interactive Week 6 walkthrough; runs Parking Planner → Chat Guide → Venture Viability and renders the API execution trace | New route and deterministic agents reuse existing planner/chat/pricing logic. Runs are not persisted; occupancy remains simulated/unverified |
 
 The route list is from the current App Router and navigation. The Week 6 regression plan additionally exercises the existing API handlers `/api/assistant`, `/api/chat/messages`, and `/api/chat/feedback`.
 
@@ -55,7 +55,7 @@ Browser
   │    │                                      ├─ Supabase publishable key ──> parking_spaces
   │    │                                      └─ OPENAI_API_KEY ──> OpenAI Responses API
   │    └─ /marketing ─────────── browser localStorage
-  └─ /demo (proposed) ── POST /api/demo/orchestrate ──> bounded server orchestrator
+  └─ /demo ───────────── POST /api/demo/orchestrate ──> bounded server orchestrator
 ```
 
 ### Occupancy data boundary
@@ -73,13 +73,13 @@ Migrations in `supabase/migrations/` establish or extend:
 
 The parking/research/core pages use the publishable key from the browser and are subject to database RLS/policies. The SQL migrations define public read/insert policies for some tables. Policy effectiveness, production schema state, and the actual source of parking rows were not independently checked during this planning inspection. Do not add a migration or broaden policies for `/demo`.
 
-## 5. Current agentic capability vs. proposal
+## 5. Existing agentic capability vs. Week 6 implementation
 
 **Current state:** The repository does not implement a multi-agent framework, an autonomous agent team, or agent orchestration. It has deterministic keyword rules for `/chat`, deterministic ranking logic for `/core`, a database-reading UI, and one OpenAI Responses API call for `/assistant`.
 
-**Week 6 proposal:** Add a working, bounded server-side orchestration flow invoked by `/demo`. It runs three separately testable deterministic specialist agents in sequence and passes structured outputs between them. The agents have task-specific tools/reasoning boundaries but no LLM, autonomous loop, persistent memory, or side effects. This is a genuine executing multi-agent workflow with explicit handoffs; it is not represented as a generative or autonomous AI team. If the official rubric specifically requires LLM-driven autonomy, this bounded proposal needs a scope decision before implementation.
+**Implemented Week 6 capability:** `/demo` invokes a working, bounded server-side orchestration flow. It runs three separately testable deterministic specialist agents in sequence and passes structured outputs between them. The agents have task-specific responsibilities but no LLM, autonomous loop, persistent memory, or side effects. This is an executing multi-agent workflow with explicit handoffs; it is not represented as a generative or autonomous AI team. If the official rubric specifically requires LLM-driven autonomy, obtain a scope decision before expanding implementation.
 
-## 6. Proposed `/demo` orchestration architecture and flow
+## 6. Implemented `/demo` orchestration architecture and flow
 
 ```text
 User
@@ -120,7 +120,7 @@ Successful queries with recognized rows return `sourceStatus: "loaded"`; an unco
 
 The occupancy reader accepts only rows with recognized `available`/`occupied` states for its summary; if a row contains an unexpected status, return `sourceStatus: "error"` and omit counts.
 
-### Proposed data contract and example
+### API data contract and example
 
 Request shape:
 
@@ -144,7 +144,7 @@ The response carries three agent records and their handoff references. With the 
 ### Services, boundaries, and side effects
 
 - **Existing:** `/core` planning algorithm and form, `/parking` Supabase table/query semantics, `/chat` deterministic rules, `/pricing` simulator and pricing formulas, Next.js/React/Tailwind, Supabase database.
-- **New Week 6 proposal:** `/api/demo/orchestrate`, pure shared planner module/refactor, the three agent wrappers, response contracts/trace, `/demo` input and execution UI, and focused unit/integration tests.
+- **New Week 6 implementation:** `/api/demo/orchestrate`, pure shared planner module/refactor, the three agent wrappers, response contracts/trace, `/demo` input and execution UI, and focused unit/integration tests.
 - No OpenAI calls, service-role key, chat persistence route, schema/policy change, price-scenario save, or database write is used by orchestration; Supabase is the sole external service and is read-only.
 - The new API uses only existing Supabase URL/publishable-key environment settings for its single RLS-protected read; it adds no environment variable. It validates request size/fields, performs no raw-input logging, and needs hosting-level abuse controls confirmed before public rollout.
 - On the page, the `SIMULATED / UNVERIFIED` notice is shown before submission, alongside the parking agent result, and in final combined summary. Database Realtime or a row count is never described as sensor verification.
@@ -164,7 +164,7 @@ Keep the orchestrator and agent functions importable without Next.js runtime sta
 | `SUPABASE_SERVICE_ROLE_KEY` | `lib/chatServer.mjs` server client | Secret; never send to browser or commit |
 | `OPENAI_API_KEY` | `/api/assistant` only | Server secret; paid usage and external data processing require explicit budget/privacy review |
 
-`.gitignore` excludes `.env` and `.env.*` and permits `.env.example`. The actual values and whether each is set in local, Preview, or Production were not inspected and must not be put in these documents. The proposed endpoint reuses the current Supabase URL and publishable-key settings; no new environment variable is proposed.
+`.gitignore` excludes `.env` and `.env.*` and permits `.env.example`. The actual values and whether each is set in local, Preview, or Production were not inspected and must not be put in these documents. The implemented endpoint reuses the current Supabase URL and publishable-key settings; no new environment variable is added.
 
 GitHub is the source/review workflow; Vercel is the documented hosting target; Supabase is the existing database/realtime service. Before implementation/deployment, confirm GitHub branch protection/checks, Vercel project linkage/build and environment settings, and Supabase project plan/RLS. Free-tier limits and provider terms may change. The OpenAI API is not assumed to be free.
 
@@ -179,6 +179,6 @@ GitHub is the source/review workflow; Vercel is the documented hosting target; S
 
 ## 9. Architecture validation and human gate
 
-Before any approved implementation, verify every documented behavior against source, reproduce the `/core` example, inspect current Supabase policy/schema configuration without exporting secrets or personal data, and confirm the Vercel project's environment/deployment setup. Then execute the acceptance, external-user, and full-site regression plans in the [build packet](./WEEK6_BUILD_DISCIPLINE_PACKET.md).
+The implementation was verified with the automated test suite, production build, local route smoke checks, and a local valid orchestrator request. Still verify the Vercel Preview environment, complete manual desktop/mobile/keyboard and existing-interaction regression, recruit the five planned external users, and check any separate official rubric. Do not export secrets or personal data. See the [build packet](./WEEK6_BUILD_DISCIPLINE_PACKET.md) and [submission evidence](./WEEK6_SUBMISSION.md).
 
-The project owner approved this architecture and deterministic workflow on 2026-11-18. Implementation is authorized on `week6-implementation`, with preview deployment allowed. Production deployment, merge to `main`, schema/policy changes, and any LLM-driven or sensor integration remain out of scope without separate approval.
+The project owner approved this architecture and deterministic workflow on 2026-11-18 and authorized implementation on `week6-implementation`. Preview deployment is allowed. Production deployment, merge to `main`, schema/policy changes, and any LLM-driven or sensor integration remain out of scope without separate approval.

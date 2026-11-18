@@ -2,13 +2,13 @@
 
 **Assignment:** Integrated Agentic Venture + Impact & Viability  
 **Required live page:** `/demo`  
-**Status:** Approved planning baseline. The project owner authorized implementation on `week6-implementation` on 2026-11-18; production deployment and merging to `main` are not authorized.
+**Status:** Approved scope implemented on `week6-implementation`. Local tests, production build, and HTTP smoke checks pass. One Preview deployment succeeded, but Vercel SSO blocked the hosted `/demo` route check; second Preview and external-user evidence remain pending. Production deployment and merging to `main` are not authorized.
 
 Related planning: [UX mockup](./WEEK6_UX_MOCKUP.md) · [Architecture](./WEEK6_ARCHITECTURE.md)
 
 ## 1. Requirement source and approval
 
-This packet was checked against the Week 6 requirements in the assignment brief supplied for this task. No separate official rubric, course handout, or grading link was present in the repository or supplied with the brief. If an additional official rubric exists, compare it before implementation; this packet does not infer undisclosed grading criteria.
+This packet was checked against the Week 6 requirements in the assignment brief supplied for this task. No separate official rubric, course handout, or grading link was present in the repository or supplied with the brief. If an additional official rubric exists, compare it before claiming complete rubric compliance; this packet does not infer undisclosed grading criteria.
 
 | Field | Status |
 |---|---|
@@ -34,7 +34,7 @@ This packet was checked against the Week 6 requirements in the assignment brief 
 
 **Goal:** Turn `/demo` into an interactive, testable integrated product demonstration. A server-side orchestrator runs three bounded specialist agents in sequence, reusing the existing parking planner, chat rules, and pricing calculation. Each agent returns structured output; downstream agents consume explicit upstream outputs. The demo must disclose that occupancy is simulated or unverified.
 
-**Proposed in scope after approval:** `/demo` form and execution/results UI; a new server route and orchestration module; three specialist agent functions; extracting the current `/core` planner into a shared pure module without changing its behavior; a read-only occupancy snapshot using the existing `parking_spaces` data and public RLS access; explicit execution trace/handoffs; focused tests; and the walkthrough, saved-record links, evidence summary, impact/viability/risk, and V2 roadmap.
+**Approved and implemented scope:** `/demo` form and execution/results UI; a new server route and orchestration module; three specialist agent functions; extracting the current `/core` planner into a shared pure module without changing its behavior; a read-only occupancy snapshot using the existing `parking_spaces` data and public RLS access; explicit execution trace/handoffs; focused tests; and the walkthrough, saved-record links, evidence summary, impact/viability/risk, and V2 roadmap.
 
 **Proposed out of scope:** generative model calls, autonomous planning loops, agent memory, tool execution beyond the three fixed services, any writes to parking/chat/research/pricing data from the orchestrator, sensor/availability integrations, reservations, payments, accounts, new database tables/migrations, collecting user-test data through the public site, and validated business or environmental impact claims.
 
@@ -47,7 +47,7 @@ This packet was checked against the Week 6 requirements in the assignment brief 
 5. The page distinguishes records that can actually be saved from conversation history that is saved but not browsable as a history list.
 6. Five external participants complete the planned tasks; results are recorded without fabricating missing observations. Target: at least 4/5 can find the core demo links, identify the handoffs, and correctly explain that parking availability is not verified live.
 7. All site routes and core flows pass the regression checks in §10; `npm test` and `npm run build` pass on the approved implementation branch.
-8. Evidence is captured for at least five meaningful implementation commits, two Vercel deployments, and five actual coding prompts. These are future evidence targets, not claims that they already exist.
+8. The implementation has five meaningful commits. Two successful Preview deployments and five actual coding prompts remain evidence targets; do not claim them complete until verified.
 
 ## 4. Product specification and acceptance criteria
 
@@ -94,27 +94,27 @@ See [WEEK6_UX_MOCKUP.md](./WEEK6_UX_MOCKUP.md). The page collects one trip, one 
 
 ## 7. Architecture and data flow
 
-The actual current architecture and the proposed Week 6 runtime are documented in [WEEK6_ARCHITECTURE.md](./WEEK6_ARCHITECTURE.md). The proposed `/demo` page adds a server route/orchestrator and three bounded agent wrappers that reuse existing logic; only the parking agent performs a read-only Supabase query. No run persistence, chat persistence call, write, LLM request, schema change, or new dependency is required.
+The actual current architecture and implemented Week 6 runtime are documented in [WEEK6_ARCHITECTURE.md](./WEEK6_ARCHITECTURE.md). `/demo` uses a server route/orchestrator and three bounded agent wrappers that reuse existing logic; only the parking agent performs a read-only Supabase query. No run persistence, chat persistence call, write, LLM request, schema change, or new dependency is used.
 
 ## 8. Free-stack technology and cost plan
 
-| Technology | Current/proposed use | Cost / qualification |
+| Technology | Current/implemented use | Cost / qualification |
 |---|---|---|
 | Next.js, React, Tailwind CSS | Existing app framework, UI, and styling; reuse for `/demo` | Open-source packages; hosting and operations are separate |
 | Node.js built-in test runner | Existing `npm test` test command | No additional test service required |
 | GitHub | Existing repository, branches, review, and source history | Free-tier availability/limits apply; use a pull request and preserve review evidence |
-| Vercel | Existing documented production host and proposed preview/prod validation | Plan limits and current account/project settings must be confirmed; do not assume two deployments are free or already configured |
+| Vercel | Existing documented host; feature-branch Preview validation is authorized | Plan limits and project settings must be confirmed; do not deploy to Production without separate approval |
 | Supabase | Existing PostgreSQL and Realtime reads, research/core records, and server-side chat persistence | Free-tier quotas/retention may change; verify current project plan and do not put credentials in the packet |
 | OpenAI API | Existing `/api/assistant` route only | **Not assumed free.** Usage may incur charges; `/demo` must not add calls. Confirm key, model availability, usage controls, and budget before using this route in a test |
 | Browser localStorage | Existing `/marketing` saved content | Browser-local only; no cross-device persistence |
 
 ## 9. GitHub, Vercel, Supabase, and environment-variable plan
 
-**GitHub:** After approval, create/use a feature branch, keep this approved plan as the scope baseline, make at least five meaningful commits (no empty or artificially split commits), open a PR, and record the PR, commit SHAs, checks, review, and merge decision. Do not push before approval. Do not commit credentials or participant personal data.
+**GitHub:** Implementation is authorized on `week6-implementation`; meaningful commits have been made and the feature branch was pushed for Preview validation. Record the PR, commit SHAs, checks, review, and merge decision if/when a PR is opened. Do not merge to `main` without approval. Do not commit credentials or participant personal data.
 
-**Vercel:** Verify the linked project, GitHub branch integration, build command, domains, and Preview/Production environment settings before testing. After approval, record two distinct successful deployment records with deployment URL, environment, source SHA, status, date, and `/demo` verification. A preview plus a production deployment is the suggested pair, subject to owner approval; never deploy this draft.
+**Vercel:** One Preview deployment completed successfully for source `69d647aefa4d0bc1cf122c758b9aec87f69462b8`; direct access to `/demo` redirected to Vercel SSO. Record a second distinct successful Preview and smoke-check both when access permits. Production deployment remains unauthorized.
 
-**Supabase:** Reuse the current project/schema for read-only inspection and already-supported records; this proposal requires no migration. Use a separate test project or clearly identified test records where feasible. Check RLS and policies before public tests; do not loosen access to make tests pass. Verify deletion/retention of test records with the owner. Never copy production rows, credentials, or personal data into GitHub evidence.
+**Supabase:** Reuse the current project/schema for read-only inspection and already-supported records; implementation requires no migration. Use a separate test project or clearly identified test records where feasible. Check RLS and policies before public tests; do not loosen access to make tests pass. Verify deletion/retention of test records with the owner. Never copy production rows, credentials, or personal data into GitHub evidence.
 
 | Variable | Existing use | Handling |
 |---|---|---|
@@ -161,10 +161,10 @@ Each participant is asked to:
 
 | Check | Method / pass condition |
 |---|---|
-| Existing suite | Run `npm test`; all tests pass, recording exact output. Current test files cover campaign calendar, saved content, chat rules/server, pricing scenarios, and A/B experiments; add focused planner/orchestration tests after approval. This planning task does not run them. |
-| Agent tests | Pass AG-01–AG-09 using Node's existing test runner and injected deterministic adapters; no live Supabase/OpenAI dependency for repeatable test cases. |
-| Production build | Run `npm run build`; successful Next.js build and no new warnings/errors attributable to the change |
-| `/demo` content/links | Validate every acceptance criterion W6-01–W6-13, verify all linked routes, submit valid/invalid forms, observe three statuses and handoff data, and test at desktop/mobile widths |
+| Existing suite | `npm test`; all 49 tests pass, including existing campaign, storage, chat, pricing, and experiment tests plus Week 6 planner/orchestrator cases. |
+| Agent tests | Parking, chat, viability, execution order, handoff propagation, invalid input, occupancy states, and upstream/midstream/final failures are tested with deterministic adapters. |
+| Production build | `npm run build`; Next.js production build and static generation pass. The build reports its lint/type validity phase; there is no separate `lint` script or standalone ESLint installation. |
+| `/demo` content/links | Local HTTP checks returned 200 for `/demo` and every linked route. A valid local POST returned three completed agents, expected parking/pricing outputs, and `not_configured` occupancy status. Hosted Preview deployment is successful, but its route redirects to Vercel SSO; browser/mobile/keyboard checks remain pending. |
 | Site route smoke | Visit `/`, `/parking`, `/research`, `/product`, `/pricing`, `/core`, `/dashboard`, `/assistant`, `/chat`, `/marketing`, `/docs`, and `/demo`; confirm expected page renders and no uncaught client errors |
 | Existing interactions | Exercise parking empty/data/error states; research save/load; core validation, generate, save, and saved preview; chat supported/unsupported input, feedback and new chat; assistant configured/unconfigured response; marketing save/load/delete/export; pricing simulator; navigation |
 | Data and privacy | Confirm simulated-data caveats remain visible, no new Supabase writes/migration, no browser exposure of service-role/OpenAI secrets, and no personally identifying participant data in evidence |
@@ -172,15 +172,17 @@ Each participant is asked to:
 
 ## 11. Evidence plan: commits, deployments, and prompts
 
-These are collection targets for work **after approval**. The listed commit subjects are planning examples, not evidence that commits exist.
+These are evidence requirements for the approved implementation. Record only observed results; pending items are not complete evidence.
 
 | Evidence | Planned record |
 |---|---|
-| Five meaningful commits | 1) shared pure planner extraction with unchanged `/core` behavior; 2) Parking Planner agent and explicit occupancy status; 3) Chat Guide, Venture Viability, and orchestrator data handoffs; 4) `/demo` execution UI, visual trace, and disclosures; 5) focused agent tests, regression, accessibility, and evidence/docs. Record each SHA/files/tests; keep commits logical and never manufacture empty commits. |
-| Two Vercel deployments | Record two successful, distinct deployment IDs/URLs and environment/source SHA; suggested Preview and Production after review/approval. Include `/demo` and full-site smoke results. |
-| Five actual coding prompts | Preserve five verbatim prompts used during implementation, tool/model and date, response summary, changed files, human decision, related commit SHA, and screenshot or transcript link. Capture actual prompts when used; do not backfill invented prompts. Suggested stages: page structure; accurate feature map; example/output and saved record links; evidence/impact/risk/roadmap; accessibility/regression review. |
+| Five meaningful implementation commits | `8d0c186` planner extraction; `acd6bc8` orchestrator and three agents; `e106902` `/demo` UI; `60c3c8f` failure-path/unsupported-chat tests; `69d647a` occupancy-query error handling/tests. Record submission documentation separately; no empty commits. |
+| Two Vercel deployments | One successful Preview record exists (`7892802200`, source `69d647aefa4d0bc1cf122c758b9aec87f69462b8`); hosted `/demo` is SSO-protected. Record a second successful Preview and smoke-check both when access permits. Production is not authorized. |
+| Five actual coding prompts | Preserve verbatim prompts, tool/model where known, date, response summary, changed files, human decision, related commit SHA, and screenshot/transcript link. One user authorization prompt was used for this implementation; do not invent four additional prompts. Record any shortfall plainly and collect more only if the owner supplies them. |
 
-## 12. Exact future Codex / Claude Code implementation prompt
+## 12. Exact Codex / Claude Code implementation prompt
+
+This prompt was recorded in the approved planning packet. Its final instruction to stop before commit, push, or deployment was superseded by the user's later implementation authorization, which permits meaningful commits and Preview deployments on `week6-implementation` while prohibiting merge to `main` and Production deployment.
 
 Use only after the owner has approved all three planning documents and explicitly authorized implementation:
 
@@ -193,10 +195,10 @@ Use only after the owner has approved all three planning documents and explicitl
 | Supabase rows and Realtime refresh may be mistaken for sensor-verified availability | Label data provenance as unverified/simulated unless a real source, freshness contract, and operator validation are demonstrated |
 | Existing pages use “live” language while project documentation describes simulated occupancy | Do not amplify those claims in `/demo`; flag wording for a separate, owner-approved correction if necessary |
 | `/assistant` sends a database snapshot to a paid external model and its current instructions call it “live” | Do not use it as proof of an agentic system or real availability; verify key, model, cost, privacy, and data assumptions before a demo |
-| No complete Week 6 external-user records, deployment records, or five-prompt log are supplied | Collect real evidence after approval; mark missing until completed |
+| Five external-user records and five-prompt log are incomplete; only one Week 6 Preview is verified and its route is SSO-protected | Collect real evidence; do not mark missing evidence complete |
 | Historical user-test notes in `USER_TESTING.md` lack complete session fields | Reconfirm participant/session evidence; do not fill blanks from memory or count partial entries as complete |
 | Public Supabase policies and browser-accessible data paths require security/privacy review | Review RLS and test with least privilege; no policy/schema change in this scope |
-| The proposed agents are deterministic bounded workers, not LLM-based autonomous agents | Verify that this meets the official rubric; if it requires generative/autonomous agents, obtain a separate explicit decision on cost, privacy, safety, and testing before implementation |
+| The implemented agents are deterministic bounded workers, not LLM-based autonomous agents | Verify that this meets the official rubric; if it requires generative/autonomous agents, obtain a separate explicit decision on cost, privacy, safety, and testing before expanding scope |
 | Public orchestration endpoint could be spammed and trigger repeated Supabase reads | Enforce request/body/input limits, make one read per run, use no model calls/writes, and verify platform-level abuse protection before public rollout; no protection configuration is assumed |
 | A small prototype cannot substantiate revenue, time, traffic, or emissions impact | Present business model/pricing as illustrative and impact as hypotheses; define later measurement methods |
 | Free tiers, service terms, quotas, and availability can change; OpenAI may cost money | Verify current account plan and projected usage before any deployment or AI-backed test |
@@ -208,17 +210,17 @@ Use only after the owner has approved all three planning documents and explicitl
 | Assignment requirement | Covered in |
 |---|---|
 | Problem, users, success, scope, measurable specification, UX, scope cuts | §§2–6 and UX mockup |
-| Actual architecture/data flow and existing versus proposed functionality | §7 and architecture document |
+| Actual architecture/data flow and existing versus implemented Week 6 functionality | §7 and architecture document |
 | Free-stack table; GitHub, Vercel, Supabase, environment plan | §§8–9 |
 | Five external users and full-site regression | §10 |
 | Exact Codex/Claude Code prompt | §12 |
 | Five-commit, two-deployment, five-prompt evidence | §11 |
 | Risks, limitations, and human approval gate | §13 |
-| Integrated agentic venture | The repository has no existing multi-agent orchestration. This revision proposes a working, testable deterministic three-agent workflow with explicit data handoffs; confirm whether the official rubric accepts this bounded non-LLM approach. |
-| Agent responsibilities, inputs, outputs, and coordination | §4 agent contracts and [architecture sequence](./WEEK6_ARCHITECTURE.md#6-proposed-demo-orchestration-architecture-and-flow) |
+| Integrated agentic venture | The repository had no existing multi-agent orchestration. Week 6 now implements and tests the approved deterministic three-agent workflow with explicit data handoffs; confirm whether the official rubric accepts this bounded non-LLM approach. |
+| Agent responsibilities, inputs, outputs, and coordination | §4 agent contracts and [architecture sequence](./WEEK6_ARCHITECTURE.md#6-implemented-demo-orchestration-architecture-and-flow) |
 | Visual `/demo` UX flow | [UX flow and wireframe](./WEEK6_UX_MOCKUP.md#3-visual-ux-flow) |
 | Measurable acceptance per agent and tests proving execution/data exchange | §§4 and 10; AG-01–AG-09 exercise actual agent functions and coordinator handoffs |
 | Practical `/demo` UX including walkthrough, feature links, agent map, example, saved records, evidence, impact/risk, V2, branding | UX mockup |
 | Review and missing evidence | This section and §13 |
 
-**Remaining evidence and scope gaps before a complete Week 6 submission:** confirmation that deterministic agents meet the official rubric's meaning of “agentic”; five complete external-user records; post-change agent/unit/integration tests and build output; full route and interaction regression evidence; screenshots; five actual prompt records; five authentic implementation commit SHAs; two successful deployment records; and a separate official rubric/link if one exists for final compliance cross-check. Do not mark any evidence complete without its artifact.
+**Remaining evidence and scope gaps:** confirmation that deterministic agents meet the official rubric's meaning of “agentic”; five complete external-user records; manual desktop/mobile/keyboard and existing-interaction regression evidence; screenshots; five actual prompt records (only one authorization prompt is recorded); two successful Week 6 Preview deployment records; and a separate official rubric/link if one exists for final compliance cross-check. Automated tests/build, local HTTP route checks, and five meaningful implementation commits are complete. Do not mark pending evidence complete without its artifact.

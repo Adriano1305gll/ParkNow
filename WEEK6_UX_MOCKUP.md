@@ -1,7 +1,7 @@
 # ParkNow — Week 6 UX Mockup
 
 **Required route:** `/demo`  
-**Status:** Approved planning baseline; implementation authorized on `week6-implementation` on 2026-11-18. It describes the intended implementation, not a claim that the current route already contains these sections.  
+**Status:** Approved UX specification implemented on `week6-implementation`; see [submission evidence](./WEEK6_SUBMISSION.md) for verified and pending checks.
 **Brand:** Preserve ParkNow's existing dark navy background, green/emerald accents, light text, rounded cards, and shared navigation.
 
 Related planning: [Build Discipline Packet](./WEEK6_BUILD_DISCIPLINE_PACKET.md) · [Architecture](./WEEK6_ARCHITECTURE.md)
@@ -12,7 +12,7 @@ Give a driver, parking-lot operator, or evaluator a short, trustworthy tour of P
 
 The workflow is not an LLM-based autonomous team: it makes no OpenAI calls, does not persist runs, and cannot reserve or change occupancy. Its occupancy is always disclosed as simulated/unverified.
 
-## Proposed page outline
+## Implemented page outline
 
 ### 1. Hero — “See how ParkNow works”
 
@@ -140,13 +140,14 @@ If a database is unavailable or unconfigured, say so plainly and link to the rel
 
 Use a small status panel with labels such as **Existing**, **Historical report**, **Pending**, and **Not verified**:
 
-| Evidence shown | Truthful status for this planning draft |
+| Evidence shown | Truthful status for the current implementation |
 |---|---|
-| Repository automated checks | `npm test` exists; current tests cover campaign calendar, saved content, chat rules/server, pricing scenarios, and A/B experiments. New agent/orchestrator tests are proposed, not implemented or run in this planning-only work. |
+| Repository automated checks | `npm test` passes 49 tests, including the new planner/orchestrator coverage; `npm run build` succeeds. See the submission for run details. |
 | Prior Week 5 test report | `WEEK5_SUBMISSION.md` reports a historical automated pass and production `/chat` HTTP 200 on 2026-11-06; not a Week 6 result or a current live check. |
 | Saved Supabase chat evidence | Week 5 records owner-reported manual observations; no attached export/screenshots are included there. |
-| Five external Week 6 sessions | Pending; collect actual participant records after approval. `USER_TESTING.md` has partial historical entries, not five complete Week 6 sessions. |
-| Two Week 6 deployments, five commits, five prompts | Pending; record only after they actually occur. |
+| Five external Week 6 sessions | Pending; collect actual participant records. `USER_TESTING.md` has partial historical entries, not five complete Week 6 sessions. |
+| Two Week 6 deployments | One successful Preview deployment is recorded; its `/demo` path redirects to Vercel SSO. The second deployment and authorized-route smoke checks remain pending. |
+| Five actual coding prompts | One implementation authorization prompt is recorded; do not invent four more. |
 
 Update this panel only from dated run output, deployment records, or participant evidence. Keep historical and independently reproduced evidence separate.
 
@@ -204,4 +205,4 @@ No roadmap item is authorized by this mockup.
 
 ## Human checkpoint
 
-The project owner approved the orchestration scope, deterministic-vs-LLM distinction, inputs, outputs, handoffs, error states, copy, example, saved-record claims, evidence wording, participant plan, and roadmap on 2026-11-18. Implementation is authorized on `week6-implementation`; merging and production deployment are not. If the official rubric requires LLM-based autonomous agents, pause for a cost/privacy/safety decision.
+The project owner approved the orchestration scope, deterministic-vs-LLM distinction, inputs, outputs, handoffs, error states, copy, example, saved-record claims, evidence wording, participant plan, and roadmap on 2026-11-18 and authorized implementation on `week6-implementation`. Preview deployments are allowed; merging and Production deployment are not. If the official rubric requires LLM-based autonomous agents, pause for a cost/privacy/safety decision.
