@@ -17,7 +17,7 @@ The repository is a JavaScript Next.js App Router application. `package.json` pi
 | Supabase | PostgreSQL accessed from browser components with the publishable key for parking, research, dashboard, and recommendation data; server-only service-role client for chat persistence; Realtime subscriptions refresh selected parking views |
 | OpenAI | One Responses API call in `/api/assistant`; no OpenAI call in deterministic `/chat` or the `/core` planner |
 | GitHub | Source repository and version history; the Week 6 work is committed on and pushed to `week6-implementation` |
-| Vercel | Prior project documents identify Vercel as the deployment host and reference `https://park-now-seven.vercel.app/chat`. Week 6 Preview deployment `7892802200` completed, but its `/demo` route redirects to Vercel SSO; project settings and environment configuration remain unverified |
+| Vercel | Prior project documents identify Vercel as the deployment host and reference `https://park-now-seven.vercel.app/chat`. Week 6 Preview deployments `7892802200` and `7892937125` completed, but both `/demo` routes redirect to Vercel SSO; project settings and environment configuration remain unverified |
 
 No Vercel configuration file was present in the inspected repository root. Deployment workflow details should be confirmed in the actual Vercel project before any approved release.
 

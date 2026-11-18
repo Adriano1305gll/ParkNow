@@ -18,7 +18,7 @@
   > “Implement the approved scope using the existing Next.js, React, Tailwind, and Supabase architecture.”
 
 - **Requested scope:** Implement `/demo`; execute real deterministic Parking, Chat, and Venture Viability agents with structured handoffs; reuse current features; disclose simulated occupancy; add agent/orchestration/invalid-input tests; run full tests, build, lint check, and regression; create submission and prompt evidence; remain on `week6-implementation`; allow Preview only; do not merge to `main` or deploy to Production.
-- **Response / outcome:** Implemented the shared planner, orchestration API, three agent functions, `/demo` UI, focused tests, and evidence documentation. `npm test` passed 49 tests and `npm run build` succeeded. Local route and orchestration smoke tests passed. One hosted Preview deployment completed, but its route is SSO-protected; a second Preview and external-user evidence remain pending.
+- **Response / outcome:** Implemented the shared planner, orchestration API, three agent functions, `/demo` UI, focused tests, and evidence documentation. `npm test` passed 49 tests and `npm run build` succeeded. Local route and orchestration smoke tests passed. Two hosted Preview deployments completed, but both routes are SSO-protected; external-user evidence remains pending.
 - **Human decision:** Approval and branch/deployment boundaries are explicitly recorded in the user message and the three planning documents.
 - **Related implementation commits:** `8d0c186`, `acd6bc8`, `e106902`, `60c3c8f`, `69d647a`.
 - **Tool/model/date:** Copilot SDK in VS Code environment; exact model identifier was not exposed in the retained prompt record. No model is inferred.

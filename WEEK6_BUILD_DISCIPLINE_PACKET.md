@@ -2,7 +2,7 @@
 
 **Assignment:** Integrated Agentic Venture + Impact & Viability  
 **Required live page:** `/demo`  
-**Status:** Approved scope implemented on `week6-implementation`. Local tests, production build, and HTTP smoke checks pass. One Preview deployment succeeded, but Vercel SSO blocked the hosted `/demo` route check; second Preview and external-user evidence remain pending. Production deployment and merging to `main` are not authorized.
+**Status:** Approved scope implemented on `week6-implementation`. Local tests, production build, and HTTP smoke checks pass. Two Preview deployments succeeded, but Vercel SSO blocked hosted `/demo` route checks; external-user evidence remains pending. Production deployment and merging to `main` are not authorized.
 
 Related planning: [UX mockup](./WEEK6_UX_MOCKUP.md) · [Architecture](./WEEK6_ARCHITECTURE.md)
 
@@ -112,7 +112,7 @@ The actual current architecture and implemented Week 6 runtime are documented in
 
 **GitHub:** Implementation is authorized on `week6-implementation`; meaningful commits have been made and the feature branch was pushed for Preview validation. Record the PR, commit SHAs, checks, review, and merge decision if/when a PR is opened. Do not merge to `main` without approval. Do not commit credentials or participant personal data.
 
-**Vercel:** One Preview deployment completed successfully for source `69d647aefa4d0bc1cf122c758b9aec87f69462b8`; direct access to `/demo` redirected to Vercel SSO. Record a second distinct successful Preview and smoke-check both when access permits. Production deployment remains unauthorized.
+**Vercel:** Two Preview deployments completed successfully for sources `69d647aefa4d0bc1cf122c758b9aec87f69462b8` and `a2933629c6c5fd1f10c800233dd084521d161775`. Direct access to `/demo` redirected to Vercel SSO on both. Preserve the deployment records and resolve Preview access before claiming hosted page smoke success. Production deployment remains unauthorized.
 
 **Supabase:** Reuse the current project/schema for read-only inspection and already-supported records; implementation requires no migration. Use a separate test project or clearly identified test records where feasible. Check RLS and policies before public tests; do not loosen access to make tests pass. Verify deletion/retention of test records with the owner. Never copy production rows, credentials, or personal data into GitHub evidence.
 
@@ -177,7 +177,7 @@ These are evidence requirements for the approved implementation. Record only obs
 | Evidence | Planned record |
 |---|---|
 | Five meaningful implementation commits | `8d0c186` planner extraction; `acd6bc8` orchestrator and three agents; `e106902` `/demo` UI; `60c3c8f` failure-path/unsupported-chat tests; `69d647a` occupancy-query error handling/tests. Record submission documentation separately; no empty commits. |
-| Two Vercel deployments | One successful Preview record exists (`7892802200`, source `69d647aefa4d0bc1cf122c758b9aec87f69462b8`); hosted `/demo` is SSO-protected. Record a second successful Preview and smoke-check both when access permits. Production is not authorized. |
+| Two Vercel deployments | Two successful Preview records exist: `7892802200` (source `69d647aefa4d0bc1cf122c758b9aec87f69462b8`) and `7892937125` (source `a2933629c6c5fd1f10c800233dd084521d161775`). Both hosted `/demo` requests redirected to Vercel SSO; page behavior is not verified on Preview. Production is not authorized. |
 | Five actual coding prompts | Preserve verbatim prompts, tool/model where known, date, response summary, changed files, human decision, related commit SHA, and screenshot/transcript link. One user authorization prompt was used for this implementation; do not invent four additional prompts. Record any shortfall plainly and collect more only if the owner supplies them. |
 
 ## 12. Exact Codex / Claude Code implementation prompt
@@ -195,7 +195,7 @@ Use only after the owner has approved all three planning documents and explicitl
 | Supabase rows and Realtime refresh may be mistaken for sensor-verified availability | Label data provenance as unverified/simulated unless a real source, freshness contract, and operator validation are demonstrated |
 | Existing pages use “live” language while project documentation describes simulated occupancy | Do not amplify those claims in `/demo`; flag wording for a separate, owner-approved correction if necessary |
 | `/assistant` sends a database snapshot to a paid external model and its current instructions call it “live” | Do not use it as proof of an agentic system or real availability; verify key, model, cost, privacy, and data assumptions before a demo |
-| Five external-user records and five-prompt log are incomplete; only one Week 6 Preview is verified and its route is SSO-protected | Collect real evidence; do not mark missing evidence complete |
+| Five external-user records and five-prompt log are incomplete; both Week 6 Preview routes are SSO-protected | Collect real evidence and resolve access; do not mark missing evidence complete |
 | Historical user-test notes in `USER_TESTING.md` lack complete session fields | Reconfirm participant/session evidence; do not fill blanks from memory or count partial entries as complete |
 | Public Supabase policies and browser-accessible data paths require security/privacy review | Review RLS and test with least privilege; no policy/schema change in this scope |
 | The implemented agents are deterministic bounded workers, not LLM-based autonomous agents | Verify that this meets the official rubric; if it requires generative/autonomous agents, obtain a separate explicit decision on cost, privacy, safety, and testing before expanding scope |
@@ -223,4 +223,4 @@ Use only after the owner has approved all three planning documents and explicitl
 | Practical `/demo` UX including walkthrough, feature links, agent map, example, saved records, evidence, impact/risk, V2, branding | UX mockup |
 | Review and missing evidence | This section and §13 |
 
-**Remaining evidence and scope gaps:** confirmation that deterministic agents meet the official rubric's meaning of “agentic”; five complete external-user records; manual desktop/mobile/keyboard and existing-interaction regression evidence; screenshots; five actual prompt records (only one authorization prompt is recorded); two successful Week 6 Preview deployment records; and a separate official rubric/link if one exists for final compliance cross-check. Automated tests/build, local HTTP route checks, and five meaningful implementation commits are complete. Do not mark pending evidence complete without its artifact.
+**Remaining evidence and scope gaps:** confirmation that deterministic agents meet the official rubric's meaning of “agentic”; five complete external-user records; manual desktop/mobile/keyboard and existing-interaction regression evidence; screenshots; five actual prompt records (only one authorization prompt is recorded); Preview access to verify the hosted page; and a separate official rubric/link if one exists for final compliance cross-check. Automated tests/build, local HTTP route checks, five meaningful implementation commits, and two successful Preview deployment records are complete. Do not mark pending evidence complete without its artifact.

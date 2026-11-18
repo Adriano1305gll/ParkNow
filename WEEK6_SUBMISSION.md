@@ -1,6 +1,6 @@
 # ParkNow — Week 6 Submission
 
-**Status:** Implementation and local automated verification complete on `week6-implementation`. This is not a claim that external-user tests, manual browser regression, or hosted Preview deployments are complete. Production deployment and merge to `main` are not authorized.
+**Status:** Implementation, local automated verification, and two Vercel Preview deployments are complete on `week6-implementation`. Hosted page behavior remains unverified because Vercel SSO protects the Preview routes. External-user tests and manual browser regression are not complete. Production deployment and merge to `main` are not authorized.
 
 Planning baseline: [Build Discipline Packet](./WEEK6_BUILD_DISCIPLINE_PACKET.md) · [UX Mockup](./WEEK6_UX_MOCKUP.md) · [Architecture](./WEEK6_ARCHITECTURE.md) · [Prompt Log](./WEEK6_PROMPT_LOG.md)
 
@@ -18,7 +18,7 @@ The project owner approved the deterministic Parking Planner → Chat Guide → 
 
 | ID | Status and evidence |
 |---|---|
-| W6-01 `/demo` page and guided purpose | **Local verified:** production build generates `/demo`; local HTTP returned 200. Preview deployment succeeded, but hosted `/demo` redirects to Vercel SSO and could not be visually checked. |
+| W6-01 `/demo` page and guided purpose | **Local verified:** production build generates `/demo`; local HTTP returned 200. Both Preview deployments succeeded, but hosted `/demo` redirects to Vercel SSO and could not be visually checked. |
 | W6-02 existing-feature links | **Local verified:** `/parking`, `/core`, `/chat`, `/assistant`, `/dashboard`, `/pricing`, `/research`, `/docs`, `/product`, and `/marketing` all returned 200 in the expanded local route smoke check. |
 | W6-03 ordered orchestration | **Automated + local verified:** three real agents completed in order with a generated run ID; integration tests inspect execution and response trace. |
 | W6-04 shared parking planner | **Automated verified:** `/core` sample regression remains Central Garage / $6 / 6 minutes / Market Street Lot backup. |
@@ -108,8 +108,8 @@ The approved planning commit `5a2d446` predates implementation and is not counte
 
 | Record | Status | Required evidence |
 |---|---|---|
-| Week 6 Preview 1 | **Deployment succeeded; route protected.** Vercel deployment `7892802200`, Preview, source SHA `69d647aefa4d0bc1cf122c758b9aec87f69462b8`, created `2026-11-18 18:42:43Z`. Branch URL: `https://park-now-git-week6-implementation-adriano1305glls-projects.vercel.app`. A direct `GET /demo` returned 302 to Vercel SSO, so page behavior was not verified there. | [Vercel deployment](https://vercel.com/adriano1305glls-projects/park-now/JAqZXmMXmYVwtnXxWw5SDL27CxqZ); resolve Preview access before claiming hosted page smoke success. |
-| Week 6 Preview 2 | **Not started**; expected after submission evidence commit is pushed. | A second distinct successful Preview record; include its source SHA and direct route check result. |
+| Week 6 Preview 1 | **Deployment succeeded; route protected.** Vercel deployment `7892802200`, Preview, source SHA `69d647aefa4d0bc1cf122c758b9aec87f69462b8`, created `2026-11-18 18:42:43Z`. Branch URL: `https://park-now-git-week6-implementation-adriano1305glls-projects.vercel.app`. Direct `GET /demo` returned 302 to Vercel SSO. | [Vercel deployment](https://vercel.com/adriano1305glls-projects/park-now/JAqZXmMXmYVwtnXxWw5SDL27CxqZ); hosted page behavior is not verified. |
+| Week 6 Preview 2 | **Deployment succeeded; route protected.** Vercel deployment `7892937125`, Preview, source SHA `a2933629c6c5fd1f10c800233dd084521d161775`, created `2026-11-18 18:48:16Z`. The branch alias is the same Preview URL; direct `GET /demo` returned 302 to Vercel SSO. | [Vercel deployment](https://vercel.com/adriano1305glls-projects/park-now/7EecaRpLhgStm7LFAzScFSYbpBky); hosted page behavior is not verified. |
 
 No Production deployment or merge to `main` has been made or authorized.
 
@@ -122,5 +122,5 @@ One actual user coding authorization prompt is recorded in [WEEK6_PROMPT_LOG.md]
 - Owner approval: the three planning documents and deterministic multi-agent scope were approved on 2026-11-18.
 - Implementation authorization: on `week6-implementation`; meaningful commits and Preview deployments allowed.
 - Not authorized: merge to `main`, Production deployment, LLM use in this workflow, new schema/policies, sensor integrations, reservations, payments, or extra persistence.
-- Remaining before a complete assignment evidence package: a second successful Preview deployment and access to the first Preview to perform hosted page smoke checks; five actual coding prompts or an explicit owner decision to waive that evidence target; five completed external-user sessions; manual full-site interaction, mobile, keyboard, and screen-reader checks; screenshots; and any separate official rubric cross-check.
+- Remaining before a complete assignment evidence package: Preview access to perform hosted page smoke checks; five actual coding prompts or an explicit owner decision to waive that evidence target; five completed external-user sessions; manual full-site interaction, mobile, keyboard, and screen-reader checks; screenshots; and any separate official rubric cross-check.
 - The assignment brief supplied in this task was available, but no separate course rubric/link was found. This submission does not claim undisclosed rubric compliance.

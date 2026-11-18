@@ -146,7 +146,7 @@ Use a small status panel with labels such as **Existing**, **Historical report**
 | Prior Week 5 test report | `WEEK5_SUBMISSION.md` reports a historical automated pass and production `/chat` HTTP 200 on 2026-11-06; not a Week 6 result or a current live check. |
 | Saved Supabase chat evidence | Week 5 records owner-reported manual observations; no attached export/screenshots are included there. |
 | Five external Week 6 sessions | Pending; collect actual participant records. `USER_TESTING.md` has partial historical entries, not five complete Week 6 sessions. |
-| Two Week 6 deployments | One successful Preview deployment is recorded; its `/demo` path redirects to Vercel SSO. The second deployment and authorized-route smoke checks remain pending. |
+| Two Week 6 deployments | Two successful Preview deployments are recorded; both `/demo` paths redirect to Vercel SSO. Hosted page behavior remains unverified. |
 | Five actual coding prompts | One implementation authorization prompt is recorded; do not invent four more. |
 
 Update this panel only from dated run output, deployment records, or participant evidence. Keep historical and independently reproduced evidence separate.
