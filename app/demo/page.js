@@ -274,10 +274,10 @@ export default function Demo() {
         </nav>
 
         <section id="run-workflow" className="card">
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-col gap-3 sm:flex-wrap sm:items-end sm:justify-between sm:gap-4">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[.16em] text-emerald-300">Interactive walkthrough</p>
-              <h2 className="mt-2 text-2xl font-bold text-white">Run the three-agent demo</h2>
+              <p className="text-xs sm:text-sm font-semibold uppercase tracking-[.16em] text-emerald-300">Interactive walkthrough</p>
+              <h2 className="mt-2 text-xl sm:text-2xl font-bold text-white">Run the three-agent demo</h2>
             </div>
             <p className="max-w-xl text-sm">The example is prefilled. Edit any field and submit to execute the server-side workflow.</p>
           </div>
@@ -358,9 +358,9 @@ export default function Demo() {
 
         <section id="agent-map" className="grid gap-5">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[.16em] text-emerald-300">Agent map</p>
-            <h2 className="mt-2 text-2xl font-bold text-white">Three agents, one coordinated demo</h2>
-            <p className="mt-2 max-w-3xl">Existing deterministic features are reused by new Week 6 agent wrappers. These are not LLM-based autonomous agents.</p>
+            <p className="text-xs sm:text-sm font-semibold uppercase tracking-[.16em] text-emerald-300">Agent map</p>
+            <h2 className="mt-2 text-xl sm:text-2xl font-bold text-white">Three agents, one coordinated demo</h2>
+            <p className="mt-2 max-w-3xl text-sm sm:text-base">Existing deterministic features are reused by new Week 6 agent wrappers. These are not LLM-based autonomous agents.</p>
           </div>
           <div className="grid gap-4 lg:grid-cols-3">
             {[
@@ -382,12 +382,12 @@ export default function Demo() {
         </section>
 
         <section className="grid gap-4">
-          <div className="flex flex-wrap items-end justify-between gap-3">
+          <div className="flex flex-col gap-2 sm:flex-wrap sm:items-end sm:justify-between sm:gap-3">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[.16em] text-emerald-300">Execution trace</p>
-              <h2 className="mt-2 text-2xl font-bold text-white">Agent results and exchanged data</h2>
+              <p className="text-xs sm:text-sm font-semibold uppercase tracking-[.16em] text-emerald-300">Execution trace</p>
+              <h2 className="mt-2 text-xl sm:text-2xl font-bold text-white">Agent results and exchanged data</h2>
             </div>
-            {result?.runId && <p className="text-sm">Run ID: <code>{result.runId}</code></p>}
+            {result?.runId && <p className="text-xs sm:text-sm break-all">Run ID: <code>{result.runId}</code></p>}
           </div>
           {running && <p role="status" aria-live="polite">Running the three-agent workflow. Results will appear when the request completes.</p>}
           {orderedAgents.length ? (
@@ -445,8 +445,8 @@ export default function Demo() {
 
         <section id="impact" className="grid gap-5">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[.16em] text-emerald-300">Impact & viability</p>
-            <h2 className="mt-2 text-2xl font-bold text-white">Practical value, with evidence boundaries</h2>
+            <p className="text-xs sm:text-sm font-semibold uppercase tracking-[.16em] text-emerald-300">Impact & viability</p>
+            <h2 className="mt-2 text-xl sm:text-2xl font-bold text-white">Practical value, with evidence boundaries</h2>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             <article className="card">
