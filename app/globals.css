@@ -180,14 +180,26 @@ button:hover {
 /* Cards */
 
 section {
-  margin-bottom: 50px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  section {
+    margin-bottom: 50px;
+  }
 }
 
 .card {
   background: #0d1a2b;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  padding: 25px;
+  padding: 16px;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 25px;
+  }
 }
 
 /* Parking area */
@@ -269,5 +281,13 @@ section {
 
   .parking-space {
     min-height: 80px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 18px;
   }
 }
